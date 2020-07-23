@@ -48,6 +48,17 @@
   height: 100vh;
   transition: right ease-in 0.2s;
 }
+#toc-ul-chrome-plugin .toTopBtn{
+  margin-left: 20px;
+  margin-top: 30px;
+  display: block;
+  width: 40px;
+  background: #000;
+  color: #fff;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+}
 #toc-ul-chrome-plugin li{
   list-style: none;
   overflow: hidden;
@@ -73,4 +84,64 @@
 }
 #toc-ul-chrome-plugin li a{
   color:inherit;
+}
+
+/* dark btn */
+#dark-btn-chrome-plugin{
+  user-select: none;
+    transition: background 20ms ease-in 0s;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    white-space: nowrap;
+    height: 28px;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1.2;
+    min-width: 0px;
+    padding-left: 8px;
+    padding-right: 8px;
+    color: rgb(55, 53, 47);
+}
+#dark-btn-chrome-plugin input{
+  visibility: hidden;
+  cursor:pointer;
+}
+#dark-btn-chrome-plugin label{
+  display: inline-flex;
+  border: 1px solid #444;
+  width: 35px;
+  height: 18px;
+  line-height: 28px;
+  border-radius: 15px;
+  background-color: #ecece9;
+  cursor:pointer;
+  transition: all .15s linear;
+}
+#dark-btn-chrome-plugin input:checked+label{
+  background-color: #0a0a0a;
+}
+#dark-btn-chrome-plugin input:checked+label:after{
+  left:12px;
+  background-color: #fcfcfc;
+  box-shadow: none;
+}
+#dark-btn-chrome-plugin label:after{
+  cursor:pointer;
+  content:'';
+  display: block;
+  position: relative;
+  top:0px;
+  left:1px;
+  width:20px;
+  height: 14px;
+  margin-top:1px;
+  background-color: #333;
+  border-radius: 15px;
+  box-shadow: 1px 1px 4px 0px #676767;
+  transition: all .15s linear;
+}
+html.dark{
+  filter: invert(80%) hue-rotate(200deg)
 }
