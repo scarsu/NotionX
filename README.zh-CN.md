@@ -1,14 +1,14 @@
-English | [简体中文](./README.zh-CN.md)
+简体中文 | [English](./README.md)
 
-<h1 align="center">In Refactoring...</h1>
+<h1 align="center">重构中...</h1>
 <h1 align="center">NotionX</h1>
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-Browser extension that enhances Notion experience.
+一个增强 Notion 体验的浏览器插件。
 
-- Auto Side Bar TOC: The TOC of Notion Page will automatically generate in the sidebar of the page，according to Heading Block 1-3 in Notion Page.
-- Dark Mode: Compared with Notion's official dark mode, the built-in dark mode of the extension has a lower visual contrast, which takes effect globally, including all contents such as pictures. You can choose to hide the extension dark mode button in "setting" according to your own flavor.
+- 侧边栏TOC： 根据Notion Page中的Heading Block 1-3，在网页侧边栏自动生成Notion文章的TOC目录。
+- 暗黑模式： 相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。您可以根据自己的口味选择，在“setting”中可以将插件暗黑模式按钮隐藏。
 
 ![preview](./img/preview_v2.gif)
 

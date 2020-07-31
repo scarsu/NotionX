@@ -1,0 +1,35 @@
+{
+	"manifest_version": 2,
+	"name": "Notion TOC plugin",
+	"version": "1.0.0",
+	"description": "Notion header1-3 list",
+	"icons":
+	{
+		"16": "icons/icon.png",
+		"48": "icons/icon.png",
+		"128": "icons/icon.png"
+	},
+	"browser_action":
+	{
+		"default_icon": "icons/icon.png",
+		"default_title": "Notion header1-3 list",
+		"default_popup": "popup.html"
+	},
+	"permissions":
+	[
+		"declarativeContent"
+	],
+	"background":
+	{
+		"scripts": ["background.js"]
+  },
+  "content_scripts": 
+	[
+		{
+			"matches": ["<all_urls>"],
+			"js": ["content-script.js"],
+			"css": ["css/custom.css"],
+			"run_at": "document_end"
+		}
+	]
+}

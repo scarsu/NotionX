@@ -1,0 +1,60 @@
+{
+  "name": "notion-x",
+  "version": "1.0.0",
+  "description": "Browser extension that enhances Notion experience.",
+  "scripts": {
+    "start": "gulp",
+    "build": "gulp",
+    "watch": "gulp watch",
+    "dist": "gulp dist --production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scarsu/notion-x.git"
+  },
+  "keywords": [
+    "Notion"
+  ],
+  "author": "ScarSu <scarsu001@gmail.com> (https://github.com/scarsu)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scarsu/notion-x/issues"
+  },
+  "homepage": "https://github.com/scarsu/notion-x#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-remove-strict-mode": "0.0.2",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^7.5.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "0.0.8",
+    "gulp-babel": "^7.0.1",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "*",
+    "gulp-crx-pack": "^1.0.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-exit": "0.0.2",
+    "gulp-less": "^1.3.1",
+    "gulp-load-plugins": "^0.5.3",
+    "gulp-mocha": "2.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-preprocess": "^1.1.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.5.4",
+    "gulp-run": "^1.6.4",
+    "gulp-run-sequence": "*",
+    "gulp-uglify-es": "^1.0.4",
+    "gulp-util": "^2.2.20",
+    "gulp-wrap": "^0.14.0",
+    "gulp-zip": "^2.0.3",
+    "lodash": "^4.17.19"
+  },
+  "dependencies": {
+    "gulp-cli": "^2.3.0"
+  }
+}
