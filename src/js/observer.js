@@ -1,5 +1,7 @@
-const NotionXObserver = function (selector, cb) {
-  const observer = new MutationObserver(cb)
+/* eslint-disable no-unused-vars */
+// notion视图观察者
+export default function notionXObserver (selector, cb, args) {
+  const observer = new MutationObserver(args => cb(args))
   const notionApp = document.querySelector(selector)
   const config = {
     childList: true,
@@ -7,4 +9,3 @@ const NotionXObserver = function (selector, cb) {
   }
   observer.observe(notionApp, config)
 }
-exports.NotionXObserver = NotionXObserver

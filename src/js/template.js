@@ -1,5 +1,12 @@
-const template = `
-<div>
+const template = {}
+template.darkBtn = `
+  <div id="dark-btn-chrome-plugin" title="暗黑模式">
+    <input type="checkbox" id="dark-mode-inp"/>
+    <label for="dark-mode-inp"></label>
+  </div>
+`
+template.sideBar = `
+<div id="notionx">
   <nav class="notionx-sidebar">
     <div class="notionx-switcher"></div>
 
@@ -43,4 +50,4 @@ const template = `
   </nav>
 </div>
 `
-exports.template = template
+export { template }

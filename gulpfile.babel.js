@@ -1,5 +1,9 @@
-// const fs = require('fs')
-const babel = require('gulp-babel')
+// browserify
+import browserify from 'browserify'
+import sourcemaps from 'gulp-sourcemaps'
+import source from 'vinyl-source-stream'
+import buffer from 'vinyl-buffer'
+// import babelify from 'babelify'
 const gulp = require('gulp')
 const gPlugins = require('gulp-load-plugins')() // 加载全部gulp插件
 const gutil = require('gulp-util')
@@ -55,36 +59,37 @@ gulp.task('ext', () => {
 })
 
 // js
-gulp.task('coreJs', () => {
-  const src = [
-    './src/js/index.js',
-    './src/js/template.js',
-    './src/js/observer.js',
-    './src/js/util.js'
-  ]
-  return pipe(
-    src,
-    babel(),
-    gPlugins.preprocess(),
-    gPlugins.concat('notionx.js'),
-    './temp'
-  )
-})
-gulp.task('js', ['coreJs'], () => {
-  const src = [
-    './src/lib/jquery.js',
-    './src/lib/jquery-ui.js',
-    './src/lib/lodash.min.js',
-    './temp/notionx.js'
-  ]
-  return pipe(
-    src,
-    babel(),
-    gPlugins.wrap('(function(){\n<%= contents %>\n})();'),
-    gPlugins.concat('content-script.js'),
-    gutil.env.production && uglify(),
-    './temp'
-  )
+// gulp.task('js', () => {
+//   const src = [
+//     './src/lib/jquery.js',
+//     './src/lib/jquery-ui.js',
+//     './src/lib/lodash.min.js',
+//     './src/js/observer.js',
+//     './src/js/template.js',
+//     './src/js/util.js',
+//     './src/js/index.js'
+//   ]
+//   return pipe(
+//     src,
+//     gPlugins.wrap('(function(){\n<%= contents %>\n})();'),
+//     gPlugins.concat('content-script.js'),
+//     gutil.env.production && uglify(),
+//     './temp'
+//   )
+// })
+// set browserify task
+gulp.task('js', () => {
+  browserify({
+    entries: ['src/js/index.js'],
+    debug: true
+  })
+    .transform('babelify', { presets: ['es2015'] })
+    .bundle()
+    .pipe(source('content-script.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest('temp'))
 })
 
 // lib

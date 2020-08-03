@@ -1,0 +1,12 @@
+{
+  "cSpell.enabledLanguageIds": ["markdown", "plaintext", "text", "yml"],
+  "cSpell.userWords": ["notionx"],
+  "commit-message-editor.dynamicTemplate": [
+    "{type}{scope}: {description}",
+    "",
+    "{body}",
+    "",
+    "{breaking_change}{footer}"
+  ],
+  "commit-message-editor.view.defaultView": "form",
+}
