@@ -3,11 +3,12 @@ import browserify from 'browserify'
 import sourcemaps from 'gulp-sourcemaps'
 import source from 'vinyl-source-stream'
 import buffer from 'vinyl-buffer'
+import map from 'map-stream'
 // import babelify from 'babelify'
 const gulp = require('gulp')
 const gPlugins = require('gulp-load-plugins')() // 加载全部gulp插件
 const gutil = require('gulp-util')
-const uglify = require('gulp-uglify-es').default
+// const uglify = require('gulp-uglify-es').default
 
 gulp.task('default', (cb) => {
   gPlugins.runSequence('build', 'chrome', cb)
@@ -58,25 +59,6 @@ gulp.task('ext', () => {
   return pipe('./src/ext/*', 'temp/')
 })
 
-// js
-// gulp.task('js', () => {
-//   const src = [
-//     './src/lib/jquery.js',
-//     './src/lib/jquery-ui.js',
-//     './src/lib/lodash.min.js',
-//     './src/js/observer.js',
-//     './src/js/template.js',
-//     './src/js/util.js',
-//     './src/js/index.js'
-//   ]
-//   return pipe(
-//     src,
-//     gPlugins.wrap('(function(){\n<%= contents %>\n})();'),
-//     gPlugins.concat('content-script.js'),
-//     gutil.env.production && uglify(),
-//     './temp'
-//   )
-// })
 // set browserify task
 gulp.task('js', () => {
   browserify({

@@ -1,18 +1,18 @@
 {
 	"manifest_version": 2,
-	"name": "Notion TOC plugin",
+	"name": "NotionX",
 	"version": "1.0.0",
-	"description": "Notion header1-3 list",
+	"description": "NotionX",
 	"icons":
 	{
-		"16": "icons/icon.png",
-		"48": "icons/icon.png",
-		"128": "icons/icon.png"
+		"16": "icons/notionx.png",
+		"48": "icons/notionx.png",
+		"128": "icons/notionx.png"
 	},
 	"browser_action":
 	{
-		"default_icon": "icons/icon.png",
-		"default_title": "Notion header1-3 list",
+		"default_icon": "icons/notionx.png",
+		"default_title": "NotionX",
 		"default_popup": "popup.html"
 	},
 	"permissions":
