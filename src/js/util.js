@@ -1,5 +1,5 @@
 import $ from 'jquery'
-import { NOTION_SCROLLER_SELECTOR, NOTIONX_STORE_KEY, DEFAULT_OPTS } from './constant'
+import { NOTION_SCROLLER_SELECTOR, NOTIONX_STORE_KEY, DEFAULT_OPTS, NOTION_PAGE_READY_SELECTOR } from './constant'
 
 /**
  * localStorage工具函数
@@ -39,7 +39,7 @@ export function scrollToTop () {
  * 检查notion app加载
  * @param {string} selector 用于判断的函数
  */
-export const waitNotionPageReady = (selector) =>
+export const waitNotionPageReady = (selector = NOTION_PAGE_READY_SELECTOR) =>
   new Promise((resolve) => {
     const delay = 500
     const f = () => {

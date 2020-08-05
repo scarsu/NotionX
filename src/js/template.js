@@ -1,8 +1,12 @@
 const template = {
-  sidebar: `
+  notionx: `
   <div id="notionx" class="notionx-sidebar-container">
     <nav class="notionx-sidebar">
-      <div class="notionx-switcher"> >> </div>
+      <div class="notionx-hider-btn">
+        <svg class="notionx-icon" aria-hidden="true">
+          <use xlink:href="#icon-list"></use>
+        </svg>
+      </div>
 
       <div class="notionx-header">
         <div>
@@ -44,8 +48,13 @@ const template = {
     </nav>
   </div>
   `,
+  sideBarBtn: `
+  <div id="notionx-sidebar-btn" title="Lock Notionx open">
+    icon
+  </div>
+  `,
   darkBtn: `
-  <div id="dark-btn-chrome-plugin" title="暗黑模式">
+  <div id="notionx-dark-btn" title="Notionx Dark Mode">
     <input type="checkbox" id="dark-mode-inp"/>
     <label for="dark-mode-inp"></label>
   </div>

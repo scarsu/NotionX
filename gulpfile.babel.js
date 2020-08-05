@@ -3,7 +3,6 @@ import browserify from 'browserify'
 import sourcemaps from 'gulp-sourcemaps'
 import source from 'vinyl-source-stream'
 import buffer from 'vinyl-buffer'
-import map from 'map-stream'
 // import babelify from 'babelify'
 const gulp = require('gulp')
 const gPlugins = require('gulp-load-plugins')() // 加载全部gulp插件
@@ -50,8 +49,14 @@ gulp.task('css', () => {
 })
 
 // asset
-gulp.task('asset', () => {
+gulp.task('asset', ['sprites'], () => {
   return pipe('./src/asset/**/*', 'temp/')
+})
+gulp.task('sprites', function () {
+  return gulp
+    .src('./src/asset/svg/*.svg')
+    .pipe(gPlugins.svgSymbols())
+    .pipe(gulp.dest('./temp/svg'))
 })
 
 // ext

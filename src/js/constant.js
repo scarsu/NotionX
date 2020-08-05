@@ -5,17 +5,10 @@ export const NOTION_WRAPPER_SELECTOR = '.notion-cursor-listener'
 
 export const NOTIONX_STORE_KEY = 'notionx'
 export const STORE = {
-  TOKEN: 'octotree.token.local',
-  HOVEROPEN: 'octotree.hover_open',
-  PR: 'octotree.prdiff_shown',
-  HOTKEYS: 'octotree.hotkeys',
-  ICONS: 'octotree.icons',
-  LAZYLOAD: 'octotree.lazyload',
-  POPUP: 'octotree.popup_shown',
-  WIDTH: 'octotree.sidebar_width',
-  SHOWN: 'octotree.sidebar_shown',
-  PINNED: 'octotree.sidebar_pinned',
-  HUGE_REPOS: 'octotree.huge_repos'
+  SHOW_DARK: 'showDark',
+  HOTKEYS: 'hotKeys',
+  WIDTH: 'width',
+  PINNED: 'pinned'
 }
 
 export const DEFAULT_OPTS = {
@@ -25,18 +18,17 @@ export const DEFAULT_OPTS = {
   PINNED: false
 }
 
+export const VIEW_STATE = {
+  HIDE: 'hide',
+  HOVER: 'hover',
+  PINNED: 'pinned'
+}
+
 export const EVENT = {
-  TOGGLE: 'octotree:toggle',
-  TOGGLE_PIN: 'octotree:pin',
-  LOC_CHANGE: 'octotree:location',
-  LAYOUT_CHANGE: 'octotree:layout',
-  REQ_START: 'octotree:start',
-  REQ_END: 'octotree:end',
-  STORE_CHANGE: 'octotree:storeChange',
-  VIEW_READY: 'octotree:ready',
-  VIEW_CLOSE: 'octotree:close',
-  VIEW_SHOW: 'octotree:show',
-  FETCH_ERROR: 'octotree:error',
-  SIDEBAR_HTML_INSERTED: 'octotree:sidebarHtmlInserted',
-  REPO_LOADED: 'octotree:repoLoaded'
+  HOVER: 'notionx:hover',
+  PINNED: 'notionx:pinned',
+  UNPIN: 'notionx:unpin',
+  HIDE: 'notionx:hide',
+  SHOW_DARK: 'notionx:showDark',
+  HIDE_DARK: 'notionx:hideDark'
 }

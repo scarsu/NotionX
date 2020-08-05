@@ -28051,17 +28051,10 @@ var NOTION_WRAPPER_SELECTOR = exports.NOTION_WRAPPER_SELECTOR = '.notion-cursor-
 
 var NOTIONX_STORE_KEY = exports.NOTIONX_STORE_KEY = 'notionx';
 var STORE = exports.STORE = {
-  TOKEN: 'octotree.token.local',
-  HOVEROPEN: 'octotree.hover_open',
-  PR: 'octotree.prdiff_shown',
-  HOTKEYS: 'octotree.hotkeys',
-  ICONS: 'octotree.icons',
-  LAZYLOAD: 'octotree.lazyload',
-  POPUP: 'octotree.popup_shown',
-  WIDTH: 'octotree.sidebar_width',
-  SHOWN: 'octotree.sidebar_shown',
-  PINNED: 'octotree.sidebar_pinned',
-  HUGE_REPOS: 'octotree.huge_repos'
+  SHOW_DARK: 'showDark',
+  HOTKEYS: 'hotKeys',
+  WIDTH: 'width',
+  PINNED: 'pinned'
 };
 
 var DEFAULT_OPTS = exports.DEFAULT_OPTS = {
@@ -28071,36 +28064,43 @@ var DEFAULT_OPTS = exports.DEFAULT_OPTS = {
   PINNED: false
 };
 
+var VIEW_STATE = exports.VIEW_STATE = {
+  HIDE: 'hide',
+  HOVER: 'hover',
+  PINNED: 'pinned'
+};
+
 var EVENT = exports.EVENT = {
-  TOGGLE: 'octotree:toggle',
-  TOGGLE_PIN: 'octotree:pin',
-  LOC_CHANGE: 'octotree:location',
-  LAYOUT_CHANGE: 'octotree:layout',
-  REQ_START: 'octotree:start',
-  REQ_END: 'octotree:end',
-  STORE_CHANGE: 'octotree:storeChange',
-  VIEW_READY: 'octotree:ready',
-  VIEW_CLOSE: 'octotree:close',
-  VIEW_SHOW: 'octotree:show',
-  FETCH_ERROR: 'octotree:error',
-  SIDEBAR_HTML_INSERTED: 'octotree:sidebarHtmlInserted',
-  REPO_LOADED: 'octotree:repoLoaded'
+  HOVER: 'notionx:hover',
+  PINNED: 'notionx:pinned',
+  UNPIN: 'notionx:unpin',
+  HIDE: 'notionx:hide',
+  SHOW_DARK: 'notionx:showDark',
+  HIDE_DARK: 'notionx:hideDark'
 };
 
 },{}],4:[function(require,module,exports){
 'use strict';
 
-var _lodash = require('lodash');
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 
-var _lodash2 = _interopRequireDefault(_lodash);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 var _jquery = require('jquery');
 
 var _jquery2 = _interopRequireDefault(_jquery);
 
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
 var _template = require('./template');
 
 var _template2 = _interopRequireDefault(_template);
+
+require('./svg');
 
 var _util = require('./util');
 
@@ -28108,124 +28108,273 @@ var _constant = require('./constant');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-(0, _util.waitNotionPageReady)(_constant.NOTION_PAGE_READY_SELECTOR).then(function () {
-  window.notionx = new NotionX();
-}); /* eslint-disable no-undef */
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-function NotionX() {
-  // 配置处理：默认配置 + 从localStorage获取本地配置
-  this.defaultOptions = _constant.DEFAULT_OPTS;
-  this.localOptions = _util.notionxLocalStore.get();
-  this.init();
-  return this;
-}
+var NotionX = function () {
+  function NotionX() {
+    _classCallCheck(this, NotionX);
 
-NotionX.prototype.init = function () {
-  // 合并默认配置 +本地配置
-  this.mergeOptions();
+    this.reset();
+    this.init();
+  }
 
-  // 初始化sidebar视图 + 事件
-  this.initSidebar();
-
-  // 根据配置渲染暗黑模式按钮
-  this.renderDark();
-
-  // 创建notion app观察者，动态更新toc
-  this.notionOb();
-};
-
-// 配置处理：默认配置 + 从localStorage获取本地配置
-NotionX.prototype.mergeOptions = function () {
-  var _this = this;
-
-  var keys = Object.keys(this.defaultOptions);
-  keys.forEach(function (key) {
-    _this.localOptions[key] = _this.localOptions[key] || _this.defaultOptions[key];
-  });
-  _util.notionxLocalStore.setAll(this.localOptions);
-};
-
-// 初始化sidebar视图 + 事件
-// sidebar按钮: hover/click事件，显示隐藏sidebar，动效
-// header: 点击显示setting模块(隐藏暗黑模式按钮)
-// footer: 作者,论坛,开源仓库,关于
-NotionX.prototype.initSidebar = function () {
-  console.log(_template2.default);
-  debugger;
-  var $el = (0, _jquery2.default)(_constant.NOTION_WRAPPER_SELECTOR);
-  var $sidebar = (0, _jquery2.default)(_template2.default.sidebar);
-  // 样式设置
-  $el.append($sidebar);
-};
-
-// 根据配置渲染暗黑模式按钮
-NotionX.prototype.renderDark = function () {
-  var _tplt = _template2.default.darkBtn;
-  var $container = (0, _jquery2.default)('.notion-topbar>div>div:last');
-  var $btnDark = (0, _jquery2.default)(_tplt);
-  $btnDark.find('label').click(function (e) {
-    e.stopPropagation();
-    var oldChecked = (0, _jquery2.default)(e.currentTarget).parent().find('input')[0].checked;
-    if (!oldChecked) {
-      (0, _jquery2.default)('html').addClass('dark');
-    } else {
-      (0, _jquery2.default)('html').removeClass('dark');
+  _createClass(NotionX, [{
+    key: 'reset',
+    value: function reset() {
+      // 重置操作
+      // 配置处理：默认配置 + 从localStorage获取本地配置
+      this.defaultOptions = _constant.DEFAULT_OPTS;
+      this.localOptions = _util.notionxLocalStore.get();
+      this.mergeOptions();
     }
-  });
-  $btnDark.prependTo($container);
-};
+  }, {
+    key: 'init',
+    value: async function init() {
+      this.initFSM();
+      this.initView();
+      // this.notionOb()
+    }
+  }, {
+    key: 'initFSM',
+    value: function initFSM() {
+      var _this = this,
+          _VIEW_STATE$HIDE,
+          _VIEW_STATE$HOVER,
+          _VIEW_STATE$PINNED,
+          _fsm;
 
-// 创建notion app观察者，动态更新toc
-NotionX.prototype.notionOb = function () {}
-// DomObserver(NOTION_APP_SELECTOR, renderToc)
+      this.fsm = (_fsm = {}, _defineProperty(_fsm, _constant.VIEW_STATE.HIDE, (_VIEW_STATE$HIDE = {
+        name: _constant.VIEW_STATE.HIDE
+      }, _defineProperty(_VIEW_STATE$HIDE, _constant.VIEW_STATE.HIDE, function () {}), _defineProperty(_VIEW_STATE$HIDE, _constant.VIEW_STATE.HOVER, function () {
+        _this.$notionx.removeClass('pinned');
+        _this.$notionx.addClass('hover');
+        _this.curState = _this.fsm[_constant.VIEW_STATE.HOVER];
+      }), _defineProperty(_VIEW_STATE$HIDE, _constant.VIEW_STATE.PINNED, function () {
+        _this.$notionx.removeClass('hover');
+        _this.$notionx.addClass('pinned');
+        _this.$sideBarBtn.addClass('hide');
+        _this.curState = _this.fsm[_constant.VIEW_STATE.PINNED];
+      }), _VIEW_STATE$HIDE)), _defineProperty(_fsm, _constant.VIEW_STATE.HOVER, (_VIEW_STATE$HOVER = {
+        name: _constant.VIEW_STATE.HOVER
+      }, _defineProperty(_VIEW_STATE$HOVER, _constant.VIEW_STATE.HOVER, function () {}), _defineProperty(_VIEW_STATE$HOVER, _constant.VIEW_STATE.HIDE, function () {
+        _this.$notionx.removeClass('pinned');
+        _this.$notionx.removeClass('hover');
+        _this.curState = _this.fsm[_constant.VIEW_STATE.HIDE];
+      }), _defineProperty(_VIEW_STATE$HOVER, _constant.VIEW_STATE.PINNED, function () {
+        _this.$notionx.removeClass('hover');
+        _this.$notionx.addClass('pinned');
+        _this.$sideBarBtn.addClass('hide');
+        _this.curState = _this.fsm[_constant.VIEW_STATE.PINNED];
+      }), _VIEW_STATE$HOVER)), _defineProperty(_fsm, _constant.VIEW_STATE.PINNED, (_VIEW_STATE$PINNED = {
+        name: _constant.VIEW_STATE.PINNED
+      }, _defineProperty(_VIEW_STATE$PINNED, _constant.VIEW_STATE.PINNED, function () {}), _defineProperty(_VIEW_STATE$PINNED, _constant.VIEW_STATE.HIDE, function () {
+        _this.$notionx.removeClass('pinned');
+        _this.$notionx.removeClass('hover');
+        _this.$sideBarBtn.removeClass('hide');
+        _this.curState = _this.fsm[_constant.VIEW_STATE.HIDE];
+      }), _defineProperty(_VIEW_STATE$PINNED, _constant.VIEW_STATE.HOVER, function () {
+        _this.$notionx.addClass('hover');
+        _this.$notionx.removeClass('pinned');
+        _this.$sideBarBtn.removeClass('hide');
+        _this.curState = _this.fsm[_constant.VIEW_STATE.HOVER];
+      }), _VIEW_STATE$PINNED)), _fsm);
+      this.curState = this.fsm[_constant.VIEW_STATE.HIDE];
+    }
 
-// 性能控制，防抖
-;var renderToc = _lodash2.default.throttle(function (MutationRecords, observer) {
-  patchToc();
-}, 500);
-function patchToc() {
-  var $notionx = (0, _jquery2.default)('#notionx');
-  if ((0, _jquery2.default)('#notionx').length <= 0) {
-    $notionx = initNotionX();
-  }
-  var $ul = $notionx.find('.notionx-view-toc');
-  var hs = (0, _jquery2.default)('.notion-header-block,.notion-sub_header-block,.notion-sub_sub_header-block').map(function (i, e) {
-    var dataBlockId = e.attributes['data-block-id'].value;
-    dataBlockId = dataBlockId.replace(/-/g, '');
-    var href = location.pathname + '#' + dataBlockId;
-    return {
-      desc: e.innerText,
-      href: href,
-      level: e.classList.contains('notion-header-block') ? 1 : e.classList.contains('notion-sub_header-block') ? 2 : 3
-    };
-  });
-  $notionx.show();
-  var $li = (0, _jquery2.default)('\n  <li class="level-1">\n    <a class="toTopBtn" href="#">TOP</a>\n  </li>\n  ');
-  $li.click(_util.scrollToTop);
-  var liStr = '';
-  for (var i = 0, l = hs.length; i < l; i++) {
-    if (!hs[i].desc || !hs[i].level) continue;
-    liStr += '<li class="level-' + hs[i].level + '" title="' + hs[i].desc + '">' + '<a href="' + hs[i].href + '">' + hs[i].desc + '</a>' + '</li>';
-  }
-  console.log($ul, liStr);
-  $ul.html(liStr);
-  $ul.append($li);
-}
+    // 合并 默认配置 + 本地配置
 
-},{"./constant":3,"./template":5,"./util":6,"jquery":1,"lodash":2}],5:[function(require,module,exports){
+  }, {
+    key: 'mergeOptions',
+    value: function mergeOptions() {
+      var _this2 = this;
+
+      var keys = Object.keys(this.defaultOptions);
+      keys.forEach(function (key) {
+        _this2.localOptions[key] = _this2.localOptions[key] || _this2.defaultOptions[key];
+      });
+      _util.notionxLocalStore.setAll(this.localOptions);
+    }
+
+    // 初始化视图 + 事件
+    // sidebar按钮: hover/click事件，显示隐藏sidebar，动效
+    // header: 点击显示setting模块(隐藏暗黑模式按钮)
+    // footer: 作者,论坛,开源仓库,关于
+
+  }, {
+    key: 'initView',
+    value: function initView() {
+      // inject
+      this.$html = (0, _jquery2.default)('html');
+      this.$document = (0, _jquery2.default)(document);
+      this.$notionXWrap = (0, _jquery2.default)(_constant.NOTION_WRAPPER_SELECTOR);
+      this.$headerBtnWrap = this._adapterNotionHeader();
+
+      // append
+      this.$notionx = (0, _jquery2.default)(_template2.default.notionx);
+      this.$sidebar = this.$notionx.find('.notionx-sidebar');
+      this.$hiderBtn = this.$notionx.find('.notionx-hider-btn');
+      this.$sideBarBtn = (0, _jquery2.default)(_template2.default.sideBarBtn);
+      this.$darkBtn = (0, _jquery2.default)(_template2.default.darkBtn);
+
+      this.initEvents();
+
+      // dom
+      this.$headerBtnWrap.append(this.$darkBtn);
+      this.$headerBtnWrap.append(this.$sideBarBtn);
+      this.$notionXWrap.append(this.$notionx);
+    }
+  }, {
+    key: 'initEvents',
+    value: function initEvents() {
+      var _this3 = this;
+
+      this.$darkBtn.find('label').click(function (e) {
+        e.stopPropagation();
+        var oldChecked = (0, _jquery2.default)(e.currentTarget).parent().find('input')[0].checked;
+        if (!oldChecked) {
+          (0, _jquery2.default)('html').addClass('dark');
+        } else {
+          (0, _jquery2.default)('html').removeClass('dark');
+        }
+      });
+      this.$sideBarBtn.hover(
+      // mouseover
+      function (e) {
+        if (_this3.curState.name === _constant.VIEW_STATE.PINNED) {
+          return;
+        }
+        _this3.curState[_constant.VIEW_STATE.HOVER](e);
+      },
+      // mouseout
+      function (e) {
+        if (_this3.curState.name === _constant.VIEW_STATE.PINNED) {
+          return;
+        }
+        _this3.curState[_constant.VIEW_STATE.HIDE](e);
+      });
+      this.$sidebar.hover(
+      // mouseover
+      function (e) {
+        if (_this3.curState.name === _constant.VIEW_STATE.PINNED) {
+          return;
+        }
+        _this3.curState[_constant.VIEW_STATE.HOVER](e);
+      },
+      // mouseout
+      function (e) {
+        if (_this3.curState.name === _constant.VIEW_STATE.PINNED) {
+          return;
+        }
+        _this3.curState[_constant.VIEW_STATE.HIDE](e);
+      });
+      this.$sideBarBtn.click(function (e) {
+        _this3.curState[_constant.VIEW_STATE.PINNED](e);
+      });
+      this.$hiderBtn.click(function (e) {
+        _this3.curState[_constant.VIEW_STATE.HIDE](e);
+      });
+    }
+
+    // 适配各种page情况，找出按钮容器
+
+  }, {
+    key: '_adapterNotionHeader',
+    value: function _adapterNotionHeader() {
+      var siblings = ['.notion-topbar-share-menu', '.notion-topbar-more-button'];
+      var $el = (0, _jquery2.default)(siblings.find(function (i) {
+        return (0, _jquery2.default)(i).length > 0;
+      })).parent();
+      if ($el.length > 0) {
+        return $el;
+      }
+
+      return (0, _jquery2.default)('.notion-topbar>div');
+    }
+
+    // 创建notion app观察者，动态更新toc
+
+  }, {
+    key: 'notionOb',
+    value: function notionOb() {
+      this.notionOb = (0, _util.DomObserver)(_constant.NOTION_APP_SELECTOR, this.renderToc);
+    }
+  }, {
+    key: 'patchToc',
+    value: function patchToc() {
+      var $ul = this.$notionx.find('.notionx-view-toc');
+      var hs = (0, _jquery2.default)('.notion-header-block,.notion-sub_header-block,.notion-sub_sub_header-block').map(function (i, e) {
+        var dataBlockId = e.attributes['data-block-id'].value;
+        dataBlockId = dataBlockId.replace(/-/g, '');
+        var href = location.pathname + '#' + dataBlockId;
+        return {
+          desc: e.innerText,
+          href: href,
+          level: e.classList.contains('notion-header-block') ? 1 : e.classList.contains('notion-sub_header-block') ? 2 : 3
+        };
+      });
+      this.$notionx.show();
+      var $li = (0, _jquery2.default)('\n    <li class="level-1">\n      <a class="toTopBtn" href="#">TOP</a>\n    </li>\n    ');
+      $li.click(_util.scrollToTop);
+      var liStr = '';
+      for (var i = 0, l = hs.length; i < l; i++) {
+        if (!hs[i].desc || !hs[i].level) continue;
+        liStr += '<li class="level-' + hs[i].level + '" title="' + hs[i].desc + '">' + '<a href="' + hs[i].href + '">' + hs[i].desc + '</a>' + '</li>';
+      }
+      console.log($ul, liStr);
+      $ul.html(liStr);
+      $ul.append($li);
+    }
+
+    // 性能控制，防抖
+
+  }, {
+    key: 'renderToc',
+    value: function renderToc() {
+      _lodash2.default.throttle(function (MutationRecords, observer) {
+        this.patchToc();
+      }, 500);
+    }
+  }]);
+
+  return NotionX;
+}();
+
+exports.default = NotionX;
+
+},{"./constant":3,"./svg":6,"./template":7,"./util":8,"jquery":1,"lodash":2}],5:[function(require,module,exports){
+'use strict';
+
+var _core = require('./core');
+
+var _core2 = _interopRequireDefault(_core);
+
+var _util = require('./util');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(0, _util.waitNotionPageReady)().then(function () {
+  window.notionx = new _core2.default();
+});
+
+},{"./core":4,"./util":8}],6:[function(require,module,exports){
+"use strict";
+
+},{}],7:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var template = {
-  sidebar: "\n  <div id=\"notionx\" class=\"notionx-sidebar-container\">\n    <nav class=\"notionx-sidebar\">\n      <div class=\"notionx-switcher\"> >> </div>\n\n      <div class=\"notionx-header\">\n        <div>\n          <i>setting btn</i>\n          <i>pin btn</i>\n          <i>top btn</i>\n          <i>sidebar orientation btn</i>\n        </div>\n      </div>\n\n      <div class=\"notionx-views\">\n        <div class=\"notionx-view notionx-view-toc\">\n          <li>\n            <a href=\"#test\"></a>\n          </li>\n        </div>\n\n        <div class=\"notionx-view notionx-view-setting\">\n          <div>\n            <span>how to trigger sidebar:</span>\n            <select name=\"triggerWay\" id=\"triggerWay\">\n              <option value=\"hover\">hover</option>\n              <option value=\"click\">click</option>\n            </select>\n          </div>\n          <div>\n            <span>Hide Dark Mode Btn:</span>\n            <input type=\"checkbox\" name=\"showDark\" id=\"showDark\"/>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"notionx-footer\">\n        <p>\n          NotionX by\n          <a href=\"www.scarsu.com\">ScarSu</a>\n        </p>\n      </div>\n    </nav>\n  </div>\n  ",
-  darkBtn: "\n  <div id=\"dark-btn-chrome-plugin\" title=\"\u6697\u9ED1\u6A21\u5F0F\">\n    <input type=\"checkbox\" id=\"dark-mode-inp\"/>\n    <label for=\"dark-mode-inp\"></label>\n  </div>\n  "
+  notionx: "\n  <div id=\"notionx\" class=\"notionx-sidebar-container\">\n    <nav class=\"notionx-sidebar\">\n      <div class=\"notionx-hider-btn\">\n        <svg class=\"notionx-icon\" aria-hidden=\"true\">\n          <use xlink:href=\"#icon-list\"></use>\n        </svg>\n      </div>\n\n      <div class=\"notionx-header\">\n        <div>\n          <i>setting btn</i>\n          <i>pin btn</i>\n          <i>top btn</i>\n          <i>sidebar orientation btn</i>\n        </div>\n      </div>\n\n      <div class=\"notionx-views\">\n        <div class=\"notionx-view notionx-view-toc\">\n          <li>\n            <a href=\"#test\"></a>\n          </li>\n        </div>\n\n        <div class=\"notionx-view notionx-view-setting\">\n          <div>\n            <span>how to trigger sidebar:</span>\n            <select name=\"triggerWay\" id=\"triggerWay\">\n              <option value=\"hover\">hover</option>\n              <option value=\"click\">click</option>\n            </select>\n          </div>\n          <div>\n            <span>Hide Dark Mode Btn:</span>\n            <input type=\"checkbox\" name=\"showDark\" id=\"showDark\"/>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"notionx-footer\">\n        <p>\n          NotionX by\n          <a href=\"www.scarsu.com\">ScarSu</a>\n        </p>\n      </div>\n    </nav>\n  </div>\n  ",
+  sideBarBtn: "\n  <div id=\"notionx-sidebar-btn\" title=\"Lock Notionx open\">\n    icon\n  </div>\n  ",
+  darkBtn: "\n  <div id=\"notionx-dark-btn\" title=\"Notionx Dark Mode\">\n    <input type=\"checkbox\" id=\"dark-mode-inp\"/>\n    <label for=\"dark-mode-inp\"></label>\n  </div>\n  "
 };
 exports.default = template;
 
-},{}],6:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -28279,7 +28428,8 @@ function scrollToTop() {
  * 检查notion app加载
  * @param {string} selector 用于判断的函数
  */
-var waitNotionPageReady = exports.waitNotionPageReady = function waitNotionPageReady(selector) {
+var waitNotionPageReady = exports.waitNotionPageReady = function waitNotionPageReady() {
+  var selector = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _constant.NOTION_PAGE_READY_SELECTOR;
   return new Promise(function (resolve) {
     var delay = 500;
     var f = function f() {
@@ -28317,6 +28467,6 @@ var notionxLocalStore = exports.notionxLocalStore = {
   }
 };
 
-},{"./constant":3,"jquery":1}]},{},[4])
+},{"./constant":3,"jquery":1}]},{},[5])
 
 //# sourceMappingURL=content-script.js.map
