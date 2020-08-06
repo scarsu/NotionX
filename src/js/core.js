@@ -1,7 +1,6 @@
 import $ from 'jquery'
 import _ from 'lodash'
 import template from './template'
-import './svg'
 import { DomObserver, notionxLocalStore, scrollToTop } from './util'
 import { DEFAULT_OPTS, NOTION_WRAPPER_SELECTOR, NOTION_APP_SELECTOR, VIEW_STATE } from './constant'
 
@@ -20,12 +19,13 @@ export default class NotionX {
   }
 
   async init () {
-    this.initFSM()
+    this.initViewFSM()
     this.initView()
-    // this.notionOb()
+    this.notionOb()
   }
 
-  initFSM () {
+  // 视图状态状态机
+  initViewFSM () {
     this.fsm = {
       [VIEW_STATE.HIDE]: {
         name: VIEW_STATE.HIDE,
@@ -33,11 +33,15 @@ export default class NotionX {
         [VIEW_STATE.HOVER]: () => {
           this.$notionx.removeClass('pinned')
           this.$notionx.addClass('hover')
+          this.$sideBarBtn.addClass('hover')
+          this.$sideBarBtn.removeClass('hide')
           this.curState = this.fsm[VIEW_STATE.HOVER]
         },
         [VIEW_STATE.PINNED]: () => {
+          // TODO store存储
           this.$notionx.removeClass('hover')
           this.$notionx.addClass('pinned')
+          this.$sideBarBtn.removeClass('hover')
           this.$sideBarBtn.addClass('hide')
           this.curState = this.fsm[VIEW_STATE.PINNED]
         }
@@ -48,11 +52,15 @@ export default class NotionX {
         [VIEW_STATE.HIDE]: () => {
           this.$notionx.removeClass('pinned')
           this.$notionx.removeClass('hover')
+          this.$sideBarBtn.removeClass('hover')
+          this.$sideBarBtn.removeClass('hide')
           this.curState = this.fsm[VIEW_STATE.HIDE]
         },
         [VIEW_STATE.PINNED]: () => {
+          // TODO store存储
           this.$notionx.removeClass('hover')
           this.$notionx.addClass('pinned')
+          this.$sideBarBtn.removeClass('hover')
           this.$sideBarBtn.addClass('hide')
           this.curState = this.fsm[VIEW_STATE.PINNED]
         }
@@ -61,14 +69,18 @@ export default class NotionX {
         name: VIEW_STATE.PINNED,
         [VIEW_STATE.PINNED]: () => {},
         [VIEW_STATE.HIDE]: () => {
+          // TODO store存储
           this.$notionx.removeClass('pinned')
           this.$notionx.removeClass('hover')
+          this.$sideBarBtn.removeClass('hover')
           this.$sideBarBtn.removeClass('hide')
           this.curState = this.fsm[VIEW_STATE.HIDE]
         },
         [VIEW_STATE.HOVER]: () => {
+          // TODO store存储
           this.$notionx.addClass('hover')
           this.$notionx.removeClass('pinned')
+          this.$sideBarBtn.addClass('hover')
           this.$sideBarBtn.removeClass('hide')
           this.curState = this.fsm[VIEW_STATE.HOVER]
         }
@@ -101,6 +113,9 @@ export default class NotionX {
     this.$notionx = $(template.notionx)
     this.$sidebar = this.$notionx.find('.notionx-sidebar')
     this.$hiderBtn = this.$notionx.find('.notionx-hider-btn')
+    this.$sideHeader = this.$notionx.find('.notionx-header')
+    this.$tocWrap = this.$notionx.find('.notionx-view-toc-wrap')
+    this.$toTopBtn = this.$notionx.find('.to-top-btn')
     this.$sideBarBtn = $(template.sideBarBtn)
     this.$darkBtn = $(template.darkBtn)
 
@@ -113,13 +128,19 @@ export default class NotionX {
   }
 
   initEvents () {
+    // TODO 页面离开后关闭页面
+    // observer.disconnect()
+
+    this.$toTopBtn.click(scrollToTop)
     this.$darkBtn.find('label').click(e => {
       e.stopPropagation()
       const oldChecked = $(e.currentTarget).parent().find('input')[0].checked
       if (!oldChecked) {
-        $('html').addClass('dark')
+        // TODO store存储
+        $('html').addClass('notionx-dark')
       } else {
-        $('html').removeClass('dark')
+        // TODO store存储
+        $('html').removeClass('notionx-dark')
       }
     })
     this.$sideBarBtn.hover(
@@ -160,6 +181,9 @@ export default class NotionX {
     this.$hiderBtn.click(e => {
       this.curState[VIEW_STATE.HIDE](e)
     })
+    this.$sideHeader.click(e => {
+      // TODO 显示设置模块
+    })
   }
 
   // 适配各种page情况，找出按钮容器
@@ -178,38 +202,32 @@ export default class NotionX {
 
   // 创建notion app观察者，动态更新toc
   notionOb () {
-    this.notionOb = DomObserver(NOTION_APP_SELECTOR, this.renderToc)
+    this.notionOb = DomObserver(NOTION_APP_SELECTOR, this.renderToc())
   }
 
-  patchToc () {
-    const $ul = this.$notionx.find('.notionx-view-toc')
-    var hs = $(
-      '.notion-header-block,.notion-sub_header-block,.notion-sub_sub_header-block'
-    ).map(function (i, e) {
-      var dataBlockId = e.attributes['data-block-id'].value
-      dataBlockId = dataBlockId.replace(/-/g, '')
-      var href = location.pathname + '#' + dataBlockId
-      return {
-        desc: e.innerText,
-        href: href,
-        level: e.classList.contains('notion-header-block')
-          ? 1
-          : e.classList.contains('notion-sub_header-block')
-            ? 2
-            : 3
-      }
-    })
-    this.$notionx.show()
-    var $li = $(`
-    <li class="level-1">
-      <a class="toTopBtn" href="#">TOP</a>
-    </li>
-    `)
-    $li.click(scrollToTop)
-    var liStr = ''
-    for (var i = 0, l = hs.length; i < l; i++) {
-      if (!hs[i].desc || !hs[i].level) continue
-      liStr +=
+  // 性能控制，防抖
+  renderToc () {
+    return _.throttle(function (MutationRecords, observer) {
+      var hs = $(
+        '.notion-header-block,.notion-sub_header-block,.notion-sub_sub_header-block'
+      ).map(function (i, e) {
+        var dataBlockId = e.attributes['data-block-id'].value
+        dataBlockId = dataBlockId.replace(/-/g, '')
+        var href = location.pathname + '#' + dataBlockId
+        return {
+          desc: e.innerText,
+          href: href,
+          level: e.classList.contains('notion-header-block')
+            ? 1
+            : e.classList.contains('notion-sub_header-block')
+              ? 2
+              : 3
+        }
+      })
+      var liStr = ''
+      for (var i = 0, l = hs.length; i < l; i++) {
+        if (!hs[i].desc || !hs[i].level) continue
+        liStr +=
         '<li class="level-' +
         hs[i].level +
         '" title="' +
@@ -221,16 +239,8 @@ export default class NotionX {
         hs[i].desc +
         '</a>' +
         '</li>'
-    }
-    console.log($ul, liStr)
-    $ul.html(liStr)
-    $ul.append($li)
-  }
-
-  // 性能控制，防抖
-  renderToc () {
-    _.throttle(function (MutationRecords, observer) {
-      this.patchToc()
-    }, 500)
+      }
+      window.notionx.$tocWrap.html(liStr)
+    }, 2000)
   }
 }

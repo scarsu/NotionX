@@ -12,14 +12,14 @@ import { NOTION_SCROLLER_SELECTOR, NOTIONX_STORE_KEY, DEFAULT_OPTS, NOTION_PAGE_
  * @param {array} args arguments for callback
  */
 export function DomObserver (selector, cb, args) {
-  this.observer = new MutationObserver(args => cb(args))
-  this.el = document.querySelector(selector)
+  const observer = new MutationObserver(args => { cb(args) })
+  const el = document.querySelector(selector)
   const config = {
     childList: true,
     subtree: true
   }
-  this.observer.observe(this.el, config)
-  return this
+  observer.observe(el, config)
+  return observer
 }
 
 /**

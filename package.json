@@ -56,6 +56,7 @@
     "gulp-run-sequence": "*",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-svg-symbols": "^3.2.3",
+    "gulp-svg-symbols2js": "^1.0.1",
     "gulp-uglify-es": "^1.0.4",
     "gulp-util": "^2.2.20",
     "gulp-wrap": "^0.14.0",

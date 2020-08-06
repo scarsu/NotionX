@@ -38,9 +38,10 @@ gulp.task('cleanDist', () => {
 })
 
 // css
-gulp.task('css', () => {
+gulp.task('css', (targetPrefix = 'chrome-extension://__MSG_@@extension_id__/') => {
   return pipe(
     './src/css/custom.less',
+    gPlugins.replace('url("notionx.png")', `url("${targetPrefix}asset/notionx.png")`),
     gPlugins.plumber(),
     gPlugins.less({ relativeUrls: true }),
     gPlugins.autoprefixer({ cascade: true }),
@@ -49,14 +50,20 @@ gulp.task('css', () => {
 })
 
 // asset
-gulp.task('asset', ['sprites'], () => {
-  return pipe('./src/asset/**/*', 'temp/')
+gulp.task('asset', ['svg'], () => {
+  return pipe(
+    [
+      './src/asset/icon/*',
+      './src/asset/img/*'
+    ],
+    'temp/asset')
 })
-gulp.task('sprites', function () {
+gulp.task('svg', function () {
   return gulp
     .src('./src/asset/svg/*.svg')
     .pipe(gPlugins.svgSymbols())
-    .pipe(gulp.dest('./temp/svg'))
+    .pipe(gPlugins.svgSymbols2js())
+    .pipe(gulp.dest('./temp/asset'))
 })
 
 // ext
@@ -85,8 +92,8 @@ gulp.task('lib', () => {
 })
 
 // chrome
-gulp.task('chrome', () => {
-  return pipe('./temp/**/*', gPlugins.zip('chrome.zip'), './dist')
+gulp.task('chrome', ['build'], () => {
+  return pipe('./temp/**/*', gPlugins.zip('NotionX.zip'), './dist')
 })
 // var crx = require('gulp-crx-pack');
 // var manifest = require('./src/ext/manifest.json');

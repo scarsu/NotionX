@@ -3842,6 +3842,15 @@ gulp-sourcemaps@^1.6.0:
     through2 "2.X"
     vinyl "1.X"
 
+gulp-svg-symbols2js@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/gulp-svg-symbols2js/download/gulp-svg-symbols2js-1.0.1.tgz#62e8ce7febb2348a1d0af93fd9418c070939073b"
+  integrity sha1-YujOf+uyNIodCvk/2UGMBwk5Bzs=
+  dependencies:
+    js-string-escape "^1.0.1"
+    replace-ext "^1.0.0"
+    through2 "^3.0.1"
+
 gulp-svg-symbols@^3.2.3:
   version "3.2.3"
   resolved "https://registry.npm.taobao.org/gulp-svg-symbols/download/gulp-svg-symbols-3.2.3.tgz#62f18c13e38394d5fb10290c3d0886c29d7b9d09"
@@ -4645,6 +4654,11 @@ js-base64@^2.1.9:
   version "2.6.4"
   resolved "https://registry.npm.taobao.org/js-base64/download/js-base64-2.6.4.tgz?cache=0&sync_timestamp=1596435577253&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjs-base64%2Fdownload%2Fjs-base64-2.6.4.tgz#f4e686c5de1ea1f867dbcad3d46d969428df98c4"
   integrity sha1-9OaGxd4eofhn28rT1G2WlCjfmMQ=
+
+js-string-escape@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/js-string-escape/download/js-string-escape-1.0.1.tgz#e2625badbc0d67c7533e9edc1068c587ae4137ef"
+  integrity sha1-4mJbrbwNZ8dTPp7cEGjFh65BN+8=
 
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
@@ -7824,7 +7838,7 @@ through2@^0.6.1, through2@^0.6.3:
     readable-stream ">=1.0.33-1 <1.1.0-0"
     xtend ">=4.0.0 <4.1.0-0"
 
-through2@^3.0.0:
+through2@^3.0.0, through2@^3.0.1:
   version "3.0.2"
   resolved "https://registry.npm.taobao.org/through2/download/through2-3.0.2.tgz?cache=0&sync_timestamp=1593478643560&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fthrough2%2Fdownload%2Fthrough2-3.0.2.tgz#99f88931cfc761ec7678b41d5d7336b5b6a07bf4"
   integrity sha1-mfiJMc/HYex2eLQdXXM2tbage/Q=

@@ -2,16 +2,16 @@
 	"manifest_version": 2,
 	"name": "NotionX",
 	"version": "1.0.0",
-	"description": "NotionX",
+	"description": "A browser extension that enhances Notion experience.",
 	"icons":
 	{
-		"16": "icons/notionx.png",
-		"48": "icons/notionx.png",
-		"128": "icons/notionx.png"
+		"16": "asset/notionx.png",
+		"48": "asset/notionx.png",
+		"128": "asset/notionx.png"
 	},
 	"browser_action":
 	{
-		"default_icon": "icons/notionx.png",
+		"default_icon": "asset/notionx.png",
 		"default_title": "NotionX",
 		"default_popup": "popup.html"
 	},
@@ -27,9 +27,9 @@
 	[
 		{
 			"matches": ["<all_urls>"],
-			"js": ["content-script.js"],
+			"js": ["asset/svg-symbols.js","content-script.js"],
 			"css": ["css/custom.css"],
-			"run_at": "document_end"
+			"run_at": "document_start"
 		}
 	]
 }
