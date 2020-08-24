@@ -353,3 +353,7 @@ html.notionx-dark {
 .notionx-icon.unclickable:hover {
   background-color: inherit;
 }
+/* notion源样式变更 */
+.notionX-notionCenter {
+  overflow-x: auto;
+}

@@ -28220,9 +28220,14 @@ var NotionX = function () {
     value: function initView() {
       // inject
       this.$html = (0, _jquery2.default)('html');
+      this.$notionApp = (0, _jquery2.default)('#notion-app');
+      this.$notionCenter = this.$notionApp.find('.notion-frame');
       this.$document = (0, _jquery2.default)(document);
       this.$notionXWrap = (0, _jquery2.default)(_constant.NOTION_WRAPPER_SELECTOR);
       this.$headerBtnWrap = this._adapterNotionHeader();
+
+      // 变更notion源样式
+      this._adapterNotionStyle();
 
       // append
       this.$notionx = (0, _jquery2.default)(_template2.default.notionx);
@@ -28300,6 +28305,11 @@ var NotionX = function () {
       this.$sideHeader.click(function (e) {
         // TODO 显示设置模块
       });
+    }
+  }, {
+    key: '_adapterNotionStyle',
+    value: function _adapterNotionStyle() {
+      this.$notionCenter.addClass('notionX-notionCenter');
     }
 
     // 适配各种page情况，找出按钮容器

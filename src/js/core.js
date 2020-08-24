@@ -105,9 +105,14 @@ export default class NotionX {
   initView () {
     // inject
     this.$html = $('html')
+    this.$notionApp = $('#notion-app')
+    this.$notionCenter = this.$notionApp.find('.notion-frame')
     this.$document = $(document)
     this.$notionXWrap = $(NOTION_WRAPPER_SELECTOR)
     this.$headerBtnWrap = this._adapterNotionHeader()
+
+    // 变更notion源样式
+    this._adapterNotionStyle()
 
     // append
     this.$notionx = $(template.notionx)
@@ -184,6 +189,10 @@ export default class NotionX {
     this.$sideHeader.click(e => {
       // TODO 显示设置模块
     })
+  }
+
+  _adapterNotionStyle () {
+    this.$notionCenter.addClass('notionX-notionCenter')
   }
 
   // 适配各种page情况，找出按钮容器
