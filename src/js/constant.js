@@ -32,3 +32,5 @@ export const EVENT = {
   SHOW_DARK: 'notionx:showDark',
   HIDE_DARK: 'notionx:hideDark'
 }
+
+export const MAX_WIDTH = 480

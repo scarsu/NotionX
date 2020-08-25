@@ -28079,6 +28079,8 @@ var EVENT = exports.EVENT = {
   HIDE_DARK: 'notionx:hideDark'
 };
 
+var MAX_WIDTH = exports.MAX_WIDTH = 480;
+
 },{}],4:[function(require,module,exports){
 'use strict';
 
@@ -28236,6 +28238,7 @@ var NotionX = function () {
       this.$sideHeader = this.$notionx.find('.notionx-header');
       this.$tocWrap = this.$notionx.find('.notionx-view-toc-wrap');
       this.$toTopBtn = this.$notionx.find('.to-top-btn');
+      this.$resizer = this.$notionx.find('.notionx-resizer');
       this.$sideBarBtn = (0, _jquery2.default)(_template2.default.sideBarBtn);
       this.$darkBtn = (0, _jquery2.default)(_template2.default.darkBtn);
 
@@ -28254,7 +28257,10 @@ var NotionX = function () {
       // TODO 页面离开后关闭页面
       // observer.disconnect()
 
+      // 去顶部按钮
       this.$toTopBtn.click(_util.scrollToTop);
+
+      // 暗黑模式开关
       this.$darkBtn.find('label').click(function (e) {
         e.stopPropagation();
         var oldChecked = (0, _jquery2.default)(e.currentTarget).parent().find('input')[0].checked;
@@ -28266,6 +28272,8 @@ var NotionX = function () {
           (0, _jquery2.default)('html').removeClass('notionx-dark');
         }
       });
+
+      // 切换边栏按钮
       this.$sideBarBtn.hover(
       // mouseover
       function (e) {
@@ -28302,8 +28310,48 @@ var NotionX = function () {
       this.$hiderBtn.click(function (e) {
         _this3.curState[_constant.VIEW_STATE.HIDE](e);
       });
+
+      // 设置模块切换
       this.$sideHeader.click(function (e) {
         // TODO 显示设置模块
+      });
+
+      // resizer
+      this.$resizer.mousedown(function (e) {
+        debugger;
+        var box = _this3.$notionx;
+        var fa = _this3.$notionXWrap;
+        // 阻止冒泡,避免缩放时触发移动事件
+        e.stopPropagation();
+        e.preventDefault();
+        var pos = {
+          w: box.offsetWidth,
+          h: box.offsetHeight,
+          x: e.clientX,
+          y: e.clientY
+        };
+        fa.onmousemove = function (ev) {
+          ev.preventDefault();
+          // 设置图片的最小缩放为30*30
+          var w = Math.max(30, ev.clientX - pos.x + pos.w);
+          var h = Math.max(30, ev.clientY - pos.y + pos.h);
+          // console.log(w,h)
+
+          // 设置图片的最大宽高
+          w = w >= fa.offsetWidth - box.offsetLeft ? fa.offsetWidth - box.offsetLeft : w;
+          h = h >= fa.offsetHeight - box.offsetTop ? fa.offsetHeight - box.offsetTop : h;
+          box.style.width = w + 'px';
+          box.style.height = h + 'px';
+          // console.log(box.offsetWidth,box.offsetHeight)
+        };
+        fa.onmouseleave = function () {
+          fa.onmousemove = null;
+          fa.onmouseup = null;
+        };
+        fa.onmouseup = function () {
+          fa.onmousemove = null;
+          fa.onmouseup = null;
+        };
       });
     }
   }, {
@@ -28389,7 +28437,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 var template = {
-  notionx: "\n  <div id=\"notionx\" class=\"notionx-sidebar-container\">\n    <nav class=\"notionx-sidebar\">\n\n      <div class=\"notionx-header\">\n        <div class=\"notionx-icon logo\">\n          <svg aria-hidden=\"true\">\n            <use xlink:href=\"#notionx\"></use>\n          </svg>\n        </div>\n        <div class=\"title-wrap\">\n          <div class=\"title\">NotionX</div>\n          <div class=\"notionx-icon unclickable\">\n            <svg aria-hidden=\"true\">\n              <use xlink:href=\"#setting\"></use>\n            </svg>\n          </div>\n        </div>\n        <div class=\"notionx-hider-btn notionx-icon\">\n          <svg aria-hidden=\"true\">\n            <use xlink:href=\"#right-arrow\"></use>\n          </svg>\n        </div>\n      </div>\n\n      <div class=\"notionx-views\">\n        <div class=\"notionx-view notionx-view-toc\">\n          <div class=\"header\">\n            <input type=\"checkbox\" id=\"toc-inp\"/>\n            <label for=\"toc-inp\">\n              Table Of Content\n            </label>\n            <div class=\"content notionx-view-toc-wrap\">content</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"notionx-footer\">\n        <div style=\"flex: 1 1 auto;\">\n          NotionX by\n          <a href=\"www.scarsu.com\">ScarSu</a>\n        </div>\n        <div class=\"notionx-icon to-top-btn\">\n          <svg aria-hidden=\"true\">\n            <use xlink:href=\"#top\"></use>\n          </svg>\n        </div>\n      </div>\n    </nav>\n  </div>\n  ",
+  notionx: "\n  <div id=\"notionx\" class=\"notionx-sidebar-container\">\n    <nav class=\"notionx-sidebar\">\n      <div class=\"notionx-resizer\"></div>\n\n      <div class=\"notionx-header\">\n        <div class=\"notionx-icon logo\">\n          <svg aria-hidden=\"true\">\n            <use xlink:href=\"#notionx-svg\"></use>\n          </svg>\n        </div>\n        <div class=\"title-wrap\">\n          <div class=\"title\">NotionX</div>\n          <div class=\"notionx-icon unclickable\">\n            <svg aria-hidden=\"true\">\n              <use xlink:href=\"#setting\"></use>\n            </svg>\n          </div>\n        </div>\n        <div class=\"notionx-hider-btn notionx-icon\">\n          <svg aria-hidden=\"true\">\n            <use xlink:href=\"#right-arrow\"></use>\n          </svg>\n        </div>\n      </div>\n\n      <div class=\"notionx-views\">\n        <div class=\"notionx-view notionx-view-toc\">\n          <div class=\"header\">\n            <input type=\"checkbox\" id=\"toc-inp\"/>\n            <label for=\"toc-inp\">\n              Table Of Content\n            </label>\n            <div class=\"content notionx-view-toc-wrap\">content</div>\n          </div>\n        </div>\n      </div>\n\n      <div class=\"notionx-footer\">\n        <div style=\"flex: 1 1 auto;\">\n          NotionX by\n          <a href=\"www.scarsu.com\">ScarSu</a>\n        </div>\n        <div class=\"notionx-icon to-top-btn\">\n          <svg aria-hidden=\"true\">\n            <use xlink:href=\"#top\"></use>\n          </svg>\n        </div>\n      </div>\n    </nav>\n  </div>\n  ",
   // <a class="to-top-btn" href="#">SCROLL TO TOP</a>
   settingView: "\n  <div class=\"notionx-view notionx-view-setting\">\n    <div>\n      <span>how to trigger sidebar:</span>\n      <select name=\"triggerWay\" id=\"triggerWay\">\n        <option value=\"hover\">hover</option>\n        <option value=\"click\">click</option>\n      </select>\n    </div>\n    <div>\n      <span>Hide Dark Mode Btn:</span>\n      <input type=\"checkbox\" name=\"showDark\" id=\"showDark\"/>\n    </div>\n  </div>\n  ",
   sideBarBtn: "\n  <div id=\"notionx-sidebar-btn\" title=\"Lock Notionx open\">\n    <div style=\"position:relative;\">\n      <div class=\"icon-wrap unactive\">\n        <div class=\"notionx-icon\">\n          <svg aria-hidden=\"true\">\n            <use xlink:href=\"#list\"></use>\n          </svg>\n        </div>\n      </div>\n      <div class=\"icon-wrap active\">\n        <div class=\"notionx-icon\">\n          <svg aria-hidden=\"true\">\n            <use xlink:href=\"#left-arrow\"></use>\n          </svg>\n        </div>\n      </div>\n    </div>\n  </div>\n  ",

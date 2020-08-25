@@ -6,6 +6,7 @@
   height: 100vh;
   box-sizing: border-box;
   cursor: default;
+  user-select: none;
   display: block;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
 
@@ -159,6 +160,13 @@
           padding-left: 40px;
         }
       }
+    }
+    .notionx-resizer{
+      cursor: col-resize;
+      height: 100%;
+      width: 16px;
+      margin-left: -8px;
+      position: absolute;
     }
   }
   a {

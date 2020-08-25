@@ -2,7 +2,7 @@ import $ from 'jquery'
 import _ from 'lodash'
 import template from './template'
 import { DomObserver, notionxLocalStore, scrollToTop } from './util'
-import { DEFAULT_OPTS, NOTION_WRAPPER_SELECTOR, NOTION_APP_SELECTOR, VIEW_STATE } from './constant'
+import { DEFAULT_OPTS, NOTION_WRAPPER_SELECTOR, NOTION_APP_SELECTOR, VIEW_STATE, MAX_WIDTH } from './constant'
 
 export default class NotionX {
   constructor () {
@@ -121,6 +121,7 @@ export default class NotionX {
     this.$sideHeader = this.$notionx.find('.notionx-header')
     this.$tocWrap = this.$notionx.find('.notionx-view-toc-wrap')
     this.$toTopBtn = this.$notionx.find('.to-top-btn')
+    this.$resizer = this.$notionx.find('.notionx-resizer')
     this.$sideBarBtn = $(template.sideBarBtn)
     this.$darkBtn = $(template.darkBtn)
 
@@ -136,7 +137,10 @@ export default class NotionX {
     // TODO 页面离开后关闭页面
     // observer.disconnect()
 
+    // 去顶部按钮
     this.$toTopBtn.click(scrollToTop)
+
+    // 暗黑模式开关
     this.$darkBtn.find('label').click(e => {
       e.stopPropagation()
       const oldChecked = $(e.currentTarget).parent().find('input')[0].checked
@@ -148,6 +152,8 @@ export default class NotionX {
         $('html').removeClass('notionx-dark')
       }
     })
+
+    // 切换边栏按钮
     this.$sideBarBtn.hover(
       // mouseover
       e => {
@@ -186,8 +192,48 @@ export default class NotionX {
     this.$hiderBtn.click(e => {
       this.curState[VIEW_STATE.HIDE](e)
     })
+
+    // 设置模块切换
     this.$sideHeader.click(e => {
       // TODO 显示设置模块
+    })
+
+    // resizer
+    this.$resizer.mousedown(e => {
+      console.log(MAX_WIDTH)
+      const box = this.$notionx
+      const fa = this.$notionXWrap
+      // 阻止冒泡,避免缩放时触发移动事件
+      e.stopPropagation()
+      e.preventDefault()
+      var pos = {
+        w: box.offsetWidth,
+        h: box.offsetHeight,
+        x: e.clientX,
+        y: e.clientY
+      }
+      fa.onmousemove = function (ev) {
+        ev.preventDefault()
+        // 设置图片的最小缩放为30*30
+        var w = Math.max(30, ev.clientX - pos.x + pos.w)
+        var h = Math.max(30, ev.clientY - pos.y + pos.h)
+        // console.log(w,h)
+
+        // 设置图片的最大宽高
+        w = w >= fa.offsetWidth - box.offsetLeft ? fa.offsetWidth - box.offsetLeft : w
+        h = h >= fa.offsetHeight - box.offsetTop ? fa.offsetHeight - box.offsetTop : h
+        box.style.width = w + 'px'
+        box.style.height = h + 'px'
+        // console.log(box.offsetWidth,box.offsetHeight)
+      }
+      fa.onmouseleave = function () {
+        fa.onmousemove = null
+        fa.onmouseup = null
+      }
+      fa.onmouseup = function () {
+        fa.onmousemove = null
+        fa.onmouseup = null
+      }
     })
   }
 

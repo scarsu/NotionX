@@ -2,11 +2,12 @@ const template = {
   notionx: `
   <div id="notionx" class="notionx-sidebar-container">
     <nav class="notionx-sidebar">
+      <div class="notionx-resizer"></div>
 
       <div class="notionx-header">
         <div class="notionx-icon logo">
           <svg aria-hidden="true">
-            <use xlink:href="#notionx"></use>
+            <use xlink:href="#notionx-svg"></use>
           </svg>
         </div>
         <div class="title-wrap">

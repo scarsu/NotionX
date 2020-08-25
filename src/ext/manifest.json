@@ -27,8 +27,8 @@
 	[
 		{
 			"matches": ["<all_urls>"],
-			"js": ["asset/svg-symbols.js","content-script.js"],
-			"css": ["css/custom.css"],
+			"js": ["asset/svg-symbols.js","content-script.js", "lib/jquery.js", "lib/jquery-ui.min.js"],
+			"css": ["css/custom.css", "lib/jquery-ui.min.css"],
 			"run_at": "document_start"
 		}
 	]
