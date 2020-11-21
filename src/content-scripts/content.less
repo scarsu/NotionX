@@ -1,0 +1,390 @@
+/**
+ * 整体布局
+ * --------------------------------
+ * div#notionx.notionx-sidebar-container
+ * |---nav.notionx-sidebar
+ *      |---div.notionx-resizer
+ *      |---div.notionx-header
+ *      |---div.notionx-views
+ *            |---div.notionx-view-toc
+ *            |---div.notionx-view-option
+ *      |---div.notionx-footer
+ * --------------------------------
+*/
+#notionx {
+  line-height: 1.5em;
+  border: none;
+  text-overflow: ellipsis;
+  // overflow-y: auto;
+  height: 100vh;
+  box-sizing: border-box;
+  cursor: default;
+  user-select: none;
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+
+  flex-grow: 0;
+  flex-shrink: 0;
+  pointer-events: none;
+  position: relative;
+  z-index: 99;
+  background: rgb(247, 246, 243);
+  transition: box-shadow,width 200ms ease-in 0s;
+  // overflow: visible;
+  width:0;
+  &.no-transition{
+    transition: none;
+  }
+
+  nav.notionx-sidebar {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    pointer-events: auto;
+    opacity: 0;
+    height: 100%;
+    transition: transform 200ms ease-in 0s,opacity 0s ease-in 200ms;
+    width: 283px;
+    opacity: 1;
+    background-color: #eeeeee;
+    cursor: pointer;
+    color: rgba(25, 23, 17, 0.6);
+    font-weight: 500;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    background: white;
+    opacity: 0;
+    box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
+    padding-left:0;
+    transform: translateX(26px) translateY(37px);
+    max-height: calc(~"100vh - 74px");
+    .notionx-hider-btn {
+      cursor: pointer;
+    }
+    .option-btn.active{
+      background-color: #DAD9D6;
+    }
+    .notionx-header{
+      flex: 0 0 auto;
+      user-select: none;
+      transition: background-color 20ms ease-in 0s;
+      box-shadow: rgba(55, 53, 47, 0.09) 0px 1px 0px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      min-width: 0px;
+      height: 45px;
+      width: 100%;
+      font-size: 14px;
+      padding: 2px 14px;
+      svg{
+        width: 12px;
+        height: 12px;
+      }
+      .title-wrap{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex: 1 1 auto;
+        padding-left: 10px;
+      }
+      &:hover{
+        background-color: rgba(55,53,47,0.08);
+      }
+      .logo{
+        width: 22px;
+        height: 22px;
+        svg{
+          width: 22px;
+          height: 22px;
+        }
+      }
+      .title{
+        // color: rgb(55, 53, 47);
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+      }
+    }
+    .notionx-views{
+      cursor: default;
+      padding: 2px 14px;
+      flex:1 1 auto;
+      overflow-y: auto;
+      .notionx-view{
+        display: block;
+        &.hide{
+          display: none;
+        }
+        .header{
+          input{
+            display: none;
+            &+label+.content{
+              display: block;
+            }
+            &:checked+label+.content{
+              display: none;
+            }
+          }
+          label{
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+            letter-spacing: 0.03em;
+            font-size: 11.5px;
+            line-height: 1;
+            margin-bottom: 1px;
+            display: inline-block;
+            text-transform: uppercase;
+            cursor:pointer;
+            user-select: none;
+            color: rgba(55, 53, 47, 0.4);
+            font-weight: 600;
+            transition: color,background-color 100ms ease-out 0s;
+            &:hover{
+              color: rgba(55, 53, 47, 0.6);
+              background-color: rgba(55, 53, 47, 0.08);;
+            }
+          }
+        }
+      }
+    }
+    .notionx-footer{
+      flex: 0 0 auto;
+      padding: 2px 14px;
+      user-select: none;
+      box-shadow: rgba(55, 53, 47, 0.09) 0px -1px 0px;
+      display: flex;
+      align-items: center;
+      min-height: 27px;
+      font-size: 14px;
+      padding: 2px 14px;
+      width: 100%;
+      color: rgba(55, 53, 47, 0.6);
+      height: 45px;
+    }
+    .notionx-view-toc-content-wrap{
+      padding-bottom: 20px;
+      li {
+        list-style: none;
+        overflow: hidden;
+        max-width: 300px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        cursor: pointer;
+        &.level-1 {
+          padding-left: 0;
+        }
+        &.level-2 {
+          padding-left: 20px;
+        }
+        &.level-3 {
+          padding-left: 40px;
+        }
+      }
+    }
+    .notionx-resizer{
+      cursor: col-resize;
+      height: 100%;
+      width: 16px;
+      margin-left: -8px;
+      position: absolute;
+    }
+  }
+  a {
+    color: inherit;
+    &:active {
+      color: inherit;
+    }
+  }
+  a {
+    color: inherit;
+  }
+
+  .to-top-btn {
+    flex: 0 0 auto;
+    // font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
+    // letter-spacing: 0.03em;
+    // font-size: 11.5px;
+    // line-height: 1;
+    // margin-bottom: 1px;
+    // display: inline-block;
+    // text-transform: uppercase;
+    // cursor: pointer;
+    // user-select: none;
+    // color: rgba(55, 53, 47, 0.4);
+    // font-weight: 600;
+    // transition: color 0s ease 0s, background-color 100ms ease-out 0s;
+  }
+
+  &.hover {
+    pointer-events: auto;
+
+    .notionx-sidebar {
+      opacity: 1;
+      transform: translateX(-283px) translateY(37px);
+      transition: transform 200ms ease-in 0s;
+    }
+  }
+
+  &.pinned {
+    width: 283px;
+    pointer-events: auto;
+
+    .notionx-sidebar {
+      background: rgb(247, 246, 243);
+      color: rgba(25, 23, 17, 0.6);
+      font-weight: 500;
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+      max-height: 100%;
+      box-shadow: none;
+    }
+  }
+}
+
+#notionx-sidebar-btn {
+  flex-shrink: 0;
+  cursor: pointer;
+  opacity: 1;
+  position: relative;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0 6px;
+  width: 36px;
+  .icon-wrap{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    will-change: opacity;
+    transition: background,opacity .2s ease-in;
+    .notionx-icon{
+      position: relative;
+      top: 0px;
+      right: 0px;
+      width: 28px;
+      height: 28px;
+    }
+    &.active{
+      opacity: 0;
+    }
+    &.inactive{
+      opacity: 1;
+      color:rgb(55, 53, 47);
+    }
+  }
+  &.hide{
+    display: none;
+  }
+  &.hover{
+    .inactive{
+      opacity: 0;
+    }
+    .active{
+      opacity: 1;
+      background-color: rgba(55,53,47,0.08);
+    }
+  }
+}
+
+/* dark btn */
+#notionx-dark-btn {
+  user-select: none;
+  transition: background-color 20ms ease-in 0s;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  white-space: nowrap;
+  height: 28px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1.2;
+  min-width: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: rgb(55, 53, 47);
+}
+
+#notionx-dark-btn input {
+  visibility: hidden;
+  cursor: pointer;
+}
+
+#notionx-dark-btn label {
+  display: inline-flex;
+  border: 1px solid #444;
+  width: 35px;
+  height: 18px;
+  line-height: 28px;
+  border-radius: 15px;
+  background-color: #ecece9;
+  cursor: pointer;
+  transition: all .15s linear;
+}
+
+#notionx-dark-btn input:checked+label {
+  background-color: #0a0a0a;
+}
+
+#notionx-dark-btn input:checked+label:after {
+  left: 12px;
+  background-color: #fcfcfc;
+  box-shadow: none;
+}
+
+#notionx-dark-btn label:after {
+  cursor: pointer;
+  content: '';
+  display: block;
+  position: relative;
+  top: 0px;
+  left: 1px;
+  width: 20px;
+  height: 14px;
+  margin-top: 1px;
+  background-color: #333;
+  border-radius: 15px;
+  box-shadow: 1px 1px 4px 0px #676767;
+  transition: all .15s linear;
+}
+
+/* 暗号模式 */
+html.notionx-dark {
+  filter: invert(80%) hue-rotate(200deg)
+}
+
+/* icon */
+.notionx-icon{
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 3px;
+  transition: background-color 20ms ease-in 0s;
+  svg{
+    color: rgba(25, 23, 17, 0.6);
+    width: 16px;
+    height: 16px;
+    display: block;
+    fill: rgba(55, 53, 47, 0.8);
+    flex-shrink: 0;
+    backface-visibility: hidden;
+  }
+  &:hover{
+    background-color: rgba(55,53,47,0.08);
+  }
+  &.unclickable:hover{
+    background-color: inherit;
+  }
+}
+
+/* notion源样式变更 */
+.notionX-notionCenter{
+  overflow-x:auto;
+}
