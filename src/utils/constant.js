@@ -1,37 +1,22 @@
-export const NOTION_APP_SELECTOR = '#notion-app';
-export const NOTION_SCROLLER_SELECTOR = '.notion-scroller';
-export const NOTION_WRAPPER_SELECTOR = '.notion-cursor-listener';
+export const NOTION_APP_SELECTOR = '#notion-app'
+export const NOTION_SCROLLER_SELECTOR = '.notion-scroller'
+export const NOTION_WRAPPER_SELECTOR = '.notion-cursor-listener'
 
-export const NOTIONX_STORE_KEY = 'notionx';
-export const STORE = {
-  SHOW_DARK: 'showDark',
-  HOTKEYS: 'hotKeys',
-  WIDTH: 'width',
-  PINNED: 'pinned',
-};
+export const NOTIONX_STORE_KEY = 'notionx'
 
 export const DEFAULT_OPTS = {
-  SHOW_DARK: true,
-  HOTKEYS: '⌘+⇧+x',
-  WIDTH: 220,
-  PINNED: false,
-};
+  showDark: true,
+  hotKeys: '⌘+⇧+x',
+  width: 220,
+  pinned: false
+}
 
 export const VIEW_STATE = {
   HIDE: 'hide',
   HOVER: 'hover',
-  PINNED: 'pinned',
-};
+  PINNED: 'pinned'
+}
 
-export const EVENT = {
-  HOVER: 'notionx:hover',
-  PINNED: 'notionx:pinned',
-  UNPIN: 'notionx:unpin',
-  HIDE: 'notionx:hide',
-  SHOW_DARK: 'notionx:showDark',
-  HIDE_DARK: 'notionx:hideDark',
-};
-
-export const MAX_WIDTH = 480;
-export const MIN_WIDTH = 190;
-export const DEFAULT_VIEW_KEY = 'toc';
+export const MAX_WIDTH = 480
+export const MIN_WIDTH = 190
+export const DEFAULT_VIEW_KEY = 'toc'

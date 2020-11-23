@@ -40,6 +40,10 @@ const template = {
             <label>
               Options
             </label>
+            <label for="toc-show-dark">
+            显示暗黑模式开关
+            </label>
+            <input type="checkbox" id="toc-show-dark"/>
           </div>
         </div>
       </div>
@@ -100,13 +104,13 @@ const template = {
     <label for="dark-mode-inp"></label>
   </div>
   `,
-};
+}
 // 转换图片资源路径
-function _adapterImg(obj) {
+function _adapterImg (obj) {
   // for (const key in obj) {
   //   const str = obj[key]
   //   str.replace(/<img/, '')
   // }
-  return obj;
+  return obj
 }
-export default _adapterImg(template);
+export default _adapterImg(template)
