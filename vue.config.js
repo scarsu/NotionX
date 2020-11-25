@@ -1,6 +1,6 @@
-const path = require('path');
+const path = require('path')
 
-const resolve = (dir) => path.join(__dirname, '.', dir);
+const resolve = (dir) => path.join(__dirname, '.', dir)
 
 module.exports = {
   pages: {
@@ -9,17 +9,17 @@ module.exports = {
       entry: './src/popup/main.js',
       title: 'Popup',
     },
-    options: {
-      template: 'public/browser-extension.html',
-      entry: './src/options/main.js',
-      title: 'Options',
-    },
-    standalone: {
-      template: 'public/browser-extension.html',
-      entry: './src/standalone/main.js',
-      title: 'Standalone',
-      filename: 'index.html',
-    },
+    // options: {
+    //   template: 'public/browser-extension.html',
+    //   entry: './src/options/main.js',
+    //   title: 'Options',
+    // },
+    // standalone: {
+    //   template: 'public/browser-extension.html',
+    //   entry: './src/standalone/main.js',
+    //   title: 'Standalone',
+    //   filename: 'index.html',
+    // },
   },
   pluginOptions: {
     browserExtension: {
@@ -46,7 +46,7 @@ module.exports = {
     config.module
       .rule('svg')
       .exclude.add(resolve('src/assets/svg'))
-      .end();
+      .end()
     config.module
       .rule('icon')
       .test(/\.svg$/)
@@ -57,6 +57,6 @@ module.exports = {
       .options({
         symbolId: 'icon-[name]',
       })
-      .end();
+      .end()
   },
-};
+}

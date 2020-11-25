@@ -6,6 +6,7 @@ export const NOTIONX_STORE_KEY = 'notionx'
 
 export const DEFAULT_OPTS = {
   showDark: true,
+  dark: false,
   hotKeys: '⌘+⇧+x',
   width: 220,
   pinned: false

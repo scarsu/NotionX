@@ -1,6 +1,5 @@
 简体中文 | [English](./README.md)
 
-<h1 align="center">重构中...</h1>
 <h1 align="center">NotionX</h1>
 
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
@@ -8,15 +7,15 @@
 一个增强 Notion 体验的浏览器插件。
 
 - 侧边栏TOC： 根据Notion Page中的Heading Block 1-3，在网页侧边栏自动生成Notion文章的TOC目录。
-- 暗黑模式： 相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。您可以根据自己的口味选择，在“setting”中可以将插件暗黑模式按钮隐藏。
+- 暗黑模式： 相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。。
 
-![preview](./src/assets/img/preview_v2.gif)
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201125192726.gif)
 
 ## Usage
 
 - [Google Store](..)
-- Chrome打开开发者模式导入整个包使用
-- 下载`/dist`目录下的`crx`文件使用
+- 下载`crx`文件
+- 下载本仓库，`npm run build`打包后，Chrome开发者模式导入整个包使用
 
 ## Maintainers
 
@@ -24,7 +23,8 @@
 
 ## Contributing
 
-PRs accepted.
+- 如有问题或者建议，[请在此处反馈](https://github.com/scarsu/NotionX/issues/new)
+- 接收PR，欢迎贡献。
 
 Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.
 

@@ -119,8 +119,8 @@
         &.hide{
           display: none;
         }
-        .header{
-          input{
+        .toggle-box{/* 纯css控制可折叠区块 */
+          &>input{
             display: none;
             &+label+.content{
               display: block;
@@ -129,7 +129,7 @@
               display: none;
             }
           }
-          label{
+          &>label{
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol";
             letter-spacing: 0.03em;
             font-size: 11.5px;
@@ -146,6 +146,13 @@
               color: rgba(55, 53, 47, 0.6);
               background-color: rgba(55, 53, 47, 0.08);;
             }
+          }
+        }
+        .form-item{
+          &>input,&>label{
+            font-size:14px;
+            line-height: 24px;
+            vertical-align: middle;
           }
         }
       }
@@ -181,6 +188,14 @@
         }
         &.level-3 {
           padding-left: 40px;
+        }
+        a{
+          display: inline-block;
+          width: 100%;
+          text-decoration: none;
+        }
+        &:hover{
+          background-color: #E8E7E4;
         }
       }
     }

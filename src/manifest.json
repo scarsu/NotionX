@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
   "name": "__MSG_extName__",
-  "homepage_url": "http://localhost:8080/",
-  "description": "A Vue Browser Extension",
+  "homepage_url": "https://github.com/scarsu/NotionX",
+  "description": "A Browser Extension that enhances Notion experience.",
   "default_locale": "en",
   "permissions": [
     "activeTab",

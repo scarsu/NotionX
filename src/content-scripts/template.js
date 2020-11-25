@@ -12,11 +12,11 @@ const template = {
         </div>
         <div class="title-wrap">
           <div class="title">NotionX</div>
-          <div class="notionx-icon option-btn">
+          <!--<div class="notionx-icon option-btn">
             <svg aria-hidden="true">
               <use xlink:href="#icon-setting"></use>
             </svg>
-          </div>
+          </div>-->
         </div>
         <div class="notionx-hider-btn notionx-icon">
           <svg aria-hidden="true">
@@ -27,23 +27,28 @@ const template = {
 
       <div class="notionx-views">
         <div class="notionx-view notionx-view-toc" data-view="toc">
-          <div class="header">
+          <div class="toggle-box">
             <input type="checkbox" id="toc-inp"/>
             <label for="toc-inp">
               Table Of Content
             </label>
-            <div class="content notionx-view-toc-content-wrap">content</div>
+            <div class="content notionx-view-toc-content-wrap"></div>
           </div>
         </div>
         <div class="notionx-view notionx-view-option" data-view="option">
-          <div class="header">
-            <label>
+          <div class="toggle-box">
+            <input type="checkbox" id="option-inp"/>
+            <label for="option-inp">
               Options
             </label>
-            <label for="toc-show-dark">
-            显示暗黑模式开关
-            </label>
-            <input type="checkbox" id="toc-show-dark"/>
+            <div class="content">
+              <div class="form-item">
+                <input type="checkbox" id="toc-show-dark" name="showDark"/>
+                <label for="toc-show-dark">
+                  显示暗黑模式开关
+                </label>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -51,7 +56,7 @@ const template = {
       <div class="notionx-footer">
         <div style="flex: 1 1 auto;">
           NotionX by
-          <a href="www.scarsu.com">ScarSu</a>
+          <a target="_blank" href="https://github.com/scarsu/NotionX">ScarSu</a>
         </div>
         <div class="notionx-icon to-top-btn">
           <svg aria-hidden="true">
@@ -60,22 +65,6 @@ const template = {
         </div>
       </div>
     </nav>
-  </div>
-  `,
-  // <a class="to-top-btn" href="#">SCROLL TO TOP</a>
-  settingView: `
-  <div class="notionx-view notionx-view-setting">
-    <div>
-      <span>how to trigger sidebar:</span>
-      <select name="triggerWay" id="triggerWay">
-        <option value="hover">hover</option>
-        <option value="click">click</option>
-      </select>
-    </div>
-    <div>
-      <span>Hide Dark Mode Btn:</span>
-      <input type="checkbox" name="showDark" id="showDark"/>
-    </div>
   </div>
   `,
   sideBarBtn: `

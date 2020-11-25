@@ -11,8 +11,8 @@ import {
   NOTION_WRAPPER_SELECTOR,
   NOTION_APP_SELECTOR,
   VIEW_STATE,
-  MAX_WIDTH,
-  MIN_WIDTH,
+  // MAX_WIDTH,
+  // MIN_WIDTH,
   DEFAULT_VIEW_KEY
 } from '../utils/constant'
 
@@ -81,7 +81,6 @@ export default class NotionX {
         [VIEW_STATE.HIDE]: () => {},
         // hide => hover
         [VIEW_STATE.HOVER]: () => {
-          console.log('hide => hover')
           this.$notionx.removeClass('pinned')
           this.$notionx.addClass('hover')
           this.$sideBarBtn.addClass('hover')
@@ -90,7 +89,6 @@ export default class NotionX {
         },
         // hide => pinned
         [VIEW_STATE.PINNED]: () => {
-          console.log('hide => pinned')
           // TODO store存储
           this.$notionx.removeClass('hover')
           this.$notionx.addClass('pinned')
@@ -108,7 +106,6 @@ export default class NotionX {
         [VIEW_STATE.HOVER]: () => {},
         // hover => hide
         [VIEW_STATE.HIDE]: () => {
-          console.log('hover => hide')
           this.$notionx.removeClass('pinned')
           this.$notionx.removeClass('hover')
           this.$sideBarBtn.removeClass('hover')
@@ -117,7 +114,6 @@ export default class NotionX {
         },
         // hover => pinned
         [VIEW_STATE.PINNED]: () => {
-          console.log('hover => pinned')
           // TODO store存储
           this.$notionx.removeClass('hover')
           this.$notionx.addClass('pinned')
@@ -133,7 +129,6 @@ export default class NotionX {
         [VIEW_STATE.PINNED]: () => {},
         // pinned => hide
         [VIEW_STATE.HIDE]: () => {
-          console.log('pinned => hide')
           // TODO store存储
           this.$notionx.removeClass('pinned')
           this.$notionx.removeClass('hover')
@@ -144,7 +139,6 @@ export default class NotionX {
         },
         // pinned => hover
         [VIEW_STATE.HOVER]: () => {
-          console.log('pinned => hover')
           // TODO store存储
           this.$notionx.addClass('hover')
           this.$notionx.removeClass('pinned')
@@ -194,6 +188,7 @@ export default class NotionX {
     this.$tocWrap = this.$notionx.find('.notionx-view-toc-content-wrap')
     this.$toTopBtn = this.$notionx.find('.to-top-btn')
     this.$optionBtn = this.$notionx.find('.option-btn')
+    this.$optionView = this.$notionx.find('.notionx-view-option')
     this.$resizer = this.$notionx.find('.notionx-resizer')
     this.$views = this.$notionx.find('.notionx-views')
     this.$sideBarBtn = $(template.sideBarBtn)
@@ -206,6 +201,18 @@ export default class NotionX {
     this.$headerBtnWrap.append(this.$darkBtn)
     this.$headerBtnWrap.append(this.$sideBarBtn)
     this.$notionXWrap.append(this.$notionx)
+
+    // option值更新至 配置视图
+    for (const key in this.options) {
+      const inp = this.$optionView.find(`input[name=${key}]`)[0]
+      if (inp !== undefined) {
+        if (inp.type === 'checkbox') {
+          inp.checked = this.options[key]
+        } else {
+          inp.value = this.options[key]
+        }
+      }
+    }
   }
 
   initEvents () {
@@ -220,10 +227,10 @@ export default class NotionX {
       e.stopPropagation()
       const oldChecked = $(e.currentTarget).parent().find('input')[0].checked
       if (!oldChecked) {
-        // TODO store存储
+        this.options.dark = true
         $('html').addClass('notionx-dark')
       } else {
-        // TODO store存储
+        this.options.dark = false
         $('html').removeClass('notionx-dark')
       }
     })
@@ -283,14 +290,21 @@ export default class NotionX {
       this.curState[VIEW_STATE.HIDE](e)
     })
 
-    // 设置模块切换
-    // this.$sideHeader.click((e) => {
-    //   // TODO 显示设置模块
-    //   console.log(e);
-    // });
+    // 设置模块字段变更监听
+    const inpChange = (e) => {
+      const inp = e.currentTarget
+      const key = inp.name
+      if (!key) return
+      if (inp.type === 'checkbox') {
+        this.optionChange(key, inp.checked)
+      } else {
+        this.optionChange(key, inp.value)
+      }
+    }
+    this.$optionView.find('input').change(inpChange)
 
     // resizer
-    const _resizer = this.$resizer
+    /* const _resizer = this.$resizer
     const _sidebar = this.$sidebar
     const _box = this.$notionx
     const _fa = this.$notionXWrap
@@ -328,7 +342,20 @@ export default class NotionX {
         _box.removeClass('no-transition')
       }
       if (_resizer.setCapture) _resizer.setCapture()
-    })
+    }) */
+  }
+
+  // 配置变更
+  optionChange (key, newValue) {
+    if (key === 'showDark') {
+      this.options[key] = newValue
+      this.toggleDark(newValue)
+    }
+  }
+
+  // 显示/隐藏暗黑模式按钮
+  toggleDark (flag) {
+    this.$darkBtn[0].style.display = flag ? 'inherit' : 'none'
   }
 
   _adapterNotionStyle () {
