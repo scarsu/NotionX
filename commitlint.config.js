@@ -9,7 +9,8 @@ module.exports = {
       'style', // format (changes that do not affect code running)
       'refactor', // neither a new feature nor a code change to fix bug
       'test', // changes related to project testing
-      'chore' // changes related to the build process or assistive tools
+      'chore', // changes related to the build process or assistive tools
+      'ci', // changes to our CI configuration files and scripts(example Travis,Circle,BrowserStack,SauceLabs)
     ]]
   }
 }
