@@ -7,6 +7,19 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scarsu/notionx.git"
+  },
+  "keywords": [
+    "Notion"
+  ],
+  "author": "ScarSu <scarsu001@gmail.com> (https://github.com/scarsu)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/scarsu/notionx/issues"
+  },
+  "homepage": "https://github.com/scarsu/notionx#readme",
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
@@ -17,6 +30,8 @@
     "vuex": "^3.4.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^9.1.1",
+    "@commitlint/config-conventional": "^9.1.1",
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
@@ -36,9 +51,24 @@
     "less-loader": "^7.1.0",
     "mini-css-extract-plugin": "^1.3.1",
     "sass": "^1.26.5",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.0.0-1",
     "sass-loader": "^8.0.2",
     "svg-sprite-loader": "^5.0.0",
     "vue-cli-plugin-browser-extension": "latest",
     "vue-template-compiler": "^2.6.11"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": "eslint"
+  },
+  "engines": {
+    "git": ">=2.13.0",
+    "node": ">=10.15.0"
   }
 }
