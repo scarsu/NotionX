@@ -14,12 +14,13 @@ module.exports = {
     //   entry: './src/options/main.js',
     //   title: 'Options',
     // },
-    // standalone: {
-    //   template: 'public/browser-extension.html',
-    //   entry: './src/standalone/main.js',
-    //   title: 'Standalone',
-    //   filename: 'index.html',
-    // },
+    standalone: {
+      template: 'public/browser-extension.html',
+      entry: './src/standalone/main.js',
+      title: 'NotionX',
+      filename: 'index.html',
+      chunks: ['chunk-vendors', 'standalone']
+    },
   },
   pluginOptions: {
     browserExtension: {

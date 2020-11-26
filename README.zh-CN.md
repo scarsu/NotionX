@@ -7,9 +7,10 @@
 一个增强 Notion 体验的浏览器插件。
 
 - 侧边栏TOC： 根据Notion Page中的Heading Block 1-3，在网页侧边栏自动生成Notion文章的TOC目录。
-- 暗黑模式： 相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。。
+- 暗黑模式： 相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。
 
-![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201125192726.gif)
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192422.gif)
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192421.gif)
 
 ## Usage
 
