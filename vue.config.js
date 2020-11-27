@@ -38,6 +38,9 @@ module.exports = {
       },
     },
   },
+  configureWebpack: config => {
+    config.output.publicPath = './'
+  },
   filenameHashing: false,
   css: {
     extract: true,

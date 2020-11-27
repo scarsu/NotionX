@@ -1,0 +1,13 @@
+diff --git a/node_modules/@vue/cli-service/lib/util/validateWebpackConfig.js b/node_modules/@vue/cli-service/lib/util/validateWebpackConfig.js
+index dc61dce..8dbf879 100644
+--- a/node_modules/@vue/cli-service/lib/util/validateWebpackConfig.js
++++ b/node_modules/@vue/cli-service/lib/util/validateWebpackConfig.js
+@@ -29,7 +29,7 @@ module.exports = function validateWebpackConfig (
+   }
+ 
+   if (target === 'app' && singleConfig.output.publicPath !== options.publicPath) {
+-    throw new Error(
++    if(singleConfig.output.publicPath !== './') throw new Error(
+       `\n\nConfiguration Error: ` +
+       `Avoid modifying webpack output.publicPath directly. ` +
+       `Use the "publicPath" option instead.\n`
