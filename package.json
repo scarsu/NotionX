@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/scarsu/notionx/issues"
   },
-  "homepage": "https://github.com/scarsu/notionx#readme",
+  "homepage": "http://scarsu.cn/notionx/",
   "dependencies": {
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
