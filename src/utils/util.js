@@ -38,8 +38,7 @@ export function scrollToTop () {
 }
 
 /**
- * 检查notion app加载
- * @param {string} selector 用于判断的函数
+ * @param {string} selector :for judging the loading status of notion app
  */
 export const waitNotionPageReady = (selector = '.notion-topbar') => new Promise((resolve) => {
   const delay = 500

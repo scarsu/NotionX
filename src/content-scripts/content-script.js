@@ -4,5 +4,5 @@ import './content.less'
 import { waitNotionPageReady } from '../utils/util'
 
 waitNotionPageReady().then(() => {
-  window.notionx = new NotionX()
+  if (!window.notionx) window.notionx = new NotionX()
 })

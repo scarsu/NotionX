@@ -2,8 +2,8 @@
 
 ## Features
 
-- [x] 低对比度暗黑模式
-- [x] 动态侧边栏TOC
+- [x] Dynamic Toc
+- [x] Global Low Contrast Dark Mode
 
 ## Bug Fixes
 

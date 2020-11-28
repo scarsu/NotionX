@@ -1,18 +1,27 @@
 <template>
-  <p>option page</p>
+  <div class="home">
+    <h1>NotionX option page reserved</h1>
+    <p>A Browser Extension that enhances Notion experience.</p>
+    <div>
+      <a target="_blank" href="http://www.scarsu.cn/notionx">Homepage</a>;
+      <a target="_blank" href="https://github.com/scarsu/NotionX/issues/new">Feedback Here</a>;
+      Open Source by
+      <a target="_blank" href="https://github.com/scarsu/NotionX">ScarSu</a>;
+    </div>
+  </div>
 </template>
 
 <script>
 
+import '@/assets/css/font.css'
 export default {
-  name: 'App',
+  name: 'Option',
   components: {},
 }
 </script>
 
 <style>
-html {
-  width: 400px;
-  height: 400px;
+.home{
+  width: 300px;
 }
 </style>

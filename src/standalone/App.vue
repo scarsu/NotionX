@@ -8,13 +8,13 @@
       <div class="title">NotionX</div>
     </div>
     <div class="right">
-      <a href="#" @click="openPage('https://www.notion.so/product')">
+      <a href="#" @click="window.open('https://www.notion.so/product')">
         Notion
         <svg aria-hidden="true">
           <use xlink:href="#icon-link"></use>
         </svg>
       </a>
-      <a href="#" @click="openPage('https://github.com/scarsu/NotionX')">
+      <a href="#" @click="window.open('https://github.com/scarsu/NotionX')">
         Github
         <svg aria-hidden="true">
           <use xlink:href="#icon-link"></use>
@@ -37,17 +37,40 @@
       <div class="feat">
         <img src="https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192422.gif" alt="preview">
         <p class="title">Global Low Contrast</p>
-        <p class="desc">Compared with Notion's official dark mode, the built-in dark mode of the extension has a lower visual contrast, which takes effect globally, including all contents such as pictures. .</p>
+        <p class="desc">Compared with Notion's official dark mode, the built-in dark mode of the extension has a lower visual contrast, which takes effect globally, including all contents such as pictures.</p>
         <p class="desc">相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。</p>
       </div>
     </section>
-    <footer>
-      <div class="row">
-        <div class="button">Get from Google Store →</div>
-        <a target="_blank" href="https://github.com/scarsu/NotionX/issues" title="Feedback Here">Want more features?</a>
+    <div class="row">
+      <div class="button primary" title="Download Extension">
+        <svg aria-hidden="true" style="width:1.5em;height:1.5em;">
+          <use xlink:href="#icon-google"></use>
+        </svg>
+        for Chrome
+        <svg aria-hidden="true">
+          <use xlink:href="#icon-link-w"></use>
+        </svg>
       </div>
-      <div class="copyright">© 2020 ScarSu</div>
-    </footer>
+      <div class="button primary" title="Download Extension">
+        <svg aria-hidden="true" style="width:1.5em;height:1.5em;">
+          <use xlink:href="#icon-firefox"></use>
+        </svg>
+        for Firefox
+        <svg aria-hidden="true">
+          <use xlink:href="#icon-link-w"></use>
+        </svg>
+      </div>
+      <div class="button primary" title="Download Extension">
+        Download
+        <svg aria-hidden="true">
+          <use xlink:href="#icon-download"></use>
+        </svg>
+      </div>
+      <a target="_blank" href="https://github.com/scarsu/NotionX/issues" title="Feedback Here">Want more features?</a>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="copyright">© 2020 ScarSu</div>
   </div>
 </div>
 </template>
@@ -55,13 +78,10 @@
 <script>
 
 import '@/assets/svg'
+import '@/assets/css/font.css'
 export default {
   name: 'App',
-  methods: {
-    openPage (url) {
-      window.open(url)
-    }
-  },
+  methods: {},
 }
 </script>
 <style lang="scss">
@@ -133,8 +153,8 @@ html,body{
   }
   .content{
     min-width: 100%;
-    height: calc( 100vh - 50px );
-    overflow-y: auto;
+    // height: calc( 100vh - 50px );
+    // overflow-y: auto;
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -144,7 +164,7 @@ html,body{
       align-items: center;
       justify-content: center;
       .title{
-        font-size: 1.8em;
+        font-size: 4em;
         font-weight: bold;
         margin: 2vh 0 2vh 0;
       }
@@ -156,7 +176,7 @@ html,body{
     }
     section{
       width: 70vw;
-      margin: 5vh 0;
+      margin: 10vh 0;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 0px 60px;
@@ -197,10 +217,52 @@ html,body{
         }
       }
     }
-    footer{
-      .row{
-        display: flex;
-        flex-direction: row;
+    .row{
+      display: flex;
+      flex-direction: row;
+      margin-bottom:10vh;
+      justify-content: space-around;
+      align-items: center;
+      .button{
+        height: 2.5em;
+        margin: 0 1em;
+        line-height: 2.5em;
+        padding: 0 1em;
+        border:1px solid transparent;
+        font-size: 1.3em;
+        user-select: none;
+        transition: background 20ms ease-in 0s;
+        cursor: pointer;
+        flex-shrink: 0;
+        white-space: nowrap;
+        border-radius: 3px;
+        box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px inset, rgba(15, 15, 15, 0.1) 0px 1px 2px;
+        font-weight: 500;
+        background: inherit;
+        color: inherit;
+        fill: inherit;
+        border-color: rgba(0, 0, 0, 0.1);
+        &:hover{
+          background: rgba(0, 0, 0, 0.1);
+        }
+        &.primary{
+          background: rgb(46, 170, 220);
+          color: white;
+          fill: white;
+          &:hover{
+            background: #069CCD;
+          }
+        }
+        svg{
+          width: 1em;
+          height: 1em;
+          line-height: 2.5em;
+          display: inline-block;
+          vertical-align: middle;
+          top: -2px;
+          position: relative;
+          margin: 0 5px;
+        }
       }
       a{
         color: rgba(0, 0, 0, 0.8);
@@ -215,33 +277,28 @@ html,body{
           color: rgba(0,0,0,0.95);
         }
       }
-      .button{
-        height: 2.5em;
-        line-height: 2.5em;
-        padding: 0 1em;
-        border:none;
-        font-size: 1.3em;
-        user-select: none;
-        transition: background 20ms ease-in 0s;
-        cursor: pointer;
-        flex-shrink: 0;
-        white-space: nowrap;
-        border-radius: 3px;
-        box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px inset, rgba(15, 15, 15, 0.1) 0px 1px 2px;
-        background: rgb(46, 170, 220);
-        color: white;
-        fill: white;
-        font-weight: 500;
-        &:hover{
-          background: #069CCD;
-        }
+    }
+  }
+  .footer{
+    border:1px solid rgba(0,0,0,0.1);
+    a{
+      color: rgba(0, 0, 0, 0.8);
+      margin-left: 20px;
+      line-height: 2.5em;
+      svg{
+        width: 1em;
+        height: 1em;
+        margin: 0;
       }
-      .copyright{
-        font-size: 1em;
-        color: #666;
-        text-align: center;
-        margin: 1em 0;
+      &:hover{
+        color: rgba(0,0,0,0.95);
       }
+    }
+    .copyright{
+      font-size: 1em;
+      color: #666;
+      text-align: center;
+      margin: 5vh 0;
     }
   }
 }

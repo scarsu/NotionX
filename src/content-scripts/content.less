@@ -1,5 +1,5 @@
 /**
- * 整体布局
+ * layout
  * --------------------------------
  * div#notionx.notionx-sidebar-container
  * |---nav.notionx-sidebar
@@ -175,10 +175,7 @@
       padding-bottom: 20px;
       li {
         list-style: none;
-        overflow: hidden;
-        max-width: 300px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        max-width: 100%;
         cursor: pointer;
         &.level-1 {
           padding-left: 0;
@@ -190,9 +187,13 @@
           padding-left: 40px;
         }
         a{
+          cursor: pointer;
           display: inline-block;
           width: 100%;
           text-decoration: none;
+          overflow: hidden;
+          white-space: nowrap;
+          text-overflow: ellipsis;
         }
         &:hover{
           background-color: #E8E7E4;
@@ -399,7 +400,7 @@ html.notionx-dark {
   }
 }
 
-/* notion源样式变更 */
+/* change original notion layout */
 .notionX-notionCenter{
   overflow-x:auto;
 }

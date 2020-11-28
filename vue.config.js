@@ -15,7 +15,7 @@ module.exports = {
     //   title: 'Options',
     // },
     standalone: {
-      template: 'public/browser-extension.html',
+      template: 'public/index.html',
       entry: './src/standalone/main.js',
       title: 'NotionX',
       filename: 'index.html',
@@ -25,9 +25,6 @@ module.exports = {
   pluginOptions: {
     browserExtension: {
       componentOptions: {
-        background: {
-          entry: 'src/background.js',
-        },
         contentScripts: {
           entries: {
             'content-script': [

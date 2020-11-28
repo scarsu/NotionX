@@ -68,7 +68,7 @@ const template = {
   </div>
   `,
   sideBarBtn: `
-  <div id="notionx-sidebar-btn" title="Lock Notionx open">
+  <div id="notionx-sidebar-btn" title="TOC">
     <div style="position:relative;">
       <div class="icon-wrap inactive">
         <div class="notionx-icon">
