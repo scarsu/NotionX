@@ -8,13 +8,19 @@
       <div class="title">NotionX</div>
     </div>
     <div class="right">
-      <a href="#" @click="window.open('https://www.notion.so/product')">
+      <a href="#" @click="openURL('https://www.notion.so/product')">
         Notion
         <svg aria-hidden="true">
           <use xlink:href="#icon-link"></use>
         </svg>
       </a>
-      <a href="#" @click="window.open('https://github.com/scarsu/NotionX')">
+      <a href="#" @click="openURL('https://github.com/scarsu/NotionX/issues')">
+        Issues
+        <svg aria-hidden="true">
+          <use xlink:href="#icon-link"></use>
+        </svg>
+      </a>
+      <a href="#" @click="openURL('https://github.com/scarsu/NotionX')">
         Github
         <svg aria-hidden="true">
           <use xlink:href="#icon-link"></use>
@@ -81,7 +87,11 @@ import '@/assets/svg'
 import '@/assets/css/font.css'
 export default {
   name: 'App',
-  methods: {},
+  methods: {
+    openURL (url) {
+      window.open(url)
+    }
+  },
 }
 </script>
 <style lang="scss">

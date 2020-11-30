@@ -20,6 +20,16 @@
     <meta property="og:image" content="<%= BASE_URL %>favicon.ico">
     <meta property="og:image:secure_url" content="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175312250-2"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-175312250-2');
+    </script>
+
   </head>
   <body>
     <noscript>

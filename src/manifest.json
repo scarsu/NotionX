@@ -5,9 +5,7 @@
   "description": "A Browser Extension that enhances Notion experience.",
   "default_locale": "en",
   "permissions": [
-    "activeTab",
-    "<all_urls>",
-    "*://*/*"
+    "https://*.notion.so/*"
   ],
   "icons": {
     "16": "icons/notionx-white.png",
