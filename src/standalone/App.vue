@@ -76,7 +76,13 @@
     </div>
   </div>
   <div class="footer">
-    <div class="copyright">© 2020 ScarSu</div>
+    <div class="copyright">
+      © 2020 <a href="https://www.scarsu.com" target="_blank">ScarSu</a>
+      <span class="split">-</span>
+      <a href="./privacy.html" target="_blank">隐私权政策</a>
+      <span class="split">-</span>
+      <a href="mailto:scarsu001@gmail.com" target="_blank">Contact</a>
+    </div>
   </div>
 </div>
 </template>
@@ -291,9 +297,11 @@ html,body{
   }
   .footer{
     border:1px solid rgba(0,0,0,0.1);
+    .split{
+      margin: 0 10px;
+    }
     a{
       color: rgba(0, 0, 0, 0.8);
-      margin-left: 20px;
       line-height: 2.5em;
       svg{
         width: 1em;

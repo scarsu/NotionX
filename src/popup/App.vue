@@ -6,6 +6,7 @@
       <li><a target="_blank" href="http://www.scarsu.cn/notionx">NotionX Homepage</a>;</li>
       <li><a target="_blank" href="https://github.com/scarsu/NotionX/issues/new">Feedback Here</a>;</li>
       <li>Open Source by<a target="_blank" href="https://github.com/scarsu/NotionX">ScarSu</a>;</li>
+      <li><a target="_blank" href="http://www.scarsu.cn/notionx/privacy.html">Privacy Policy</a>;</li>
     </div>
   </div>
 </template>
