@@ -14,9 +14,11 @@ Browser extension that enhances Notion experience.
 
 ## Usage
 
-- [Google Store](..)
+- Google Store
+- [FireFox - Mozilla addons](https://addons.mozilla.org/firefox/addon/notionx/)
 - Download the `crx` file.
-- Clone this repository,`npm run build` to build package, import the entire package in Chrome developer mode.
+- [Download the `xpi` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx-1.0.0-fx.xpi)
+- Clone this repository,`npm run build` to build package, import the entire `./dist` package in Chrome developer mode.
 
 ## Maintainers
 

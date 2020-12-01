@@ -57,7 +57,7 @@
           <use xlink:href="#icon-link-w"></use>
         </svg>
       </div>
-      <div class="button primary" title="Download Extension">
+      <div class="button primary" title="Download Extension" @click="openUrl('https://addons.mozilla.org/firefox/addon/notionx/')">
         <svg aria-hidden="true" style="width:1.5em;height:1.5em;">
           <use xlink:href="#icon-firefox"></use>
         </svg>
