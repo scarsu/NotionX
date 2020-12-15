@@ -48,7 +48,7 @@
       </div>
     </section>
     <div class="row">
-      <div class="button primary" title="Download Extension">
+      <div class="button primary" title="Download Extension" @click="openURL('https://chrome.google.com/webstore/detail/notionx/ojnlojnakahpmkbpigmjhcgibccnidpk')">
         <svg aria-hidden="true" style="width:1.5em;height:1.5em;">
           <use xlink:href="#icon-google"></use>
         </svg>
@@ -66,7 +66,7 @@
           <use xlink:href="#icon-link-w"></use>
         </svg>
       </div>
-      <div class="button primary" title="Download Extension">
+      <div class="button primary" title="Download Extension" @click="openURL('https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/ojnlojnakahpmkbpigmjhcgibccnidpk_main.crx')">
         Download
         <svg aria-hidden="true">
           <use xlink:href="#icon-download"></use>
