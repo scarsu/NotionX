@@ -4,7 +4,7 @@
     <p>A Browser Extension that enhances Notion experience.</p>
     <div>
       <a target="_blank" href="http://www.scarsu.cn/notionx">Homepage</a>;
-      <a target="_blank" href="https://github.com/scarsu/NotionX/issues/new">Feedback Here</a>;
+      <a target="_blank" href="https://github.com/scarsu/NotionX/discussions/4">Feedback Here</a>;
       Open Source by
       <a target="_blank" href="https://github.com/scarsu/NotionX">ScarSu</a>;
     </div>

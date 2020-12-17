@@ -26,7 +26,7 @@ Browser extension that enhances Notion experience.
 
 ## Contributing
 
-- [Feedback Here](https://github.com/scarsu/NotionX/issues/new)
+- [Feedback Here](https://github.com/scarsu/NotionX/discussions/4)
 - PRs accepted.
 
 Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.

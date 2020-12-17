@@ -26,7 +26,7 @@
 
 ## Contributing
 
-- 如有问题或者建议，[请在此处反馈](https://github.com/scarsu/NotionX/issues/new)
+- 如有问题或者建议，[请在此处反馈](https://github.com/scarsu/NotionX/discussions/4)
 - 接收PR，欢迎贡献。
 
 Small note: If editing the README, please conform to the [standard-readme](https://github.com/RichardLitt/standard-readme) specification.

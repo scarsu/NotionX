@@ -72,7 +72,7 @@
           <use xlink:href="#icon-download"></use>
         </svg>
       </div>
-      <a target="_blank" href="https://github.com/scarsu/NotionX/issues" title="Feedback Here">Want more features?</a>
+      <a target="_blank" href="https://github.com/scarsu/NotionX/discussions/4" title="Feedback Here">Want more features?</a>
     </div>
   </div>
   <div class="footer">

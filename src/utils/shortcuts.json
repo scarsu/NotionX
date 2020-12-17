@@ -1,0 +1,25 @@
+{
+  "Most popular":[
+    {
+      "mac":"cmd + shift + n / cmd + click",
+      "win":"ctrl + shift + n / ctrl + click",
+      "desc":"open a new Notion window"
+    },
+    {
+      "mac":"cmd + shift + n or use cmd + click",
+      "win":"ctrl + shift + n or use ctrl + click",
+      "desc":"xxxxxxxxxxxx"
+    }
+  ],
+  "Markdown style":[],
+  "Create &amp; style your content":[],
+  "Edit &amp; move blocks":[],
+  "@ commands":[],
+  "[[ commands":[],
+  "+ commands":[],
+  "Slash commands Basic":[],
+  "Slash commands Inline":[],
+  "Slash commands Database":[],
+  "Slash commands Media":[],
+  "Slash commands Advanced":[]
+}
