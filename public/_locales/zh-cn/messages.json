@@ -8,67 +8,59 @@
     "description": ""
   },
   "changeLangDesc": {
-    "message": "Change language of this extension",
+    "message": "切换此插件内的语言",
     "description": ""
   },
   "changeLang": {
-    "message": "Change NotionX Language",
-    "description": ""
-  },
-  "showScrollToTopDesc": {
-    "message": "Add a 'scroll to top' button at bottom-right corner",
-    "description": ""
-  },
-  "showScrollToTop": {
-    "message": "Scroll to Top Button",
+    "message": "切换插件语言",
     "description": ""
   },
   "Options": {
-    "message": "Options",
+    "message": "配置",
     "description": ""
   },
   "Shortcuts": {
-    "message": "Shortcuts",
+    "message": "快捷键",
     "description": ""
   },
   "About": {
-    "message": "About",
+    "message": "关于",
     "description": ""
   },
   "hideComments": {
-    "message": "Hide Page Comment",
+    "message": "隐藏页面评论",
     "description": ""
   },
   "hideCommentsDesc": {
-    "message": "Hide page comments (not line comments)",
+    "message": "隐藏页面评论(注意是页标题下的评论，而不是行评论)",
     "description": ""
   },
   "hideToc": {
-    "message": "Hide Toc Button",
+    "message": "隐藏Toc按钮",
     "description": ""
   },
   "hideTocDesc": {
-    "message": "Hide Table of content button from NotionX",
+    "message": "隐藏NotionX的Table of content 按钮",
     "description": ""
   },
   "toggleDark": {
-    "message": "Dark Mode",
+    "message": "暗黑模式",
     "description": ""
   },
   "toggleDarkDesc": {
-    "message": "Open dark mode",
+    "message": "切换暗黑模式",
     "description": ""
   },
   "openInDesktop": {
-    "message": "Open in Desktop",
+    "message": "在桌面端打开",
     "description": ""
   },
   "openInDesktopDesc": {
-    "message": "Open current page in desktop",
+    "message": "在桌面端中打开当前页面",
     "description": ""
   },
   "toggleCompact": {
-    "message": "Compact Mode",
+    "message": "紧凑模式",
     "description": ""
   },
   "toggleCompactDesc": {
@@ -76,27 +68,35 @@
     "description": ""
   },
   "toggleCodeLineNum": {
-    "message": "Show Code Line Num",
+    "message": "显示代码行号",
     "description": ""
   },
   "toggleCodeLineNumDesc": {
-    "message": "Show line number in code block",
+    "message": "显示代码块前的行号",
     "description": ""
   },
   "resetOptions": {
-    "message": "Reset Options",
+    "message": "还原配置",
     "description": ""
   },
   "resetOptionsDesc": {
-    "message": "Reset all options above",
+    "message": "还原所有配置",
+    "description": ""
+  },
+  "showScrollToTopDesc": {
+    "message": "在页面右下角添加一个'滚动至顶部的按钮'",
+    "description": ""
+  },
+  "showScrollToTop": {
+    "message": "Scroll to Top 按钮",
     "description": ""
   },
   "preventTableOverflow": {
-    "message": "Prevent table overflow",
+    "message": "阻止表格溢出",
     "description": ""
   },
   "preventTableOverflowDesc": {
-    "message": "Prevent table overflow horizontal",
+    "message": "阻止表格因横向宽度过大导致的尺寸溢出",
     "description": ""
   },
   "place": {

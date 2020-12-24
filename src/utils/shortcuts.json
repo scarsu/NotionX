@@ -1,25 +1,572 @@
 {
-  "Most popular":[
+  "Most popular": [
     {
-      "mac":"cmd + shift + n / cmd + click",
-      "win":"ctrl + shift + n / ctrl + click",
-      "desc":"open a new Notion window"
+      "mac": "cmd/ctrl + n ",
+      "win": "cmd/ctrl + n ",
+      "desc": "create a new page (desktop apps only)."
     },
     {
-      "mac":"cmd + shift + n or use cmd + click",
-      "win":"ctrl + shift + n or use ctrl + click",
-      "desc":"xxxxxxxxxxxx"
+      "mac": "cmd/ctrl + shift + n or use cmd/ctrl + click ",
+      "win": "cmd/ctrl + shift + n or use cmd/ctrl + click ",
+      "desc": "open a new Notion window."
+    },
+    {
+      "mac": "cmd/ctrl + p open search or jump ",
+      "win": "cmd/ctrl + p open search or jump ",
+      "desc": "a recently viewed page."
+    },
+    {
+      "mac": "cmd/ctrl + [ ",
+      "win": "cmd/ctrl + [ ",
+      "desc": "go back a page."
+    },
+    {
+      "mac": "cmd/ctrl + ] ",
+      "win": "cmd/ctrl + ] ",
+      "desc": "go forward a page. "
+    },
+    {
+      "mac": "cmd/ctrl + shift + l ",
+      "win": "cmd/ctrl + shift + l ",
+      "desc": "switch to Dark Mode (That's an L not a 1)."
     }
   ],
-  "Markdown style":[],
-  "Create &amp; style your content":[],
-  "Edit &amp; move blocks":[],
-  "@ commands":[],
-  "[[ commands":[],
-  "+ commands":[],
-  "Slash commands Basic":[],
-  "Slash commands Inline":[],
-  "Slash commands Database":[],
-  "Slash commands Media":[],
-  "Slash commands Advanced":[]
+  "Markdown style": [
+    {
+      "mac": "Type ** on either side of your text",
+      "win": "Type ** on either side of your text",
+      "desc": "bold."
+    },
+    {
+      "mac": "Type * on either side of your text",
+      "win": "Type * on either side of your text",
+      "desc": "italicize. "
+    },
+    {
+      "mac": "Type ` on either side of your text",
+      "win": "Type ` on either side of your text",
+      "desc": "create inline code."
+    },
+    {
+      "mac": "Type ~ on either side of your text",
+      "win": "Type ~ on either side of your text",
+      "desc": "strikethrough. "
+    },
+    {
+      "mac": "Type *, -, or + followed by space",
+      "win": "Type *, -, or + followed by space",
+      "desc": "create a bulleted list. "
+    },
+    {
+      "mac": "Type []",
+      "win": "Type []",
+      "desc": "create a to-do checkbox. (There's no space in between.)"
+    },
+    {
+      "mac": "Type 1. followed by space",
+      "win": "Type 1. followed by space",
+      "desc": "create a numbered list."
+    },
+    {
+      "mac": "Type # followed by space",
+      "win": "Type # followed by space",
+      "desc": "create an H1 heading."
+    },
+    {
+      "mac": "Type ## followed by space",
+      "win": "Type ## followed by space",
+      "desc": "create an H2 sub-heading. "
+    },
+    {
+      "mac": "Type ### followed by space",
+      "win": "Type ### followed by space",
+      "desc": "create an H3 sub-heading."
+    },
+    {
+      "mac": "Type > followed by space",
+      "win": "Type > followed by space",
+      "desc": "create a toggle list. "
+    },
+    {
+      "mac": "Type \" followed by space",
+      "win": "Type \" followed by space",
+      "desc": "create a quote block. "
+    }
+  ],
+  "Create and style your content": [
+    {
+      "mac": "enter",
+      "win": "enter",
+      "desc": "insert a line of text."
+    },
+    {
+      "mac": "shift + enter",
+      "win": "shift + enter",
+      "desc": "create a line break within a block of text."
+    },
+    {
+      "mac": "cmd/ctrl + shift + m",
+      "win": "cmd/ctrl + shift + m",
+      "desc": "create a comment."
+    },
+    {
+      "mac": "Type ---",
+      "win": "Type ---",
+      "desc": "create a divider. (Three dashes in a row.)"
+    },
+    {
+      "mac": "With text selected, cmd/ctrl + b",
+      "win": "With text selected, cmd/ctrl + b",
+      "desc": "bold text."
+    },
+    {
+      "mac": "With text selected, cmd/ctrl + i",
+      "win": "With text selected, cmd/ctrl + i",
+      "desc": "italicize text."
+    },
+    {
+      "mac": "With text selected, cmd/ctrl + u",
+      "win": "With text selected, cmd/ctrl + u",
+      "desc": "underline text."
+    },
+    {
+      "mac": "With text selected, cmd/ctrl + shift + s",
+      "win": "With text selected, cmd/ctrl + shift + s",
+      "desc": "strikethrough."
+    },
+    {
+      "mac": "With text selected, cmd/ctrl + k",
+      "win": "With text selected, cmd/ctrl + k",
+      "desc": "add a link. You can also paste a URL over selected text to turn it into a link using cmd/ctrl+v."
+    },
+    {
+      "mac": "With text selected, cmd/ctrl + e",
+      "win": "With text selected, cmd/ctrl + e",
+      "desc": "inline code."
+    },
+    { "mac": "tab", "win": "tab", "desc": "indent." },
+    {
+      "mac": "shift + tab",
+      "win": "shift + tab",
+      "desc": "un-indent."
+    },
+    {
+      "mac": "Type /turn at the beginning or end of a block",
+      "win": "Type /turn at the beginning or end of a block",
+      "desc": "turn it into a different type of block. "
+    },
+    {
+      "mac": "Type /color at the beginning or end of any text block",
+      "win": "Type /color at the beginning or end of any text block",
+      "desc": "change its color or highlight color. (To remove a color or highlight, just type /default.) Example: /blue, /blue background"
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 0",
+      "win": "cmd/ctrl + option/shift + 0",
+      "desc": "create text."
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 1",
+      "win": "cmd/ctrl + option/shift + 1",
+      "desc": "create an H1 heading."
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 2",
+      "win": "cmd/ctrl + option/shift + 2",
+      "desc": "create an H2 heading."
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 3",
+      "win": "cmd/ctrl + option/shift + 3",
+      "desc": "create an H3 heading."
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 4",
+      "win": "cmd/ctrl + option/shift + 4",
+      "desc": "create a to-do checkbox."
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 5",
+      "win": "cmd/ctrl + option/shift + 5",
+      "desc": "create a bulleted list."
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 6 ",
+      "win": "cmd/ctrl + option/shift + 6 ",
+      "desc": "create a numbered list."
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 7",
+      "win": "cmd/ctrl + option/shift + 7",
+      "desc": "create a toggle list."
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 8",
+      "win": "cmd/ctrl + option/shift + 8",
+      "desc": "create a code block - which looks like this:"
+    },
+    {
+      "mac": "cmd/ctrl + option/shift + 9",
+      "win": "cmd/ctrl + option/shift + 9",
+      "desc": "create a new page, or turn whatever you have on a line into a page."
+    },
+    {
+      "mac": "cmd/ctrl + +",
+      "win": "cmd/ctrl + +",
+      "desc": "zoom in."
+    },
+    {
+      "mac": "cmd/ctrl + -",
+      "win": "cmd/ctrl + -",
+      "desc": "zoom out."
+    },
+    {
+      "mac": "cmd/ctrl + shift + u",
+      "win": "cmd/ctrl + shift + u",
+      "desc": "go up one level in the page hierarchy."
+    },
+    {
+      "mac": "holding option/alt as drag and drop",
+      "win": "holding option/alt as drag and drop",
+      "desc": "Duplicate any content on a Notion page"
+    }
+  ],
+  "Edit and move blocks": [
+    {
+      "mac": "Press esc",
+      "win": "Press esc",
+      "desc": "select the block you're currently in or clear selected blocks."
+    },
+    {
+      "mac": "Press cmd/ctrl + a once",
+      "win": "Press cmd/ctrl + a once",
+      "desc": "select the block your cursor is in."
+    },
+    {
+      "mac": "Press space",
+      "win": "Press space",
+      "desc": "open a selected image in full-screen. Or exit full-screen."
+    },
+    {
+      "mac": "Press arrow keys",
+      "win": "Press arrow keys",
+      "desc": "select a different block. "
+    },
+    {
+      "mac": "Hold down shift + up/down arrow keys",
+      "win": "Hold down shift + up/down arrow keys",
+      "desc": "expand your selection up or down."
+    },
+    {
+      "mac": "Use cmd + shift + click on Mac, and alt + shift + click on Windows/Linux",
+      "win": "Use cmd + shift + click on Mac, and alt + shift + click on Windows/Linux",
+      "desc": "select or de-select an entire block."
+    },
+    {
+      "mac": "Use shift + click",
+      "win": "Use shift + click",
+      "desc": "select another block and all blocks in between."
+    },
+    {
+      "mac": "Press backspace or delete",
+      "win": "Press backspace or delete",
+      "desc": "delete selected blocks."
+    },
+    {
+      "mac": "Press cmd/ctrl + d",
+      "win": "Press cmd/ctrl + d",
+      "desc": "duplicate the blocks you've selected. "
+    },
+    {
+      "mac": "Press enter",
+      "win": "Press enter",
+      "desc": "edit any text inside a selected block (or open a page inside a page)."
+    },
+    {
+      "mac": "Press cmd/ctrl + /",
+      "win": "Press cmd/ctrl + /",
+      "desc": "edit or change one or more selected blocks (change the type of block, the color, or edit, duplicate, or move the block). You'll see a text box at the top of the menu that pops up. Just type the action, block or color you want."
+    },
+    {
+      "mac": "In board view, select multiple cards then use cmd/ctrl + /",
+      "win": "In board view, select multiple cards then use cmd/ctrl + /",
+      "desc": "edit them all at once. Example: Here's how you'd change the status of several tasks at a time."
+    },
+    {
+      "mac": "Hold cmd/ctrl + shift + arrow keys",
+      "win": "Hold cmd/ctrl + shift + arrow keys",
+      "desc": "move a selected block around."
+    },
+    {
+      "mac": "Press cmd/ctrl + option/alt + t",
+      "win": "Press cmd/ctrl + option/alt + t",
+      "desc": "expand or close all toggles in a toggle list. "
+    },
+    {
+      "mac": "Press cmd/ctrl + shift + h",
+      "win": "Press cmd/ctrl + shift + h",
+      "desc": "apply the last text or highlight color you used."
+    },
+    {
+      "mac": "Press cmd/ctrl + enter",
+      "win": "Press cmd/ctrl + enter",
+      "desc": "modify the current block you're in. Modify: Open a page, Check or uncheck a to-do checkbox, Open or close a toggle list item, Make embeds or images full-screen"
+    }
+  ],
+  "@ commands": [
+    {
+      "win": "Mention a person",
+      "mac": "Mention a person",
+      "desc": "Type @ and another workspace member's name to get their attention on something. They'll be notified. Useful in comments and discussions."
+    },
+    {
+      "win": "Mention a page",
+      "mac": "Mention a page",
+      "desc": "Type @ and the name of another page in your workspace to create a link to it. If you change the name of the page, this link will automatically change too."
+    },
+    {
+      "win": "Mention a date",
+      "mac": "Mention a date",
+      "desc": "Type @ and a date in any format (or \"yesterday,\" \"today\" or \"tomorrow,\" or even \"next Wednesday\"). Helpful for giving yourself due dates."
+    },
+    {
+      "win": "Add a reminder",
+      "mac": "Add a reminder",
+      "desc": "Type @remind followed by a date in any format (including \"yesterday,\" \"today,\" \"tomorrow,\" etc.). You can click on the link that appears to adjust the date and exact time you want to be reminded. You'll receive a notification at that time."
+    },
+    {
+      "win": "Hit esc",
+      "mac": "Hit esc",
+      "desc": "dismiss the @-command menu if you simply want to type @."
+    }
+  ],
+  "[[ commands": [
+    {
+      "mac": "Link a page",
+      "win": "Link a page",
+      "desc": "Type [[ and the name of another page in your workspace to create a link to it. If you change the name of the page, this link will automatically change too."
+    },
+    {
+      "mac": "Create a sub-page",
+      "win": "Create a sub-page",
+      "desc": "Type [[ and the name of the sub-page you want to nest within your current page. Use your cursor or arrow keys to select + Add new sub-page in the dropdown that appears."
+    },
+    {
+      "mac": "Create a new page somewhere else",
+      "win": "Create a new page somewhere else",
+      "desc": "Type [[ and the name of the page you want to create. Use your cursor or arrow keys to select  Add new page in... in the dropdown that appears, then select the page or database where you'd like that page to be added."
+    }
+  ],
+  "+ commands": [
+    {
+      "mac": "Create a sub-page",
+      "win": "Create a sub-page",
+      "desc": "Type [[ and the name of the sub-page you want to nest within your current page. Use your cursor or arrow keys to select + Add new sub-page in the dropdown that appears."
+    },
+    {
+      "mac": "Create a new page somewhere else",
+      "win": "Create a new page somewhere else",
+      "desc": "Type [[ and the name of the page you want to create. Use your cursor or arrow keys to select  Add new page in... in the dropdown that appears, then select the page or database where you'd like that page to be added."
+    },
+    {
+      "mac": "Link a page",
+      "win": "Link a page",
+      "desc": "Type [[ and the name of another page in your workspace to create a link to it. If you change the name of the page, this link will automatically change too."
+    }
+  ],
+  "Slash commands Basic": [
+    {
+      "mac": "/text or /plain ",
+      "win": "/text or /plain ",
+      "desc": "creates a new text block."
+    },
+    {
+      "mac": "/page",
+      "win": "/page",
+      "desc": "creates a new page (and will open it automatically when you press enter)."
+    },
+    { "mac": "/bullet", "win": "/bullet", "desc": "creates a bulleted list." },
+    { "mac": "/num", "win": "/num", "desc": "creates a numbered list." },
+    {
+      "mac": "/todo",
+      "win": "/todo",
+      "desc": "creates a to-do list with checkboxes."
+    },
+    { "mac": "/toggle", "win": "/toggle", "desc": "creates a toggle list." },
+    { "mac": "/div", "win": "/div", "desc": "creates a light gray divider." },
+    {
+      "mac": "/quote",
+      "win": "/quote",
+      "desc": "creates a quote block of larger text."
+    },
+    {
+      "mac": "/h1 or /#",
+      "win": "/h1 or /#",
+      "desc": "creates a large heading."
+    },
+    {
+      "mac": "/h2 or /##",
+      "win": "/h2 or /##",
+      "desc": "creates a medium-sized heading."
+    },
+    {
+      "mac": "/h3 or /###",
+      "win": "/h3 or /###",
+      "desc": "creates a small heading."
+    },
+    {
+      "mac": "/link",
+      "win": "/link",
+      "desc": "creates a link to another page in your workspace."
+    },
+    {
+      "mac": "esc",
+      "win": "esc",
+      "desc": "clears the / menu. Handy if you're just trying to use a / in your writing."
+    }
+  ],
+  "Slash commands Inline": [
+    {
+      "mac": "/mention",
+      "win": "/mention",
+      "desc": "lets you mention a page or a person in your workspace"
+    },
+    {
+      "mac": "/date or /reminder",
+      "win": "/date or /reminder",
+      "desc": "lets you add a timestamp or reminder to your page"
+    },
+    {
+      "mac": "/equation",
+      "win": "/equation",
+      "desc": "lets you add a TeX formula in line with your text"
+    },
+    { "mac": "/emoji", "win": "/emoji", "desc": "brings up the emoji picker" }
+  ],
+  "Slash commands Database": [
+    {
+      "mac": "/table-inline",
+      "win": "/table-inline",
+      "desc": "creates a database table inside a current page."
+    },
+    {
+      "mac": "/board-inline",
+      "win": "/board-inline",
+      "desc": "creates a Kanban board inside a current page."
+    },
+    {
+      "mac": "/calendar-inline",
+      "win": "/calendar-inline",
+      "desc": "creates a calendar inside a current page."
+    },
+    {
+      "mac": "/list-inline",
+      "win": "/list-inline",
+      "desc": "creates a list-style database inside a current page."
+    },
+    {
+      "mac": "/gallery-inline",
+      "win": "/gallery-inline",
+      "desc": "creates a gallery inside a current page."
+    },
+    {
+      "mac": "/timeline-inline",
+      "win": "/timeline-inline",
+      "desc": "creates a timeline inside a current page."
+    },
+    {
+      "mac": "Any of the above + -full instead of -inline",
+      "win": "Any of the above + -full instead of -inline",
+      "desc": "to open that type of database view in its own page automatically. For example: /table-full, /board-full"
+    },
+    {
+      "mac": "/linked",
+      "win": "/linked",
+      "desc": "creates a linked database — a copy of an existing database that you can insert into any page in-line and filter or view however you want. Helpful for creating multiple excerpts from the same database on the same page."
+    }
+  ],
+  "Slash commands Media": [
+    {
+      "mac": "/image will",
+      "win": "/image will",
+      "desc": "bring up the option to upload or embed an image, or add one from Unsplash."
+    },
+    {
+      "mac": "/pdf",
+      "win": "/pdf",
+      "desc": "lets you paste in a URL to any PDF so it will display in-line on your page."
+    },
+    {
+      "mac": "/book",
+      "win": "/book",
+      "desc": "lets you paste in a URL to any website to create a web bookmark. Like this: "
+    },
+    {
+      "mac": "/video",
+      "win": "/video",
+      "desc": "lets you upload a video file or embed a video from YouTube, Vimeo, etc."
+    },
+    {
+      "mac": "/audio",
+      "win": "/audio",
+      "desc": "lets you upload an audio file or embed a recording from SoundCloud, Spotify, etc."
+    },
+    {
+      "mac": "/code",
+      "win": "/code",
+      "desc": "creates a code block where you can write and copy any snippet of code."
+    },
+    {
+      "mac": "/file",
+      "win": "/file",
+      "desc": "lets you upload any file from your computer or create an embed."
+    },
+    {
+      "mac": "/embed",
+      "win": "/embed",
+      "desc": "lets you add any one of the 500+ embeds that work with Notion. "
+    }
+  ],
+  "Slash commands Advanced": [
+    {
+      "mac": "/comment",
+      "win": "/comment",
+      "desc": "lets you create a comment on any block."
+    },
+    {
+      "mac": "/duplicate",
+      "win": "/duplicate",
+      "desc": "creates an exact copy of the current block."
+    },
+    {
+      "mac": "/moveto",
+      "win": "/moveto",
+      "desc": "lets you move that block to a different page."
+    },
+    {
+      "mac": "/delete",
+      "win": "/delete",
+      "desc": "deletes the current block."
+    },
+    {
+      "mac": "/toc",
+      "win": "/toc",
+      "desc": "creates a Table of Contents block."
+    },
+    {
+      "mac": "/button or /template",
+      "win": "/button or /template",
+      "desc": "gives you a template button that duplicates any combination of blocks you define."
+    },
+    {
+      "mac": "/bread",
+      "win": "/bread",
+      "desc": "inserts a breadcrumb menu that shows where your current page is in your workspace."
+    },
+    {
+      "mac": "/math or /latex",
+      "win": "/math or /latex",
+      "desc": "lets you write mathematical equations and symbols using TeX."
+    }
+  ]
 }

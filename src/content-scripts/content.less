@@ -368,7 +368,7 @@
   transition: all .15s linear;
 }
 
-/* 暗号模式 */
+/* 暗黑模式 */
 html.notionx-dark {
   filter: invert(80%) hue-rotate(200deg)
 }
@@ -403,4 +403,89 @@ html.notionx-dark {
 /* change original notion layout */
 .notionX-notionCenter{
   overflow-x:auto;
+}
+
+/* 紧凑模式 full width + small text */
+.notionx-compact{
+  .notion-scroller.vertical.horizontal{
+    & > div:first-child.notion-selectable.notion-page-block {
+      font-size: 32px !important;
+    }
+    .notion-page-content {
+      font-size: 14px !important;
+    }
+    & > :first-child > div,
+    & > :nth-child(2) > div,
+    & > :nth-child(3) {
+      width: 100% !important;
+    }
+    .notion-page-content > .notion-collection_view-block{
+      &>div:first-child {
+        padding-left: 96px !important;
+        padding-right: 96px !important;
+      }
+      &>.notion-scroller.horizontal{
+        
+        &> .notion-table-view > div:first-child > div:first-child ,
+        &> .notion-table-view > div:first-child > div:nth-child(5)  {
+          min-width: calc(100% - 192px) !important;
+        }
+        &> div:first-child {
+          padding-left: 96px !important;
+          padding-right: 96px !important;
+        }
+      }
+    }
+  }
+}
+
+/* 代码块行号 */
+.notionx-code-lineNum{
+  width: 48px;
+  height: 366px;
+  padding: 34px 16px 32px 2px;
+  position: absolute;
+  left: 0;
+  box-sizing: border-box;
+  white-space: pre;
+  text-align: center;
+  top: 0;
+  font-size: 85%;
+  line-height: 1.5;
+}
+
+/* 去顶部按钮 */
+.notionx-totop{
+  display: none;
+  user-select: none;
+  transition: opacity 700ms ease 0s, color 700ms ease 0s;
+  cursor: pointer;
+  opacity: 1;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  bottom: 88px;
+  right: 33px;
+  width: 36px;
+  height: 36px;
+  border-radius: 100%;
+  font-size: 20px;
+  z-index: 101;
+  background: white;
+  box-shadow: rgba(15, 15, 15, 0.1) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 2px 4px;
+  &.show{
+    display: flex !important;
+  }
+}
+.notion-body.dark{
+  .notionx-totop{
+    background: #505558;
+    box-shadow: rgba(15,15,15,0.2) 0px 0px 0px 1px, rgba(15,15,15,0.2) 0px 2px 4px;
+  }
+}
+
+.notion-body.notionx-prevent-table-overflow{
+  .notion-page-content>.notion-collection_view-block{
+    width: 100%!important;
+  }
 }

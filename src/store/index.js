@@ -6,10 +6,12 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    locale: 'en'
   },
   mutations: {
-  },
-  actions: {
+    setLang (state, locale) {
+      state.locale = locale
+    }
   },
   modules: {
     option: option

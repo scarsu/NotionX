@@ -13,8 +13,11 @@ import {
  * @param {function} cb Callback function executed when the DOM changes
  * @param {array} args arguments for callback
  */
-export function DomObserver (selector, cb) {
-  const observer = new MutationObserver((arg) => { cb(arg) })
+export function DomObserver (selector, cb, name) {
+  const observer = new MutationObserver((arg) => {
+    // console.log(name, 'observer executed')
+    cb(arg)
+  })
   const el = document.querySelector(selector)
   const config = {
     childList: true,
@@ -41,10 +44,13 @@ export function scrollToTop () {
  * @param {string} selector :for judging the loading status of notion app
  */
 export const waitNotionPageReady = (selector = '.notion-topbar') => new Promise((resolve) => {
+  const max = 100
+  let i = 0
   const delay = 500
   const f = () => {
+    i++
     const element = document.querySelector(selector)
-    if (element != null && element.children.length > 0) {
+    if (i > max || (element != null && element.children.length > 0)) {
       resolve(element)
     } else {
       setTimeout(f, delay)
@@ -52,3 +58,34 @@ export const waitNotionPageReady = (selector = '.notion-topbar') => new Promise(
   }
   f()
 })
+
+// 设置cookie
+function setCookie (cName, cvalue, exdays) {
+  var d = new Date()
+  d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000))
+  var expires = 'expires=' + d.toUTCString()
+  document.cookie = cName + '=' + JSON.stringify(cvalue) + '; ' + expires + ';path=/'
+}
+
+// 获取cookie
+function getCookie (cName) {
+  var name = cName + '='
+  var cookieOBJ = document.cookie.split(';')
+  for (var i = 0; i < cookieOBJ.length; i++) {
+    var item = cookieOBJ[i]
+    while (item.charAt(0) === ' ') item = item.substring(1)
+    if (item.indexOf(name) !== -1) return JSON.parse(item.substring(name.length, item.length))
+  }
+  return ''
+}
+
+// 删除cookie
+function clearCookie (name) {
+  setCookie(name, '', '-1')
+}
+
+export const cookie = {
+  set: setCookie,
+  get: getCookie,
+  clear: clearCookie
+}

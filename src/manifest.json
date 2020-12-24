@@ -5,12 +5,17 @@
   "description": "A Browser Extension that enhances Notion experience.",
   "default_locale": "en",
   "permissions": [
-    "https://*.notion.so/*"
+    "https://*.notion.so/*",
+    "storage"
   ],
   "icons": {
     "16": "icons/notionx-white.png",
     "48": "icons/notionx-white.png",
     "128": "icons/notionx-white.png"
+  },
+  "background": {
+    "persistent": false,
+    "scripts": ["js/background.js"]
   },
   "content_scripts": 
 	[

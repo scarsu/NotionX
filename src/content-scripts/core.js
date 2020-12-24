@@ -32,6 +32,11 @@ export default class NotionX {
     this.notionOb()
   }
 
+  destroy () {
+    this.notionOb.disconnect()
+    window.notionx = null
+  }
+
   // 更新当前配置至本地存储
   updateLocal (options) {
     localStorage.setItem(

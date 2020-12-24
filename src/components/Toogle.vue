@@ -1,6 +1,6 @@
 <template>
   <div class="toogle">
-    <input type="checkbox" :id="id"/>
+    <input type="checkbox" :id="id" :checked="toggle"/>
     <label :for="id">
       {{text}}
       <svg aria-hidden="true" style="width:1em;height:1em;">
@@ -22,6 +22,10 @@ export default {
     id: {
       type: String,
       required: true
+    },
+    toggle: {
+      type: Boolean,
+      default: false
     }
   },
 }
@@ -40,7 +44,7 @@ export default {
   text-transform: uppercase;
   cursor: pointer;
   user-select: none;
-  color: var(--fontColor);
+  color: var(--fontColorDark);
   font-weight: 600;
   transition: color 0s ease 0s, background-color 100ms ease-out 0s;
   margin: 10px 0 5px 0;
@@ -50,7 +54,7 @@ export default {
   height: 1em;
   position: relative;
   top: 1.5px;
-  fill: var(--fontColor);
+  fill: var(--fontColorDark);
 }
 .toogle label:hover{
   color: var(--fontColorDark);

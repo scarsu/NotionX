@@ -1,7 +1,7 @@
 <template>
   <div
     class="tab-panel"
-    v-if="active"
+    v-show="active"
   >
     <slot></slot>
   </div>

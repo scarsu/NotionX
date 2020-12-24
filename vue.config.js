@@ -32,6 +32,9 @@ module.exports = {
             ],
           },
         },
+        background: {
+          entry: 'src/background.js',
+        },
       },
     },
   },
@@ -43,6 +46,7 @@ module.exports = {
     extract: true,
   },
   chainWebpack: (config) => {
+    config.resolve.alias.set('@public', resolve('public'))
     // svg
     config.module
       .rule('svg')

@@ -1,0 +1,52 @@
+/* ==================== 基建 start */
+*{
+  box-sizing: border-box;
+}
+html{
+  font-size: 1px;
+  padding: 0;
+  margin: 0;
+}
+body{
+  --bodyWidth: 400px;
+  --bodyHeight: 460px;
+  --fontColor: rgba(25, 25, 25, 0.7);
+  --fontColorDark: rgba(25, 25, 25, 1);
+  --fontColorLight: rgba(25, 25, 25, 0.6);
+  --borderColor: rgba(0,0,0,0.1);
+  --bgColor: #3e3e63;
+  --bgColorLight: rgb(124 133 193);
+  --gray: rgba(77, 35, 35, 0.2);
+  --lightGray: rgba(0,0,0,0.05);
+  --navHeight: 30px;
+  --tabHeight: 360px;
+  --tabWidth: 360px;
+  --contentHeight: 390px;
+  padding: 0;
+  margin: 0;
+  font-size: 12rem;
+  color: var(--fontColor);
+}
+a{
+  color: var(--fontColor);
+  &:hover{
+    color: var(--fontColorDark);
+  }
+}
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--gray);
+}
+::-webkit-scrollbar-track {
+  background: var(--lightGray);
+}
+*::selection {
+  background: rgba(45,170,219,0.3);
+}
+/* ==================== 基建 end */
