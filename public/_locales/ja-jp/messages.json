@@ -8,27 +8,27 @@
     "description": ""
   },
   "changeLangDesc": {
-    "message": "Change language of this extension",
+    "message": "この拡張機能の言語を変更する",
     "description": ""
   },
   "changeLang": {
-    "message": "Change NotionX Language",
+    "message": "NotionX言語の変更",
     "description": ""
   },
   "showScrollToTopDesc": {
-    "message": "Add a 'scroll to top' button at bottom-right corner",
+    "message": "右下に「トップへのスクロール」ボタンを追加",
     "description": ""
   },
   "showScrollToTop": {
-    "message": "Scroll to Top Button",
+    "message": "トップボタンへのスクロール",
     "description": ""
   },
   "Options": {
-    "message": "Options",
+    "message": "構成",
     "description": ""
   },
   "Shortcuts": {
-    "message": "Shortcuts",
+    "message": "ホットキー",
     "description": ""
   },
   "About": {
@@ -36,39 +36,39 @@
     "description": ""
   },
   "hideComments": {
-    "message": "Hide Page Comment",
+    "message": "ページコメントを隠す",
     "description": ""
   },
   "hideCommentsDesc": {
-    "message": "Hide page comments (not line comments)",
+    "message": "ページコメントを非表示にします（行コメントではありません）",
     "description": ""
   },
   "hideToc": {
-    "message": "Hide Toc Button",
+    "message": "Tocボタンを非表示",
     "description": ""
   },
   "hideTocDesc": {
-    "message": "Hide Table of content button from NotionX",
+    "message": "NotionXから目次ボタンを非表示にする",
     "description": ""
   },
   "toggleDark": {
-    "message": "Dark Mode",
+    "message": "ダークモード",
     "description": ""
   },
   "toggleDarkDesc": {
-    "message": "Toggle dark mode",
+    "message": "ダークモードを切り替えます",
     "description": ""
   },
   "openInDesktop": {
-    "message": "Open in Desktop",
+    "message": "デスクトップで開く",
     "description": ""
   },
   "openInDesktopDesc": {
-    "message": "Open current page in desktop",
+    "message": "デスクトップアプリで現在のページを開く",
     "description": ""
   },
   "toggleCompact": {
-    "message": "Compact Mode",
+    "message": "コンパクトモード",
     "description": ""
   },
   "toggleCompactDesc": {
@@ -76,27 +76,27 @@
     "description": ""
   },
   "toggleCodeLineNum": {
-    "message": "Show Code Line Num",
+    "message": "コード行番号を表示",
     "description": ""
   },
   "toggleCodeLineNumDesc": {
-    "message": "Show line number in code block",
+    "message": "コードブロックに行番号を表示する",
     "description": ""
   },
   "resetOptions": {
-    "message": "Reset Options",
+    "message": "リセットオプション",
     "description": ""
   },
   "resetOptionsDesc": {
-    "message": "Reset all options above",
+    "message": "上記のすべてのオプションをリセットします",
     "description": ""
   },
   "preventTableOverflow": {
-    "message": "Prevent table overflow",
+    "message": "テーブルのオーバーフローを防ぐ",
     "description": ""
   },
   "preventTableOverflowDesc": {
-    "message": "Prevent table overflow horizontal",
+    "message": "テーブルが水平方向にオーバーフローしないようにします",
     "description": ""
   },
   "place": {

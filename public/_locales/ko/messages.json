@@ -8,27 +8,27 @@
     "description": ""
   },
   "changeLangDesc": {
-    "message": "Change language of this extension",
+    "message": "이 확장의 언어 변경",
     "description": ""
   },
   "changeLang": {
-    "message": "Change NotionX Language",
+    "message": "NotionX 언어 변경",
     "description": ""
   },
   "showScrollToTopDesc": {
-    "message": "Add a 'scroll to top' button at bottom-right corner",
+    "message": "오른쪽 하단에 '위로 스크롤'버튼 추가",
     "description": ""
   },
   "showScrollToTop": {
-    "message": "Scroll to Top Button",
+    "message": "맨위로 스크롤 버튼",
     "description": ""
   },
   "Options": {
-    "message": "Options",
+    "message": "옵션",
     "description": ""
   },
   "Shortcuts": {
-    "message": "Shortcuts",
+    "message": "단축키",
     "description": ""
   },
   "About": {
@@ -36,67 +36,67 @@
     "description": ""
   },
   "hideComments": {
-    "message": "Hide Page Comment",
+    "message": "페이지 댓글 숨기기",
     "description": ""
   },
   "hideCommentsDesc": {
-    "message": "Hide page comments (not line comments)",
+    "message": "페이지 댓글 숨기기 (댓글이 아님)",
     "description": ""
   },
   "hideToc": {
-    "message": "Hide Toc Button",
+    "message": "Toc 버튼 숨기기",
     "description": ""
   },
   "hideTocDesc": {
-    "message": "Hide Table of content button from NotionX",
+    "message": "NotionX에서 목차 숨기기 버튼",
     "description": ""
   },
   "toggleDark": {
-    "message": "Dark Mode",
+    "message": "다크 모드",
     "description": ""
   },
   "toggleDarkDesc": {
-    "message": "Toggle dark mode",
+    "message": "다크 모드 전환",
     "description": ""
   },
   "openInDesktop": {
-    "message": "Open in Desktop",
+    "message": "데스크톱 앱에서 열기",
     "description": ""
   },
   "openInDesktopDesc": {
-    "message": "Open current page in desktop",
+    "message": "데스크톱 앱에서 현재 페이지 열기",
     "description": ""
   },
   "toggleCompact": {
-    "message": "Compact Mode",
+    "message": "호환 모드",
     "description": ""
   },
   "toggleCompactDesc": {
-    "message": "small text & full width",
+    "message": "작은 텍스트 및 전체 너비",
     "description": ""
   },
   "toggleCodeLineNum": {
-    "message": "Show Code Line Num",
+    "message": "코드 라인 번호 표시",
     "description": ""
   },
   "toggleCodeLineNumDesc": {
-    "message": "Show line number in code block",
+    "message": "코드 block에 줄 번호 표시",
     "description": ""
   },
   "resetOptions": {
-    "message": "Reset Options",
+    "message": "재설정 옵션",
     "description": ""
   },
   "resetOptionsDesc": {
-    "message": "Reset all options above",
+    "message": "위의 모든 옵션 재설정",
     "description": ""
   },
   "preventTableOverflow": {
-    "message": "Prevent table overflow",
+    "message": "테이블 오버플로 방지",
     "description": ""
   },
   "preventTableOverflowDesc": {
-    "message": "Prevent table overflow horizontal",
+    "message": "테이블이 수평으로 넘치지 않도록 방지",
     "description": ""
   },
   "place": {

@@ -89,3 +89,21 @@ export const cookie = {
   get: getCookie,
   clear: clearCookie
 }
+
+// 模拟按键
+export function mutateKeys (ctrlKey = false, shiftKey = false, key) {
+  key = key?.toUpperCase()
+  const keyCode = key.charCodeAt()
+  var e = new KeyboardEvent(
+    'keydown',
+    {
+      bubbles: true,
+      cancelable: true,
+      key: key,
+      char: key,
+      keyCode: keyCode,
+      ctrlKey: ctrlKey,
+      shiftKey: shiftKey
+    })
+  return document.body.dispatchEvent(e)
+}
