@@ -1,6 +1,7 @@
 import _ from 'lodash'
-import { DomObserver } from '../utils/util'
-import { NOTION_APP_SELECTOR, ORIGIN_OPTIONS } from '../utils/constant'
+import { DomObserver, mutateKeys } from '../utils/util'
+import { NOTION_APP_SELECTOR } from '../utils/constant'
+import { ORIGIN_OPTIONS } from '../store/option'
 /**
  * 定义所有用户网页行为
  */
@@ -54,8 +55,7 @@ const Actions = {
       (data.value && !currentDark) ||
       (!data.value && currentDark)
     ) {
-      var e = new KeyboardEvent('keydown', { bubbles: true, cancelable: true, key: 'L', char: 'L', keyCode: 76, ctrlKey: true, shiftKey: true })
-      document.body.dispatchEvent(e)
+      mutateKeys(true, true, 'L', 76)
     }
   },
   // content 紧凑模式

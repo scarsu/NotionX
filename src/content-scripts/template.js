@@ -7,7 +7,7 @@ const template = {
       <div class="notionx-header">
         <div class="notionx-icon logo">
           <svg aria-hidden="true">
-            <use xlink:href="#icon-notionx-svg"></use>
+            <use xlink:href="#icon-notionx-white"></use>
           </svg>
         </div>
         <div class="title-wrap">
@@ -79,8 +79,8 @@ const template = {
       </div>
       <div class="icon-wrap active">
         <div class="notionx-icon">
-          <svg aria-hidden="true">
-            <use xlink:href="#icon-left-arrow"></use>
+          <svg aria-hidden="true" style="transform:rotate(180deg)">
+            <use xlink:href="#icon-right-arrow"></use>
           </svg>
         </div>
       </div>

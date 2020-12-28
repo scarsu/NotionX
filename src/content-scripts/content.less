@@ -79,8 +79,8 @@
       font-size: 14px;
       padding: 2px 14px;
       svg{
-        width: 12px;
-        height: 12px;
+        width: 14px;
+        height: 14px;
       }
       .title-wrap{
         display: flex;
@@ -276,13 +276,13 @@
     top: 0px;
     right: 0px;
     will-change: opacity;
-    transition: background,opacity .2s ease-in;
+    transition: background-color,opacity .2s ease-in;
     .notionx-icon{
       position: relative;
       top: 0px;
       right: 0px;
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
     }
     &.active{
       opacity: 0;
@@ -477,13 +477,36 @@ html.notionx-dark {
     display: flex !important;
   }
 }
+
+/* 暗黑模式适配 */
 .notion-body.dark{
   .notionx-totop{
     background: #505558;
     box-shadow: rgba(15,15,15,0.2) 0px 0px 0px 1px, rgba(15,15,15,0.2) 0px 2px 4px;
   }
+  .notionx-icon svg{
+    fill: rgb(202, 204, 206);
+  }
+  .notionx-icon:hover{
+    background: #474C50;
+  }
+  #notionx{
+    background: #373C3F;
+    .content.notionx-view-toc-content-wrap li:hover{
+      background: #474C50;
+    }
+    .notionx-sidebar{
+      background: #373C3F;
+      color: rgb(202, 204, 206);
+    }
+    .notionx-footer{
+      background: #373C3F;
+      color: rgb(202, 204, 206);
+    }
+  }
 }
 
+/* 阻止table宽度溢出 */
 .notion-body.notionx-prevent-table-overflow{
   .notion-page-content>.notion-collection_view-block{
     width: 100%!important;
