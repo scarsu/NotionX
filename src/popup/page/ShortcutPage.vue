@@ -63,7 +63,7 @@
     </div>
     <!-- 键统计 -->
     <div class="key-count">
-      <a href="https://www.notion.so/Learn-the-shortcuts-66e28cec810548c3a4061513126766b0#5c679ece35ee4e81b1217333a4cf35b3" title="Official Docs">Official Docs</a>
+      <a href="https://www.notion.so/Learn-the-shortcuts-66e28cec810548c3a4061513126766b0#5c679ece35ee4e81b1217333a4cf35b3" target="_blank" title="Official Docs">Official Docs</a>
       Total : {{keyCount}}
     </div>
   </div>
