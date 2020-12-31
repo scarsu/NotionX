@@ -191,9 +191,9 @@
           display: inline-block;
           width: 100%;
           text-decoration: none;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
+          // overflow: hidden;
+          // white-space: nowrap;
+          // text-overflow: ellipsis;
         }
         &:hover{
           background-color: #E8E7E4;
@@ -478,7 +478,7 @@ html.notionx-dark {
   }
 }
 
-/* 暗黑模式适配 */
+/* 官方暗黑模式适配 */
 .notion-body.dark{
   .notionx-totop{
     background: #505558;
@@ -503,6 +503,15 @@ html.notionx-dark {
       background: #373C3F;
       color: rgb(202, 204, 206);
     }
+  }
+  #notionx nav.notionx-sidebar .notionx-views .notionx-view .toggle-box > label{
+    color: rgba(255, 255, 255, 0.4);
+    &:hover{
+      background-color: rgb(71, 76, 80)
+    }
+  }
+  #notionx nav.notionx-sidebar .option-btn.active {
+    background-color: #474C50;
   }
 }
 

@@ -12,11 +12,11 @@ const template = {
         </div>
         <div class="title-wrap">
           <div class="title">NotionX</div>
-          <!--<div class="notionx-icon option-btn">
+          <div class="notionx-icon option-btn">
             <svg aria-hidden="true">
               <use xlink:href="#icon-setting"></use>
             </svg>
-          </div>-->
+          </div>
         </div>
         <div class="notionx-hider-btn notionx-icon">
           <svg aria-hidden="true">
@@ -27,13 +27,13 @@ const template = {
 
       <div class="notionx-views">
         <div class="notionx-view notionx-view-toc" data-view="toc">
-          <div class="toggle-box">
+          <!--<div class="toggle-box">
             <input type="checkbox" id="toc-inp"/>
             <label for="toc-inp">
               Table Of Content
             </label>
             <div class="content notionx-view-toc-content-wrap"></div>
-          </div>
+          </div>-->
         </div>
         <div class="notionx-view notionx-view-option" data-view="option">
           <div class="toggle-box">

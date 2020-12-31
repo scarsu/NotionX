@@ -4,7 +4,6 @@ import './content.less'
 import { waitNotionPageReady } from '@/utils/util'
 import Actions from '@/utils/Actions'
 import { CONTENT_DETECT } from '@/utils/constant'
-console.log('执行content, content发探测消息')
 
 // 侦测到content后传递消息至background
 chrome.runtime.sendMessage({ type: CONTENT_DETECT }, function (response) {

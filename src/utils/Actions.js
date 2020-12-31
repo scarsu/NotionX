@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { DomObserver, mutateKeys } from '../utils/util'
+import { domObserver, mutateKeys } from '../utils/util'
 import { NOTION_APP_SELECTOR } from '../utils/constant'
 import { ORIGIN_OPTIONS } from '../store/option'
 /**
@@ -117,7 +117,7 @@ const Actions = {
     // 通过mutationObserver动态更新,用节流函数限制更新次数
     if (data.value) {
       lineNumShow()
-      window.lineNumOb = DomObserver(NOTION_APP_SELECTOR, _.debounce(lineNumShow, 1000, { leading: true, trailing: false, maxWait: 1000 }), 'lineNumOb')
+      window.lineNumOb = domObserver(NOTION_APP_SELECTOR, _.debounce(lineNumShow, 1000, { leading: true, trailing: false, maxWait: 1000 }), 'lineNumOb')
     } else {
       if (window.lineNumOb) {
         window.lineNumOb.disconnect()
@@ -142,7 +142,6 @@ const Actions = {
   },
   // content 显示totop按钮
   showScrollToTop: function (data) {
-    debugger
     const $top = document.querySelector('.notionx-totop')
     const exist = !!$top
     const show = !!$top && $top.classList.contains('show')
@@ -155,9 +154,7 @@ const Actions = {
       $totop.classList.add('notionx-totop')
       $totop.classList.add('show')
       $p.insertBefore($totop, $h)
-      debugger
       $totop.addEventListener('click', function () {
-        console.log(1)
         document.querySelector('.notion-scroller.vertical.horizontal').style.scrollBehavior = 'smooth'
         document.querySelector('.notion-scroller.vertical.horizontal').scrollTop = 0
       })

@@ -84,7 +84,7 @@ export default {
   created () {
   },
   mounted () {
-    this.effectLocalOption()
+    // this.effectLocalOption()
   },
   methods: {
     handleOption (option, event) {
