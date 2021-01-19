@@ -33,9 +33,9 @@ export const ORIGIN_OPTIONS = [
     scope: 'content',
   },
   {
-    action: 'hideToc',
-    name: 'hideToc',
-    desc: 'hideTocDesc',
+    action: 'hideNotionXSidebar',
+    name: 'hideNotionXSidebar',
+    desc: 'hideNotionXSidebarDesc',
     value: false,
     type: 'switch',
     hide: false,

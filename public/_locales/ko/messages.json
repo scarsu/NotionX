@@ -43,12 +43,12 @@
     "message": "페이지 댓글 숨기기 (댓글이 아님)",
     "description": ""
   },
-  "hideToc": {
-    "message": "Toc 버튼 숨기기",
+  "hideNotionXSidebar": {
+    "message": "NotionX 사이드 바 숨기기",
     "description": ""
   },
-  "hideTocDesc": {
-    "message": "NotionX에서 목차 숨기기 버튼",
+  "hideNotionXSidebarDesc": {
+    "message": "NotionX 사이드 바 숨기기",
     "description": ""
   },
   "toggleDark": {

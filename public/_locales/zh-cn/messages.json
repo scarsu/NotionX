@@ -35,12 +35,12 @@
     "message": "隐藏页面评论(注意是页标题下的评论，而不是行评论)",
     "description": ""
   },
-  "hideToc": {
-    "message": "隐藏Toc按钮",
+  "hideNotionXSidebar": {
+    "message": "隐藏NotionX侧边栏",
     "description": ""
   },
-  "hideTocDesc": {
-    "message": "隐藏NotionX的Table of content 按钮",
+  "hideNotionXSidebarDesc": {
+    "message": "隐藏NotionX侧边栏",
     "description": ""
   },
   "toggleDark": {

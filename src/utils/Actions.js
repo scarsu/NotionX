@@ -15,18 +15,18 @@ const Actions = {
     } else {
       $dom.parentElement.style.display = ''
     }
-    console.log('hideComments')
   },
   // content 隐藏NotionX的TOC按钮
-  hideToc: function (data) {
-    const $dom = document.querySelector('#notionx-sidebar-btn')
+  hideNotionXSidebar: function (data) {
+    const $dom = document.querySelector('#notionx')
     if (!$dom) return
     if (data.value) {
-      document.querySelector('#notionx-sidebar-btn').style.display = 'none'
+      document.querySelector('#notionx').style.display = 'none'
+      if (window.notionx) window.notionx.__ob__.stop()
     } else {
-      document.querySelector('#notionx-sidebar-btn').style.display = ''
+      document.querySelector('#notionx').style.display = ''
+      if (window.notionx) window.notionx.__ob__.start()
     }
-    console.log('hideToc')
   },
   // popup 切换语言
   changeLang: function (data) {
@@ -72,7 +72,6 @@ const Actions = {
   toggleCodeLineNum: function (data) {
     // 函数: 显示/更新行号
     const lineNumShow = () => {
-      console.log(1)
       const $codeBlocks = document.querySelectorAll('.line-numbers.notion-code-block')
       if (!$codeBlocks) return
       $codeBlocks.forEach($codeBlock => {

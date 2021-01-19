@@ -13,7 +13,6 @@ import {
  */
 export function domObserver (selector, cb, name) {
   const observer = new MutationObserver((arg) => {
-    // console.log(name, 'observer executed')
     cb(arg)
   })
   const el = document.querySelector(selector)
@@ -34,6 +33,15 @@ export function scrollToTop () {
     200,
     null
   )
+}
+
+// notion sidebar 滚动到顶部
+export function sideBarScrollToTop () {
+  const e = document.querySelector('#notionx .notionx-views')
+  if (e && e.nodeType) {
+    e.style.scrollBehavior = 'smooth'
+    e.scrollTop = 0
+  }
 }
 
 /**
@@ -126,9 +134,14 @@ export function adapterNotionHeader () {
     const selector = siblings[i]
     const node = document.querySelector(selector)
     const p = node?.parentElement || node?.parentNode
-    if (p !== null) {
+    if (p && p.nodeType) {
       return p
     }
+  }
+  const node = document.querySelector('.notionLogo')
+  const p = node?.parentElement?.parentElement || node?.parentNode?.parentNode
+  if (p && p.nodeType) {
+    return p
   }
   return '.notion-topbar>div'
 }
@@ -138,7 +151,7 @@ export function getBlockNode (id) {
   return document.querySelector(`[data-block-id="${id}"]`)
 }
 
-// 显示block
+// 滚动至block
 export function scrollToBlock (id) {
   const node = getBlockNode(id)
   document.body.click()
@@ -150,18 +163,23 @@ export function scrollToBlock (id) {
   }, 0)
 }
 
-//
+// 侧边栏响应式内容
 export function contentsToGenerate (statusArr) {
   return [
     {
       generator: getToc,
-      header: 'Table of Content',
+      header: 'Header Blocks',
       name: 'toc',
     },
     {
       generator: getToggle,
       header: 'Toggle Blocks',
       name: 'toggle',
+    },
+    {
+      generator: getDataBase,
+      header: 'DataBase',
+      name: 'dataBase',
     },
     {
       generator: getComment,
@@ -179,10 +197,9 @@ export function contentsToGenerate (statusArr) {
 
   function generateHtml (content, i) {
     const contentStr = content.generator()
-    console.log(statusArr)
     return `
     <div class="toggle-box">
-      <input type="checkbox" id="notionx-toc-inp-${content.name}" ${statusArr[i] ? 'checked' : ''}/>
+      <input type="checkbox" class="notionx-toc-inp" id="notionx-toc-inp-${content.name}" ${statusArr[i] ? 'checked="true"' : ''}/>
       <label for="notionx-toc-inp-${content.name}">
         ${content.header}
       </label>
@@ -214,20 +231,20 @@ export function contentsToGenerate (statusArr) {
       }
     }
     function toHtml (e) {
-      return `<li class="level-${e.level}" title="${e.desc}">
-        <a href="#" data-for-block-id="${e.id}">${e.desc}</a>
+      return `<li class="level-${e.level}" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
       </li>`
     }
   }
   function getToggle () {
     const levels = []
     return [...document.querySelectorAll('.notion-toggle-block')].map(extractInfo)
-      .filter(e => e.id)
+      .filter(e => e.id && e.desc)
       .map(toHtml)
       .join('')
     function extractInfo (e) {
       const id = e.dataset.blockId
-      const desc = e.querySelector('[contenteditable="true"]')?.innerText
+      const desc = e.querySelector('[contenteditable]')?.innerText
       const left = e.offsetLeft
       let level = levels.findIndex(i => i === left)
       if (level === -1) {
@@ -242,8 +259,8 @@ export function contentsToGenerate (statusArr) {
       }
     }
     function toHtml (e) {
-      return `<li class="level-${e.level + 1}" title="${e.desc}">
-        <a href="#" data-for-block-id="${e.id}">${e.desc}</a>
+      return `<li class="level-${e.level + 1}" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
       </li>`
     }
   }
@@ -251,7 +268,7 @@ export function contentsToGenerate (statusArr) {
     return [...document.querySelectorAll('.speechBubble')]
       .map(getBlockElem)
       .map(extractInfo)
-      .filter(e => e.id)
+      .filter(e => e.id && e.desc)
       .map(toHtml)
       .join('')
     function getBlockElem (e) {
@@ -266,8 +283,8 @@ export function contentsToGenerate (statusArr) {
       }
     }
     function toHtml (e) {
-      return `<li class="level-1" title="${e.desc}">
-        <a href="#" data-for-block-id="${e.id}">${e.desc}</a>
+      return `<li class="level-1" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
       </li>`
     }
   }
@@ -282,6 +299,7 @@ export function contentsToGenerate (statusArr) {
     return blocks
       .filter(isDistinct)
       .map(extractInfo)
+      .filter(i => i.id && i.content)
       .map(toHtml)
       .join('')
     function isDistinct (block, i) {
@@ -309,6 +327,26 @@ export function contentsToGenerate (statusArr) {
     function toHtml (e) {
       return `<li class="level-1" title="${e.desc}">
         <a href="#" data-for-block-id="${e.id}">${e.content}</a>
+      </li>`
+    }
+  }
+  function getDataBase () {
+    return [...document.querySelectorAll('.notion-collection_view-block [contenteditable][data-root=true]')].map(extractInfo)
+      .filter(e => e.id && e.desc)
+      .map(toHtml)
+      .join('')
+    function extractInfo (e) {
+      const block = e.closest('[data-block-id]')
+      const id = block?.dataset.blockId
+      const desc = e.innerText
+      return {
+        id,
+        desc,
+      }
+    }
+    function toHtml (e) {
+      return `<li class="level-1" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
       </li>`
     }
   }

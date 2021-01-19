@@ -12,6 +12,7 @@
  * --------------------------------
 */
 #notionx {
+  --sidebarWidth: 220px;
   line-height: 1.5em;
   border: none;
   text-overflow: ellipsis;
@@ -45,7 +46,7 @@
     opacity: 0;
     height: 100%;
     transition: transform 200ms ease-in 0s,opacity 0s ease-in 200ms;
-    width: 283px;
+    width: var(--sidebarWidth);
     opacity: 1;
     background-color: #eeeeee;
     cursor: pointer;
@@ -61,6 +62,9 @@
     max-height: calc(~"100vh - 74px");
     .notionx-hider-btn {
       cursor: pointer;
+    }
+    .option-btn{
+      display: none;
     }
     .option-btn.active{
       background-color: #DAD9D6;
@@ -120,6 +124,7 @@
           display: none;
         }
         .toggle-box{/* 纯css控制可折叠区块 */
+          border-bottom: 1px solid rgba(0,0,0,0.1);
           &>input{
             display: none;
             &+label+.content{
@@ -203,7 +208,7 @@
     .notionx-resizer{
       cursor: col-resize;
       height: 100%;
-      width: 16px;
+      width: 0;
       margin-left: -8px;
       position: absolute;
     }
@@ -239,13 +244,13 @@
 
     .notionx-sidebar {
       opacity: 1;
-      transform: translateX(-283px) translateY(37px);
+      transform: translateX(calc(-1 * var(--sidebarWidth))) translateY(37px);
       transition: transform 200ms ease-in 0s;
     }
   }
 
   &.pinned {
-    width: 283px;
+    width: var(--sidebarWidth);
     pointer-events: auto;
 
     .notionx-sidebar {
@@ -256,6 +261,9 @@
       transform: translateX(0) translateY(0);
       max-height: 100%;
       box-shadow: none;
+      .notionx-resizer{
+        width: 16px;
+      }
     }
   }
 }
@@ -503,6 +511,9 @@ html.notionx-dark {
       background: #373C3F;
       color: rgb(202, 204, 206);
     }
+  }
+  #notionx nav.notionx-sidebar .notionx-views .notionx-view .toggle-box{
+    border-bottom: 1px solid rgba(255,255,255,0.4);
   }
   #notionx nav.notionx-sidebar .notionx-views .notionx-view .toggle-box > label{
     color: rgba(255, 255, 255, 0.4);

@@ -4,7 +4,7 @@ import _ from 'lodash'
 import template from './template'
 import {
   domObserver,
-  scrollToTop,
+  sideBarScrollToTop,
   setLocalNotionXState,
   getLocalNotionXState,
   adapterNotionHeader,
@@ -15,8 +15,8 @@ import {
   DEFAULT_OPTS,
   NOTION_WRAPPER_SELECTOR,
   NOTION_APP_SELECTOR,
-  // MAX_WIDTH,
-  // MIN_WIDTH,
+  MAX_WIDTH,
+  MIN_WIDTH,
   DEFAULT_VIEW_KEY
 } from '../utils/constant'
 
@@ -24,18 +24,16 @@ export default class NotionX {
   // 响应式状态
   #state = new Proxy({}, {
     set: (target, key, newVal) => {
-      console.log('捕获到#state变更：')
-      console.log('target', target)
-      console.log('key', key)
-      console.log('newVal', newVal)
       // this.#state.dark 变更 自动更新视图
       if (key === 'dark') {
         setTimeout(() => {
-          document.querySelector('#dark-mode-inp').checked = newVal
-          if (newVal) {
-            $('html').addClass('notionx-dark')
-          } else {
-            $('html').removeClass('notionx-dark')
+          if (document.querySelector('#dark-mode-inp')) {
+            document.querySelector('#dark-mode-inp').checked = newVal
+            if (newVal) {
+              $('html').addClass('notionx-dark')
+            } else {
+              $('html').removeClass('notionx-dark')
+            }
           }
         }, 0)
       }
@@ -67,6 +65,10 @@ export default class NotionX {
         newVal = newVal || 'hide'
         const cb = this.#fsm.hide[newVal]
         cb && cb.call(this, false)
+      }
+      // this.#state.width 变更 自动更新sidebar宽度css变量
+      if (key === 'width') {
+        this.$notionx[0].style.setProperty('--sidebarWidth', newVal + 'px')
       }
       // 变更自动同步本地存储
       const ret = Reflect.set(target, key, newVal)
@@ -118,7 +120,7 @@ export default class NotionX {
     /* ================= pinned状态 ============= */
     pinned: {
       // pinned => hide
-      hide: (needUpdate = true) => {
+      hide: () => {
         this.$notionx.removeClass('pinned')
         this.$notionx.removeClass('hover')
         this.$sideBarBtn.removeClass('hover')
@@ -126,7 +128,7 @@ export default class NotionX {
         this.#state.fsmState = 'hide'
       },
       // pinned => hover
-      hover: (needUpdate = true) => {
+      hover: () => {
         this.$notionx.addClass('hover')
         this.$notionx.removeClass('pinned')
         this.$sideBarBtn.addClass('hover')
@@ -137,26 +139,34 @@ export default class NotionX {
   }
 
   constructor () {
-    debugger
     this.init()
     return this
   }
 
   async init () {
-    this.mount()
-    this.initStates()
-    this.initEvents()
-    this.notionOb()
+    try {
+      if (this.mount()) {
+        this.initStates()
+        this.initEvents()
+        this.__ob__ = this.startNotionOb()
+      } else {
+        console.warn('NotionX - 初始化失败 NotionX.mount()')
+      }
+    } catch (e) {
+      console.warn(`NotionX - 初始化失败 ${e.message}`)
+    }
   }
 
   destroy () {
-    this.notionOb.disconnect()
-    window.notionx = null
+    if (this.notionOb) {
+      this.notionOb.disconnect()
+      this.notionOb = null
+      window.notionx = null
+    }
   }
 
   // 合并默认配置 + 获取本地存储配置
   initStates () {
-    debugger
     const options = DEFAULT_OPTS
     const localState = getLocalNotionXState()
     for (const key of Object.keys(options)) {
@@ -176,6 +186,7 @@ export default class NotionX {
     this.$document = $(document)
     this.$notionXWrap = $(NOTION_WRAPPER_SELECTOR)
     this.$headerBtnWrap = $(adapterNotionHeader())
+    if (this.$headerBtnWrap.length === 0) return false
     adapterNotionStyle.call(this)
 
     // dom append
@@ -194,6 +205,7 @@ export default class NotionX {
     this.$headerBtnWrap.append(this.$darkBtn)
     this.$headerBtnWrap.append(this.$sideBarBtn)
     this.$notionXWrap.append(this.$notionx)
+    return true
 
     function adapterNotionStyle () {
       this.$notionCenter.addClass('notionX-notionCenter')
@@ -202,10 +214,17 @@ export default class NotionX {
 
   // 响应式内容的监听
   initActiveEvents () {
-    debugger
     this.$notionx.find('a[data-for-block-id]').click(e => {
       const id = e.currentTarget?.attributes['data-for-block-id']?.value
       id && scrollToBlock(id)
+    })
+    this.$notionx.find('label').click(e => {
+      setTimeout(() => {
+        const checks = this.$notionx.find('input.notionx-toc-inp')
+        const expandStatus = [...checks]
+          .map(check => check.checked)
+        this.#state.expandStatus = expandStatus
+      }, 0)
     })
   }
 
@@ -216,8 +235,8 @@ export default class NotionX {
       this.destroy()
     })
 
-    // TODO 需要变更为 sidebar内部滚动至顶部
-    this.$toTopBtn.click(scrollToTop)
+    // sidebar内部滚动至顶部
+    this.$toTopBtn.click(sideBarScrollToTop)
 
     // Dark Mode 开关
     this.$darkBtn.find('label').click(e => {
@@ -281,25 +300,16 @@ export default class NotionX {
       })
     }
 
-    // option change handler
-    // this.$optionView.find('input').change(e => {
-    //   const inp = e.currentTarget
-    //   const key = inp.name
-    //   if (!key) return
-    //   this.#state.options[key] = inp.type === 'checkbox' ? inp.checked : inp.value
-    // })
-
-    // TODO resizer: adjust sidebar width
-    /*
+    // resizer: adjust sidebar width
     const _resizer = this.$resizer
-    const _sidebar = this.$sidebar
     const _box = this.$notionx
     const _fa = this.$notionXWrap
     this.$resizer.mousedown((e) => {
+      if (this.#state.fsmState !== 'pinned') return // 非pinned状态禁止调节宽度
+
       _box.addClass('no-transition')
       const box = _box[0]
       const fa = _fa[0]
-      const sidebar = _sidebar[0]
       e.stopPropagation()
       e.preventDefault()
       const pos = {
@@ -311,8 +321,8 @@ export default class NotionX {
         const w = Math.min(Math.max(MIN_WIDTH, pos.x - ev.clientX + pos.w), MAX_WIDTH)
 
         requestAnimationFrame(() => {
-          sidebar.style.width = `${w}px`
-          box.style.width = 'fit-content'
+          // 存储新宽度 并更新视图的操作，交给#state的proxy来做
+          this.#state.width = w
         })
       }
       fa.onmouseleave = () => {
@@ -324,31 +334,48 @@ export default class NotionX {
       fa.onmouseup = () => {
         fa.onmousemove = null
         fa.onmouseup = null
-        // TODO: 记录宽度
         if (_resizer.releaseCapture) _resizer.releaseCapture()
         _box.removeClass('no-transition')
       }
       if (_resizer.setCapture) _resizer.setCapture()
-    }) */
+    })
   }
 
   // notion app observer for update TOC dynamically
-  notionOb () {
+  startNotionOb () {
+    this.notionObCount = 0
     renderSideContent.call(this)
     this.notionOb = domObserver(NOTION_APP_SELECTOR, renderSideContent.call(this))
+    return {
+      stop: () => {
+        this.notionOb = null
+      },
+      start: () => {
+        renderSideContent.call(this)
+        this.notionOb = domObserver(NOTION_APP_SELECTOR, renderSideContent.call(this))
+      },
+    }
 
     // update sidebar content (using throttle)
     function renderSideContent () {
       const _self = this
       const $wrap = this.$tocWrap
       return _.debounce(() => {
+        if (_self.notionOb === null) return
         performance.mark('notionOb-start')
-        const checks = $wrap[0].querySelectorAll('input[type="checkbox"]')
-        const expandStatus = [...checks]
+        // 获取并更新折叠状态
+        const checks = $wrap[0].querySelectorAll('input.notionx-toc-inp')
+        let expandStatus = [...checks]
           .map(check => check.checked)
+        if (_self.notionObCount === 0 && _self.#state.expandStatus) {
+          expandStatus = _self.#state.expandStatus
+        } else {
+          this.#state.expandStatus = expandStatus
+        }
         const s = contentsToGenerate(expandStatus)
         $wrap.html(s)
         _self.initActiveEvents()
+        _self.notionObCount++
         performance.mark('notionOb-end')
         performance.measure(
           'notionOb',
@@ -356,7 +383,7 @@ export default class NotionX {
           'notionOb-end',
         )
         const measures = performance.getEntriesByName('notionOb')
-        console.log('notionOb spend: ' + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
+        console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
       }, 2000, { leading: true, trailing: false, maxWait: 2000 })
     }
   }

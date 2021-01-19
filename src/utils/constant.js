@@ -10,7 +10,8 @@ export const DEFAULT_OPTS = {
   hotKeys: '⌘+⇧+x',
   width: 220,
   viewKey: 'toc',
-  fsmState: 'hide'
+  fsmState: 'hide',
+  expandStatus: null,
 }
 
 export const DEFAULT_VIEW_KEY = 'toc'
