@@ -190,16 +190,31 @@ export function handleOption (option, event) {
  * @param {*} option 需要客户端处理的配置项
  */
 export function contentAction (option) {
-  chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-    chrome.tabs.sendMessage(tabs[0].id, {
-      type: 'action',
-      data: option
-    }, function (response) {
+  const cb = function (tabs) {
+    const contentTabId = tabs[0].id
+    const inCb = function (response) {
       if (response && response.success) {
         console.log(response.message)
       } else {
         console.warn('NotionX - popup : ', '连接失败')
       }
-    })
-  })
+    }
+    delete option.event
+    if (chrome) {
+      chrome.tabs.sendMessage(contentTabId, {
+        type: 'action',
+        data: option
+      }, inCb)
+    } else {
+      browser.tabs.sendMessage(contentTabId, {
+        type: 'action',
+        data: option
+      }).then(inCb)
+    }
+  }
+  if (chrome) {
+    chrome.tabs.query({ active: true, currentWindow: true }, cb)
+  } else {
+    browser.tabs.query({ active: true, currentWindow: true }).then(cb)
+  }
 }

@@ -4,7 +4,8 @@ import { ORIGIN_OPTIONS } from '@/store/option'
 
 let contentTabId = null
 // 接收消息
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+const platform = chrome || browser
+platform.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.type === CONTENT_DETECT) {
     // 初始化：侦测到content后,根据local配置初始化
     contentTabId = sender.tab.id
@@ -39,16 +40,24 @@ function effectLocal () {
   localOptions = JSON.parse(localOptions).filter(i => i.scope === 'content')
   // 发送消息至content执行命令
   if (contentTabId) {
-    chrome.tabs.sendMessage(contentTabId, {
-      type: 'actions',
-      data: localOptions
-    }, function (response) {
+    const cb = function (response) {
       if (response && response.success) {
-        if (NODE_ENV !== 'production') console.log(response.message)
+        if (process.env.NODE_ENV !== 'production') console.log(response.message)
       } else {
         console.warn('NotionX - background : ', '连接失败')
       }
-    })
+    }
+    if (chrome) {
+      chrome.tabs.sendMessage(contentTabId, {
+        type: 'actions',
+        data: localOptions
+      }, cb)
+    } else {
+      browser.tabs.sendMessage(contentTabId, {
+        type: 'actions',
+        data: localOptions
+      }).then(cb)
+    }
   } else {
     console.warn('NotionX - background: ', '连接失败')
   }

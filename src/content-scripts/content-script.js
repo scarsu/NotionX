@@ -6,13 +6,19 @@ import Actions from '@/utils/Actions'
 import { CONTENT_DETECT } from '@/utils/constant'
 
 // 初始化 侦测到content后传递消息至background
-chrome.runtime.sendMessage({ type: CONTENT_DETECT }, function (response) {
+const detectCb = function (response) {
   console.log('content接收到探测响应')
   console.log(response)
-})
+}
+if (chrome) {
+  chrome.runtime.sendMessage({ type: CONTENT_DETECT }, detectCb)
+} else {
+  browser.runtime.sendMessage({ type: CONTENT_DETECT }).then(detectCb)
+}
 
 // 接收消息
-chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+const platform = chrome || browser
+platform.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension')
   console.log('content接收back消息')
   sendResponse({
@@ -68,9 +74,14 @@ waitNotionPageReady().then(() => {
   })
 
   function msgToContent (msg) {
-    chrome.runtime.sendMessage({ ...msg }, function (response) {
+    const cb = function (response) {
       console.log('content接收到探测响应')
       console.log(response)
-    })
+    }
+    if (chrome) {
+      chrome.runtime.sendMessage({ ...msg }, cb)
+    } else {
+      browser.runtime.sendMessage({ ...msg }).then(cb)
+    }
   }
 })
