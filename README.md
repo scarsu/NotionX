@@ -42,7 +42,7 @@ Compared to Notion's official dark mode, the built-in dark mode of the extension
 
 ![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121124238.gif)
 
-### Open the current page in Notion desktop
+### Open current page in Notion desktop
 
 ![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121124736.gif)
 
