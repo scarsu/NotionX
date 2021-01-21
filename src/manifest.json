@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "name": "__MSG_extName__",
+  "name": "NotionX ( for Notion )",
   "homepage_url": "http://scarsu.cn/notionx/",
   "description": "A Browser Extension that enhances Notion experience.",
   "default_locale": "en",
@@ -28,7 +28,7 @@
 	],
   "browser_action": {
     "default_popup": "popup.html",
-    "default_title": "__MSG_extName__",
+    "default_title": "NotionX ( for Notion )",
     "default_icon": {
       "19": "icons/notionx-white.png",
       "38": "icons/notionx-white.png"
