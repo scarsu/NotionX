@@ -4,7 +4,7 @@
 
 一个增强 Notion 体验的浏览器插件。
 
-## 特性
+## v2.0.0 特性 (2021.02.01)
 
 ### 响应式侧边栏
 
@@ -56,7 +56,14 @@
 
 ### 隐藏NotionX侧边栏
 
+## v1.0.0 特性 (2020.12.15)
+
 ![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121125002.gif)
+- 侧边栏TOC： 根据Notion Page中的Heading Block 1-3，在网页侧边栏自动生成Notion文章的TOC目录。
+- 暗黑模式： 相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192422.gif)
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192421.gif)
 
 ## 使用
 

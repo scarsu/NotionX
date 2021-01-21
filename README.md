@@ -4,7 +4,7 @@ English | [简体中文](./README.zh-CN.md)
 
 Browser extension that enhances Notion experience.
 
-## Features
+## v2.0.0 Features (2021.02.01)
 
 ### Dynamic SideBar
 
@@ -57,6 +57,14 @@ Compared to Notion's official dark mode, the built-in dark mode of the extension
 ### Hide NotionX sidebar
 
 ![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121125002.gif)
+
+## v1.0.0 Features (2020.12.15)
+
+- Auto Side Bar TOC: The TOC of Notion Page will automatically generate in the sidebar of the page，according to Heading Block 1-3 in Notion Page.
+- Dark Mode: Compared with Notion's official dark mode, the built-in dark mode of the extension has a lower visual contrast, which takes effect globally, including all contents such as pictures.
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192422.gif)
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192421.gif)
 
 ## Usage
 
