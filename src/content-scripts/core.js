@@ -5,6 +5,7 @@ import template from './template'
 import {
   domObserver,
   sideBarScrollToTop,
+  scrollToTop,
   setLocalNotionXState,
   getLocalNotionXState,
   adapterNotionHeader,
@@ -194,7 +195,8 @@ export default class NotionX {
     this.$sidebar = this.$notionx.find('.notionx-sidebar')
     this.$hiderBtn = this.$notionx.find('.notionx-hider-btn')
     this.$sideHeader = this.$notionx.find('.notionx-header')
-    this.$tocWrap = this.$notionx.find('.notionx-view[data-view="toc"]')
+    this.$tocWrap = this.$notionx.find('.notionx-view[data-view="toc"] .content')
+    this.$pageTopBtn = this.$notionx.find('.notionx-view[data-view="toc"] .pageTopBtn')
     this.$toTopBtn = this.$notionx.find('.to-top-btn')
     this.$optionBtn = this.$notionx.find('.option-btn')
     this.$optionView = this.$notionx.find('.notionx-view-option')
@@ -237,6 +239,9 @@ export default class NotionX {
 
     // sidebar内部滚动至顶部
     this.$toTopBtn.click(sideBarScrollToTop)
+
+    // notion page滚动至顶部
+    this.$pageTopBtn.click(scrollToTop)
 
     // Dark Mode 开关
     this.$darkBtn.find('label').click(e => {
@@ -344,47 +349,51 @@ export default class NotionX {
   // notion app observer for update TOC dynamically
   startNotionOb () {
     this.notionObCount = 0
-    renderSideContent.call(this)
+    this.realRender()
     this.notionOb = domObserver(NOTION_APP_SELECTOR, renderSideContent.call(this))
+    // update sidebar content (using throttle)
+    function renderSideContent () {
+      const cb = () => { this.realRender() }
+      return _.debounce(cb, 2000, { leading: true, trailing: false, maxWait: 2000 })
+    }
     return {
       stop: () => {
         this.notionOb = null
       },
       start: () => {
-        renderSideContent.call(this)
+        this.realRender()
         this.notionOb = domObserver(NOTION_APP_SELECTOR, renderSideContent.call(this))
       },
     }
+  }
 
-    // update sidebar content (using throttle)
-    function renderSideContent () {
-      const _self = this
-      const $wrap = this.$tocWrap
-      return _.debounce(() => {
-        if (_self.notionOb === null) return
-        performance.mark('notionOb-start')
-        // 获取并更新折叠状态
-        const checks = $wrap[0].querySelectorAll('input.notionx-toc-inp')
-        let expandStatus = [...checks]
-          .map(check => check.checked)
-        if (_self.notionObCount === 0 && _self.#state.expandStatus) {
-          expandStatus = _self.#state.expandStatus
-        } else {
-          this.#state.expandStatus = expandStatus
-        }
-        const s = contentsToGenerate(expandStatus)
-        $wrap.html(s)
-        _self.initActiveEvents()
-        _self.notionObCount++
-        performance.mark('notionOb-end')
-        performance.measure(
-          'notionOb',
-          'notionOb-start',
-          'notionOb-end',
-        )
-        const measures = performance.getEntriesByName('notionOb')
-        console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
-      }, 2000, { leading: true, trailing: false, maxWait: 2000 })
+  realRender () {
+    const _self = this
+    const $wrap = this.$tocWrap
+    if (_self.notionOb === null) return
+    if (process.env.NODE_ENV !== 'production') performance.mark('notionOb-start')
+    // 获取并更新折叠状态
+    const checks = $wrap[0].querySelectorAll('input.notionx-toc-inp')
+    let expandStatus = [...checks]
+      .map(check => check.checked)
+    if (_self.notionObCount === 0 && _self.#state.expandStatus) {
+      expandStatus = _self.#state.expandStatus
+    } else {
+      this.#state.expandStatus = expandStatus
+    }
+    const s = contentsToGenerate(expandStatus)
+    $wrap.html(s)
+    _self.initActiveEvents()
+    _self.notionObCount++
+    if (process.env.NODE_ENV !== 'production') {
+      performance.mark('notionOb-end')
+      performance.measure(
+        'notionOb',
+        'notionOb-start',
+        'notionOb-end',
+      )
+      const measures = performance.getEntriesByName('notionOb')
+      console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
     }
   }
 }

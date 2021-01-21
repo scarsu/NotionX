@@ -11,12 +11,12 @@ import {
  * @param {function} cb Callback function executed when the DOM changes
  * @param {array} args arguments for callback
  */
-export function domObserver (selector, cb, name) {
+export function domObserver (selector, cb, config) {
   const observer = new MutationObserver((arg) => {
     cb(arg)
   })
   const el = document.querySelector(selector)
-  const config = {
+  config = config || {
     childList: true,
     subtree: true
   }
@@ -266,25 +266,24 @@ export function contentsToGenerate (statusArr) {
   }
   function getComment () {
     return [...document.querySelectorAll('.speechBubble')]
-      .map(getBlockElem)
       .map(extractInfo)
       .filter(e => e.id && e.desc)
       .map(toHtml)
       .join('')
-    function getBlockElem (e) {
-      return e.closest('[data-block-id]')
-    }
-    function extractInfo (e) {
+    function extractInfo (bubble) {
+      const e = bubble.closest('[data-block-id]')
       const id = e.dataset.blockId
-      const desc = e.querySelector('[contenteditable="true"]')?.innerText
+      const desc = e.querySelector('[contenteditable]')?.innerHTML
+      const comment = bubble?.nextSibling?.innerText
       return {
         id,
-        desc
+        desc,
+        comment,
       }
     }
     function toHtml (e) {
-      return `<li class="level-1" title="${e.desc || ''}">
-        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
+      return `<li class="level-1" title="${e.comment || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}: ${e.comment || ''}</a>
       </li>`
     }
   }

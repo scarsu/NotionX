@@ -84,6 +84,7 @@ export default {
   created () {
   },
   mounted () {
+    // 每次打开popup，获取local-popup配置并生效
     this.effectLocalOption()
   },
   methods: {
@@ -105,7 +106,8 @@ export default {
       // 先更新store
       this.$store.commit('updateOptions', {
         options: JSON.parse(local),
-        needEffect: true
+        needEffect: true,
+        scope: 'popup',
       })
     },
   }

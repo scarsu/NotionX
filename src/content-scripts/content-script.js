@@ -1,11 +1,11 @@
 import NotionX from './core'
 import '@/assets/svg'
 import './content.less'
-import { waitNotionPageReady } from '@/utils/util'
+import { waitNotionPageReady, domObserver } from '@/utils/util'
 import Actions from '@/utils/Actions'
 import { CONTENT_DETECT } from '@/utils/constant'
 
-// 侦测到content后传递消息至background
+// 初始化 侦测到content后传递消息至background
 chrome.runtime.sendMessage({ type: CONTENT_DETECT }, function (response) {
   console.log('content接收到探测响应')
   console.log(response)
@@ -13,7 +13,7 @@ chrome.runtime.sendMessage({ type: CONTENT_DETECT }, function (response) {
 
 // 接收消息
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  // console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension')
+  console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension')
   console.log('content接收back消息')
   sendResponse({
     success: true,
@@ -51,4 +51,26 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 
 waitNotionPageReady().then(() => {
   if (!window.notionx) window.notionx = new NotionX()
+
+  // 监控dark mode+compact mode客户端变更，同步至back
+
+  domObserver('.notion-body', mutationList => {
+    console.log('mutationList', mutationList)
+    const value = mutationList[0]?.target?.classList.contains('dark')
+    if (value === undefined) return
+    msgToContent({
+      type: 'DARK_MODE',
+      value
+    })
+  }, {
+    attributes: true,
+    attributeFilter: ['class'],
+  })
+
+  function msgToContent (msg) {
+    chrome.runtime.sendMessage({ ...msg }, function (response) {
+      console.log('content接收到探测响应')
+      console.log(response)
+    })
+  }
 })

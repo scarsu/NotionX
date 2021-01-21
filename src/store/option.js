@@ -33,15 +33,6 @@ export const ORIGIN_OPTIONS = [
     scope: 'content',
   },
   {
-    action: 'hideNotionXSidebar',
-    name: 'hideNotionXSidebar',
-    desc: 'hideNotionXSidebarDesc',
-    value: false,
-    type: 'switch',
-    hide: false,
-    scope: 'content',
-  },
-  {
     action: 'toggleCompact',
     name: 'toggleCompact',
     desc: 'toggleCompactDesc',
@@ -70,15 +61,6 @@ export const ORIGIN_OPTIONS = [
     needLoading: 2000
   },
   {
-    action: 'resetOptions',
-    name: 'resetOptions',
-    desc: 'resetOptionsDesc',
-    value: null,
-    type: 'button',
-    hide: false,
-    scope: 'all',
-  },
-  {
     action: 'showScrollToTop',
     name: 'showScrollToTop',
     desc: 'showScrollToTopDesc',
@@ -95,6 +77,24 @@ export const ORIGIN_OPTIONS = [
     type: 'switch',
     hide: false,
     scope: 'content',
+  },
+  {
+    action: 'hideNotionXSidebar',
+    name: 'hideNotionXSidebar',
+    desc: 'hideNotionXSidebarDesc',
+    value: false,
+    type: 'switch',
+    hide: false,
+    scope: 'content',
+  },
+  {
+    action: 'resetOptions',
+    name: 'resetOptions',
+    desc: 'resetOptionsDesc',
+    value: null,
+    type: 'button',
+    hide: false,
+    scope: 'all',
   },
   // {
   //   action: 'copyToken',
@@ -128,7 +128,7 @@ export default {
 
       window.localStorage.setItem(EXTENSION_STORAGE_OPTION_KEY, JSON.stringify(state.items))
     },
-    updateOptions (state, { options, needEffect = false }) {
+    updateOptions (state, { options, needEffect = false, scope = '' }) {
       options.forEach(e => {
         const i = state.items.findIndex(o => o.action === e.action)
         if (i > -1) {
@@ -141,8 +141,9 @@ export default {
       window.localStorage.setItem(EXTENSION_STORAGE_OPTION_KEY, JSON.stringify(state.items))
 
       if (needEffect) {
-        console.log('this:', this)
-        state.items.forEach(item => handleOption.call(this, item))
+        state.items
+          .filter(i => !scope || scope === i.scope)
+          .forEach(item => handleOption.call(this, item))
       }
     }
   },
@@ -160,7 +161,6 @@ export default {
  * @param {*} event 触发事件
  */
 export function handleOption (option, event) {
-  console.log('this:', this)
   // 更新option值
   if (event) {
     if (option.type === 'switch') {
@@ -187,7 +187,7 @@ export function handleOption (option, event) {
 
 /**
  * 向content传递消息(当前active的tab
- * @param {*} option 需要而护短处理的配置项
+ * @param {*} option 需要客户端处理的配置项
  */
 export function contentAction (option) {
   chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {

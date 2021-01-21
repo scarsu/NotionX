@@ -4,16 +4,8 @@
  * 英文换行 word-break: break-all;
  */
 #md {
-  font-size:14px;
-  padding:10px;
-}
-
-/*图片下提示*/
-#md figcaption{
-  font-size:12px;
-}
-#md .imageflow-caption{
-  font-size:12px;
+  max-width: 768px;
+  margin: 0 auto;
 }
 
 /* 段落，下方未标注标签参数均同此处
@@ -28,11 +20,11 @@
  * 首行缩进 text-indent: 2em;
  */
 #md p {
-  font-size:14px;
 }
 
 /* 一级标题 */
 #md h1 {
+  text-align: center;
 }
 
 /* 一级标题内容 */
@@ -44,92 +36,31 @@
 }
 
 /* 一级标题后缀 */
-#md h1 .suffix{
+#md h1 .suffix {
 }
 
 /* 二级标题 */
 #md h2 {
-  	text-align:center;
-  	position:relative;
-    font-weight: bold;
-    color: black;
-    line-height: 1.1em;
-    padding-top: 12px;
-    padding-bottom: 12px;
-    margin:70px 30px 30px;
-    border: 1px solid #000;
+  margin-top: 2em;
 }
 
-#md h2:before{
-  content: ' ';
-  float: left;
-  display: block;
-  width: 90%;
-  border-top: 1px solid #000;
-  height: 1px;
-  line-height: 1px;
-  margin-left: -5px;
-  margin-top: -17px;
-}
-#md h2:after{
-  content: ' ';
-  float: right;
-  display: block;
-  width: 90%;
-  border-bottom: 1px solid #000;
-  height: 1px;
-  line-height: 1px;
-  margin-right: -5px;
-  margin-top: 16px;
-}
 /* 二级标题内容 */
 #md h2 .content {
-  display: block;
-  -webkit-box-reflect: below 0em -webkit-gradient(linear,left top,left bottom, from(rgba(0,0,0,0)),to(rgba(255,255,255,0.1)));
 }
-#md h2 strong {
-}
+
 /* 二级标题前缀 */
 #md h2 .prefix {
-  display: block;
-  width: 3px;
-  margin: 0 0 0 5%;
-  height: 3px;
-  line-height: 3px;
-  overflow: hidden;
-  background-color: #000;
-  box-shadow:3px 0 #000,
-    0 3px #000,
-    -3px 0 #000,
-    0 -3px #000;
 }
 
 /* 二级标题后缀 */
 #md h2 .suffix {
-  display: block;
-  width: 3px;
-  margin: 0 0 0 95%;
-  height: 3px;
-  line-height: 3px;
-  overflow: hidden;
-  background-color: #000;
-  box-shadow:3px 0 #000,
-    0 3px #000,
-    -3px 0 #000,
-    0 -3px #000;
 }
 
 /* 三级标题 */
 #md h3 {
-  background-color:#000;
-  color:#fff;
-  padding:2px 10px;
-  width:fit-content;
-  font-size:17px;
-  margin:60px auto 10px;
-}
-#md h3 strong {
-  color:#fff;
+  margin-top: 1em;
+  border-left: 5px solid #000;
+  padding-left: 0.5em;
 }
 
 /* 三级标题内容 */
@@ -148,12 +79,6 @@
  * list-style-type: square|circle|disc;
  */
 #md ul {
-  list-style-type: square;
-}
-/* 无序二级列表
- */
-#md ul li ul li{
-  list-style-type: circle;
 }
 
 /* 有序列表整体样式
@@ -167,18 +92,33 @@
 #md li section {
 }
 
-/* 引用
+/* 一级引用
  * 左边缘颜色 border-left-color: black;
  * 背景色 background: gray;
  */
 #md .multiquote-1 {
-  border-left: 3px solid rgba(0, 0, 0, 0.65);
-  border-right: 1px solid rgba(0, 0, 0, 0.65);
-  background: rgb(249, 249, 249);
 }
 
-/* 引用文字 */
+/* 一级引用文字 */
 #md .multiquote-1 p {
+}
+
+/* 二级引用
+ */
+#md .multiquote-2 {
+}
+
+/* 二级引用文字 */
+#md .multiquote-2 p {
+}
+
+/* 三级引用
+ */
+#md .multiquote-3 {
+}
+
+/* 三级引用文字 */
+#md .multiquote-3 p {
 }
 
 /* 链接 
@@ -204,37 +144,35 @@
 }
 
 /* 分隔线
- * 粗细、样式和颜色
- * border-top: 1px solid #3e3e3e;
- */
+* 粗细、样式和颜色
+* border-top: 1px solid #3e3e3e;
+*/
 #md hr {
 }
 
 /* 图片
- * 宽度 width: 80%;
- * 居中 margin: 0 auto;
- * 居左 margin: 0 0;
- */
+* 宽度 width: 80%;
+* 居中 margin: 0 auto;
+* 居左 margin: 0 0;
+*/
 #md img {
-  box-shadow: rgba(170, 170, 170, 0.48) 0px 0px 6px 0px;
-  border-radius:4px;
-  margin-top:10px;
-}
-/* 行内代码 */
-#md p code, #md li code {
-  color:#ff6441;
+  max-width: 80%;
+  margin: 0 auto;
+  display: block;
 }
 
-/* 非微信代码块
+/* 图片描述文字 */
+#md figcaption {
+}
+
+/* 行内代码 */
+#md p code, #md li code {
+}
+
+/* 
  * 代码块不换行 display: -webkit-box !important;
  * 代码块换行 display: block;
  */
-#md pre.custom {
-  box-shadow: rgba(170, 170, 170, 0.48) 0px 0px 6px 0px;
-  max-width: 100%;
-  border-radius:4px;
-  margin: 10px auto 0 auto;
-}
 #md pre code {
 }
 
@@ -246,7 +184,15 @@
  */
 #md table tr th,
 #md table tr td {
-  font-size:14px;
+}
+
+/* 
+ * 某一列表格列宽控制
+ * n 可以修改为具体数字，不修改时表示所有列
+ * 最小列宽 min-width: 85px;
+ */
+#md table tr th:nth-of-type(n),
+#md table tr td:nth-of-type(n){
 }
 
 /* 脚注文字 */
@@ -260,39 +206,19 @@
 /* "参考资料"四个字 
  * 内容 content: "参考资料";
  */
-#md .footnotes-sep {
-  font-size: 14px;
-  color: #888;
-  border-top: 1px solid #eee;
-  padding: 30px 0 10px 0px;
-  background-color: transparent;
-  margin: 0;
-  width: 100%;
-}
 #md .footnotes-sep:before {
-  content:'参考资料';
-}
-#md .footnotes{
-  border-left:5px solid #eee;
-  padding-left:10px;
 }
 
 /* 参考资料编号 */
 #md .footnote-num {
-  font-size:14px;
-  color:#999;
 }
 
 /* 参考资料文字 */
 #md .footnote-item p { 
-  font-size:14px;
-  color:#999;
 }
 
 /* 参考资料解释 */
 #md .footnote-item p em {
-  font-size:14px;
-  color:#999;
 }
 
 /* 行间公式
@@ -303,22 +229,5 @@
 
 /* 行内公式
  */
-#md .inline-equation svg {  
-}
-/* 文章结尾 */
-#md:after{
-  content:'- END -';
-  font-size:15px;
-  display:block;
-  text-align:center;
-  margin-top:50px;
-  color:#999;
-  border-bottom:1px solid #eee;
-}
-
-/*滑动幻灯片*/
-#md .imageflow-layer1 img{
-  margin:0;
-  box-shadow: none;
-  border-radius: 0;
+#md .inline-equation svg { 
 }

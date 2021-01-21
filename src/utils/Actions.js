@@ -76,7 +76,8 @@ const Actions = {
       if (!$codeBlocks) return
       $codeBlocks.forEach($codeBlock => {
         // 计算最新行数
-        const $code = [...$codeBlock.children].find(i => i.classList.contains('notranslate'))
+        // const $code = [...$codeBlock.children].find(i => i.classList.contains('notranslate'))
+        const $code = $codeBlock.querySelector('[contenteditable]')
         if (!$code) return
         const realH = $code.offsetHeight -
           parseFloat(getComputedStyle($code).getPropertyValue('border-top-width')) -
@@ -116,7 +117,7 @@ const Actions = {
     // 通过mutationObserver动态更新,用节流函数限制更新次数
     if (data.value) {
       lineNumShow()
-      window.lineNumOb = domObserver(NOTION_APP_SELECTOR, _.debounce(lineNumShow, 1000, { leading: true, trailing: false, maxWait: 1000 }), 'lineNumOb')
+      window.lineNumOb = domObserver(NOTION_APP_SELECTOR, _.debounce(lineNumShow, 1000, { leading: true, trailing: false, maxWait: 1000 }))
     } else {
       if (window.lineNumOb) {
         window.lineNumOb.disconnect()
@@ -145,14 +146,15 @@ const Actions = {
     const exist = !!$top
     const show = !!$top && $top.classList.contains('show')
     if (data.value && !exist) {
-      const $h = document.querySelector('.notion-help-button')
-      if (!$h) return false
-      const $p = $h.parentElement
+      const $sibling = document.querySelector('.notion-help-button') ||
+        document.querySelector('#notionx')
+      if (!$sibling) return false
+      const $p = $sibling.parentElement
       const $totop = document.createElement('div')
       $totop.innerHTML = '⭡'
       $totop.classList.add('notionx-totop')
       $totop.classList.add('show')
-      $p.insertBefore($totop, $h)
+      $p.insertBefore($totop, $sibling)
       $totop.addEventListener('click', function () {
         document.querySelector('.notion-scroller.vertical.horizontal').style.scrollBehavior = 'smooth'
         document.querySelector('.notion-scroller.vertical.horizontal').scrollTop = 0

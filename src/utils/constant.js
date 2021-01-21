@@ -19,6 +19,7 @@ export const MAX_WIDTH = 480
 export const MIN_WIDTH = 190
 export const EXTENSION_STORAGE_OPTION_KEY = 'notionx_options'
 export const CONTENT_DETECT = 'CONTENT_DETECT'
+export const COMMENT_STYLE = 'background:rgba(255,212,0,0.14);border-bottom:2px solid rgb(255, 212, 0);padding-bottom:2px'
 export const COLORS = [
   {
     value: 'rgb(155, 154, 151)',

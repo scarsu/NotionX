@@ -27,13 +27,12 @@ const template = {
 
       <div class="notionx-views">
         <div class="notionx-view notionx-view-toc" data-view="toc">
-          <!--<div class="toggle-box">
-            <input type="checkbox" id="toc-inp"/>
-            <label for="toc-inp">
-              Table Of Content
+          <div class="toggle-box page-top-btn-box" title="page scroll to top">
+            <label class="pageTopBtn">
+              Page Top ↑
             </label>
-            <div class="content notionx-view-toc-content-wrap"></div>
-          </div>-->
+          </div>
+          <div class="content"></div>
         </div>
         <div class="notionx-view notionx-view-option" data-view="option">
           <div class="toggle-box">
@@ -58,7 +57,7 @@ const template = {
           NotionX by
           <a target="_blank" href="https://github.com/scarsu/NotionX">ScarSu</a>
         </div>
-        <div class="notionx-icon to-top-btn">
+        <div class="notionx-icon to-top-btn" title="sidebar scroll to top">
           <svg aria-hidden="true">
             <use xlink:href="#icon-top"></use>
           </svg>

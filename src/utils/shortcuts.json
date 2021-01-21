@@ -116,7 +116,7 @@
         "desc": "create a divider. (Three dashes in a row.)"
       },
       {
-        "mac": "With text selected, cmd B",
+        "mac": "With text selected, cmd + B",
         "win": "With text selected, ctrl + B",
         "desc": "bold text."
       },
