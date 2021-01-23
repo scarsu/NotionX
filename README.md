@@ -70,8 +70,8 @@ Compared to Notion's official dark mode, the built-in dark mode of the extension
 
 - [Google Store](https://chrome.google.com/webstore/detail/notionx/ojnlojnakahpmkbpigmjhcgibccnidpk)
 - [FireFox - Mozilla addons](https://addons.mozilla.org/firefox/addon/notionx/)
-- [Download the `crx` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/ojnlojnakahpmkbpigmjhcgibccnidpk_main.crx)
-- [Download the `xpi` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx-1.0.0-fx.xpi)
+- [Download the `crx` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx_for_notion_v2.0.0.crx)
+- [Download the `xpi` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx_for_notion-2.0.1-fx.xpi)
 - Clone this repository,`npm run build` to build package, import the entire `./dist` package in Chrome developer mode.
 
 ## Maintainers
