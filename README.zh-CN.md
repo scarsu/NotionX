@@ -4,6 +4,10 @@
 
 一个增强 Notion 体验的浏览器插件。
 
+![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142800.png)
+
+![NotionX 特性](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210123163052.png)
+
 ## v2.0.0 特性 (2021.02.01)
 
 ### 响应式侧边栏

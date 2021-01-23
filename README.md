@@ -4,9 +4,15 @@ English | [简体中文](./README.zh-CN.md)
 
 Browser extension that enhances Notion experience.
 
+![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142800.png)
+
+![NotionX Features](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142822.png)
+
 ## v2.0.0 Features (2021.02.01)
 
 ### Dynamic SideBar
+
+
 
 A shortcut directory is automatically generated in the sidebar of the page based on `Heading Block 1-3`, `Toggle Block`, `Database Block`, `Comments` and `Colored Text` in Notion Page.
 
