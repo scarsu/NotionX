@@ -69,8 +69,8 @@
 
 - [Google Store](https://chrome.google.com/webstore/detail/notionx/ojnlojnakahpmkbpigmjhcgibccnidpk)
 - [FireFox - Mozilla addons](https://addons.mozilla.org/firefox/addon/notionx/)
-- [下载 the `crx` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/ojnlojnakahpmkbpigmjhcgibccnidpk_main.crx)
-- [下载 the `xpi` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx-1.0.0-fx.xpi)
+- [下载 the `crx` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx_for_notion_v2.0.0.crx)
+- [下载 the `xpi` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx_for_notion-2.0.1-fx.xpi)
 - 下载本仓库，`npm run build`打包后，Chrome开发者模式导入整个包使用
 
 ## 维护者
