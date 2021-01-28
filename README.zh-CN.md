@@ -18,7 +18,7 @@
 
 ### 低对比度暗黑模式
 
-相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。（适合 fish touching，防窥屏）
+相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在**网页全局**生效，包括图片等所有的内容。（适合 fish touching，防窥屏）
 
 ![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192422.gif)
 

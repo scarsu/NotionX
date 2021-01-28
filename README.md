@@ -20,7 +20,7 @@ A shortcut directory is automatically generated in the sidebar of the page based
 
 ### Low Contrast Dark Mode
 
-Compared to Notion's official dark mode, the built-in dark mode of the extension has a lower visual contrast, which takes effect globally, including all contents such as pictures.(to prevent others from spying on your screen maybe)
+Compared to Notion's official dark mode, the built-in dark mode of the extension has a lower visual contrast, which **takes effect globally**, including all contents such as pictures.(to prevent others from spying on your screen maybe)
 
 ![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20201126192422.gif)
 
