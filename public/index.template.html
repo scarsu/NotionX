@@ -16,15 +16,12 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="A Browser Extension that enhances Notion experience. - 增强Notion体验的插件">
     <meta property="og:description" content="A Browser Extension that enhances Notion experience. - 增强Notion体验的插件">
+    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta HTTP-EQUIV="Cache-Control" CONTENT="no-store, must-revalidate">
+    <meta HTTP-EQUIV="expires" CONTENT="Wed, 26 Feb 1997 08:21:57 GMT">
+    <meta HTTP-EQUIV="expires" CONTENT="0">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-175312250-2"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'UA-175312250-2');
-    </script>
     <title>NotionX - A browser that enhances Notion Experience</title>
     <link rel="stylesheet" href="./css/md.css">
     <style>
@@ -40,5 +37,19 @@
     <div id="md">
       <!--readme-md-outlet-->
     </div>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-175312250-2');
+    </script>
+    <script>
+      if(!window.name){
+        var str = Math.random().toString(36).substr(2);
+        window.location.href += '?S='+ str;
+        window.name='isreload'
+      }
+    </script>
   </body>
 </html>
