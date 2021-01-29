@@ -8,6 +8,8 @@ Browser extension that enhances Notion experience.
 
 ![NotionX Features](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142822.png)
 
+![NotionX Contact](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210129102351.png)
+
 ## v2.0.0 Features (2021.02.01)
 
 ### Dynamic SideBar

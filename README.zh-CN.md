@@ -8,6 +8,8 @@
 
 ![NotionX 特性](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210123163052.png)
 
+![NotionX 讨论群](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210129102351.png)
+
 ## v2.0.0 特性 (2021.02.01)
 
 ### 响应式侧边栏
