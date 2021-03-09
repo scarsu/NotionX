@@ -76,7 +76,6 @@ const Actions = {
       if (!$codeBlocks) return
       $codeBlocks.forEach($codeBlock => {
         // 计算最新行数
-        // const $code = [...$codeBlock.children].find(i => i.classList.contains('notranslate'))
         const $code = $codeBlock.querySelector('[contenteditable]')
         if (!$code) return
         const realH = $code.offsetHeight -
@@ -85,6 +84,7 @@ const Actions = {
           parseFloat(getComputedStyle($code).getPropertyValue('padding-top')) -
           parseFloat(getComputedStyle($code).getPropertyValue('padding-bottom'))
         const lineH = parseFloat(getComputedStyle($code).getPropertyValue('line-height'))
+        const font = getComputedStyle($code).getPropertyValue('font-family')
         const lineCount = Math.ceil(realH / lineH) // 计算行数
         let _inner = ''
         for (let i = 0; i < lineCount; i++) {
@@ -96,11 +96,15 @@ const Actions = {
         // 存在则更新显示
         if ($lineNum) {
           $lineNum.style.display = 'block'
+          $lineNum.style.lineHeight = lineH + 'px'
+          $lineNum.style.fontFamily = font
           $lineNum.innerHTML = _inner
         } else {
         // 不存在则创建
           $lineNum = document.createElement('div')
           $lineNum.classList.add('notionx-code-lineNum')
+          $lineNum.style.lineHeight = lineH + 'px'
+          $lineNum.style.fontFamily = font
 
           $lineNum.innerHTML = _inner
           $codeBlock.prepend($lineNum) // 插入DOM
