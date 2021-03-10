@@ -65,6 +65,13 @@ export default class NotionX {
       if (key === 'fsmState') {
         newVal = newVal || 'hide'
         const cb = this.#fsm.hide[newVal]
+        if (this.__ob__) {
+          if (newVal === 'hide') {
+            this.__ob__.stop()
+          } else {
+            this.__ob__.start()
+          }
+        }
         cb && cb.call(this, false)
       }
       // this.#state.width 变更 自动更新sidebar宽度css变量
@@ -89,7 +96,6 @@ export default class NotionX {
         this.$sideBarBtn.addClass('hover')
         this.$sideBarBtn.removeClass('hide')
         if (needUpdate) this.#state.fsmState = 'hover'
-        if (this.__ob__) this.__ob__.start()
       },
       // hide => pinned
       pinned: (needUpdate = true) => {
@@ -98,7 +104,6 @@ export default class NotionX {
         this.$sideBarBtn.removeClass('hover')
         this.$sideBarBtn.addClass('hide')
         if (needUpdate) this.#state.fsmState = 'pinned'
-        if (this.__ob__) this.__ob__.start()
       }
     },
     /* ================= hover ============= */
@@ -110,7 +115,6 @@ export default class NotionX {
         this.$sideBarBtn.removeClass('hover')
         this.$sideBarBtn.removeClass('hide')
         if (needUpdate) this.#state.fsmState = 'hide'
-        if (this.__ob__) this.__ob__.stop()
       },
       // hover => pinned
       pinned: (needUpdate = true) => {
@@ -130,7 +134,6 @@ export default class NotionX {
         this.$sideBarBtn.removeClass('hover')
         this.$sideBarBtn.removeClass('hide')
         this.#state.fsmState = 'hide'
-        if (this.__ob__) this.__ob__.stop()
       },
       // pinned => hover
       hover: () => {
@@ -139,7 +142,6 @@ export default class NotionX {
         this.$sideBarBtn.addClass('hover')
         this.$sideBarBtn.removeClass('hide')
         this.#state.fsmState = 'hover'
-        if (this.__ob__) this.__ob__.start()
       }
     }
   }
@@ -155,6 +157,7 @@ export default class NotionX {
         this.initStates()
         this.initEvents()
         this.__ob__ = this.startNotionOb()
+        this.#state.fsmState = this.#state.fsmState // 强制更新一次
       } else {
         console.warn('NotionX - 初始化失败 NotionX.mount()')
       }
@@ -366,6 +369,7 @@ export default class NotionX {
         this.notionOb = null
       },
       start: () => {
+        if (this.#state.fsmState === 'hide') return
         this.realRender() // 立即执行一次
         this.notionOb = domObserver(NOTION_APP_SELECTOR, renderSideContent.call(this))
       },

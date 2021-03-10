@@ -121,7 +121,7 @@ const Actions = {
     // 通过mutationObserver动态更新,用节流函数限制更新次数
     if (data.value) {
       lineNumShow()
-      window.lineNumOb = domObserver(NOTION_APP_SELECTOR, _.debounce(lineNumShow, 1000, { leading: true, trailing: false, maxWait: 1000 }))
+      window.lineNumOb = domObserver(NOTION_APP_SELECTOR, _.debounce(lineNumShow, 100, { leading: true, trailing: true, maxWait: 100 }))
     } else {
       if (window.lineNumOb) {
         window.lineNumOb.disconnect()
