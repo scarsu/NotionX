@@ -89,6 +89,7 @@ export default class NotionX {
         this.$sideBarBtn.addClass('hover')
         this.$sideBarBtn.removeClass('hide')
         if (needUpdate) this.#state.fsmState = 'hover'
+        if (this.__ob__) this.__ob__.start()
       },
       // hide => pinned
       pinned: (needUpdate = true) => {
@@ -97,6 +98,7 @@ export default class NotionX {
         this.$sideBarBtn.removeClass('hover')
         this.$sideBarBtn.addClass('hide')
         if (needUpdate) this.#state.fsmState = 'pinned'
+        if (this.__ob__) this.__ob__.start()
       }
     },
     /* ================= hover ============= */
@@ -108,6 +110,7 @@ export default class NotionX {
         this.$sideBarBtn.removeClass('hover')
         this.$sideBarBtn.removeClass('hide')
         if (needUpdate) this.#state.fsmState = 'hide'
+        if (this.__ob__) this.__ob__.stop()
       },
       // hover => pinned
       pinned: (needUpdate = true) => {
@@ -127,6 +130,7 @@ export default class NotionX {
         this.$sideBarBtn.removeClass('hover')
         this.$sideBarBtn.removeClass('hide')
         this.#state.fsmState = 'hide'
+        if (this.__ob__) this.__ob__.stop()
       },
       // pinned => hover
       hover: () => {
@@ -135,6 +139,7 @@ export default class NotionX {
         this.$sideBarBtn.addClass('hover')
         this.$sideBarBtn.removeClass('hide')
         this.#state.fsmState = 'hover'
+        if (this.__ob__) this.__ob__.start()
       }
     }
   }
@@ -361,7 +366,7 @@ export default class NotionX {
         this.notionOb = null
       },
       start: () => {
-        this.realRender()
+        this.realRender() // 立即执行一次
         this.notionOb = domObserver(NOTION_APP_SELECTOR, renderSideContent.call(this))
       },
     }
@@ -392,8 +397,8 @@ export default class NotionX {
         'notionOb-start',
         'notionOb-end',
       )
-      // const measures = performance.getEntriesByName('notionOb')
-      // console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
+      const measures = performance.getEntriesByName('notionOb')
+      console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
     }
   }
 }
