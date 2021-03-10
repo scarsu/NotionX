@@ -11,7 +11,13 @@ const template = {
           </svg>
         </div>
         <div class="title-wrap">
-          <div class="title">NotionX</div>
+          <div class="title">
+            NotionX
+            <span>
+              by
+              <a target="_blank" href="https://github.com/scarsu/NotionX">ScarSu</a>
+            </span>
+          </div>
           <div class="notionx-icon option-btn">
             <svg aria-hidden="true">
               <use xlink:href="#icon-setting"></use>
@@ -27,11 +33,13 @@ const template = {
 
       <div class="notionx-views">
         <div class="notionx-view notionx-view-toc" data-view="toc">
-          <div class="toggle-box page-top-btn-box" title="page scroll to top">
-            <label class="pageTopBtn">
-              Page Top ↑
-            </label>
-          </div>
+          <!--
+            <div class="toggle-box page-top-btn-box" title="page scroll to top">
+              <label class="pageTopBtn">
+                Page Top ↑
+              </label>
+            </div>
+          -->
           <div class="content"></div>
         </div>
         <div class="notionx-view notionx-view-option" data-view="option">
@@ -52,6 +60,7 @@ const template = {
         </div>
       </div>
 
+      <!--
       <div class="notionx-footer">
         <div style="flex: 1 1 auto;">
           NotionX by
@@ -63,6 +72,7 @@ const template = {
           </svg>
         </div>
       </div>
+      -->
     </nav>
   </div>
   `,
