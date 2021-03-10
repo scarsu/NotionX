@@ -392,8 +392,8 @@ export default class NotionX {
         'notionOb-start',
         'notionOb-end',
       )
-      const measures = performance.getEntriesByName('notionOb')
-      console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
+      // const measures = performance.getEntriesByName('notionOb')
+      // console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
     }
   }
 }
