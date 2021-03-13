@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { domObserver, mutateKeys } from '../utils/util'
+import { domObserver, mutateKeys, getLocalNotionXState } from '../utils/util'
 import { NOTION_APP_SELECTOR } from '../utils/constant'
 import { ORIGIN_OPTIONS } from '../store/option'
 /**
@@ -20,12 +20,18 @@ const Actions = {
   hideNotionXSidebar: function (data) {
     const $dom = document.querySelector('#notionx')
     if (!$dom) return
+
     if (data.value) {
       document.querySelector('#notionx').style.display = 'none'
       if (window.notionx) window.notionx.__ob__.stop()
     } else {
       document.querySelector('#notionx').style.display = ''
-      if (window.notionx) window.notionx.__ob__.start()
+      const state = getLocalNotionXState()?.fsmState
+      if (state === 'hide') {
+        if (window.notionx && window.notionx.__ob__) window.notionx.__ob__.stop()
+      } else {
+        if (window.notionx && window.notionx.__ob__) window.notionx.__ob__.start()
+      }
     }
   },
   // popup 切换语言
@@ -121,7 +127,19 @@ const Actions = {
     // 通过mutationObserver动态更新,用节流函数限制更新次数
     if (data.value) {
       lineNumShow()
-      window.lineNumOb = domObserver(NOTION_APP_SELECTOR, _.debounce(lineNumShow, 100, { leading: true, trailing: true, maxWait: 100 }))
+      const capacity = document.querySelectorAll('.line-numbers.notion-code-block').length
+      console.log('代码块count：', capacity)
+      let interval = 5000
+      if (capacity === 0) {
+        interval = 5000
+      } else if (capacity <= 20) {
+        interval = 500
+      } else if (capacity <= 100) {
+        interval = 1000
+      } else if (capacity <= 200) {
+        interval = 2000
+      }
+      window.lineNumOb = domObserver(NOTION_APP_SELECTOR, _.debounce(lineNumShow, interval, { leading: true, trailing: true, maxWait: interval }))
     } else {
       if (window.lineNumOb) {
         window.lineNumOb.disconnect()

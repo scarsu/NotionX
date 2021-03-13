@@ -59,7 +59,7 @@ const template = {
           </div>
         </div>
       </div>
-
+      <div class="notionx-page-stats" title="Notionx Stats"></div>
       <!--
       <div class="notionx-footer">
         <div style="flex: 1 1 auto;">

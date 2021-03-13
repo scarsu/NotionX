@@ -10,7 +10,6 @@ import {
   getLocalNotionXState,
   adapterNotionHeader,
   scrollToBlock,
-  contentsToGenerate,
 } from '../utils/util'
 import {
   DEFAULT_OPTS,
@@ -18,7 +17,8 @@ import {
   NOTION_APP_SELECTOR,
   MAX_WIDTH,
   MIN_WIDTH,
-  DEFAULT_VIEW_KEY
+  DEFAULT_VIEW_KEY,
+  COLORS,
 } from '../utils/constant'
 
 export default class NotionX {
@@ -156,7 +156,7 @@ export default class NotionX {
       if (this.mount()) {
         this.initStates()
         this.initEvents()
-        this.__ob__ = this.startNotionOb()
+        this.__ob__ = this.initNotionOb()
         this.#state.fsmState = this.#state.fsmState // 强制更新一次
       } else {
         console.warn('NotionX - 初始化失败 NotionX.mount()')
@@ -206,6 +206,7 @@ export default class NotionX {
     this.$tocWrap = this.$notionx.find('.notionx-view[data-view="toc"] .content')
     this.$pageTopBtn = this.$notionx.find('.notionx-view[data-view="toc"] .pageTopBtn')
     this.$toTopBtn = this.$notionx.find('.to-top-btn')
+    this.$pageStats = this.$notionx.find('.notionx-page-stats')
     this.$optionBtn = this.$notionx.find('.option-btn')
     this.$optionView = this.$notionx.find('.notionx-view-option')
     this.$resizer = this.$notionx.find('.notionx-resizer')
@@ -355,22 +356,30 @@ export default class NotionX {
   }
 
   // notion app observer for update TOC dynamically
-  startNotionOb () {
+  initNotionOb () {
     this.notionObCount = 0
-    this.realRender()
-    this.notionOb = domObserver(NOTION_APP_SELECTOR, renderSideContent.call(this))
     // update sidebar content (using throttle)
+    // 根据页面总字数 确定节流时间间隔
+    const capacity = document.querySelector('.notion-page-content')?.textContent?.length || 0
+    let interval = 5000
+    if (capacity === 0) {
+      interval = 5000
+    } else if (capacity <= 5000) {
+      interval = 500
+    } else if (capacity <= 20000) {
+      interval = 1000
+    } else if (capacity <= 50000) {
+      interval = 2000
+    }
     function renderSideContent () {
       const cb = () => { this.realRender() }
-      return _.debounce(cb, 2000, { leading: true, trailing: false, maxWait: 2000 })
+      return _.debounce(cb, interval, { leading: true, trailing: true, maxWait: interval })
     }
     return {
       stop: () => {
         this.notionOb = null
       },
       start: () => {
-        if (this.#state.fsmState === 'hide') return
-        this.realRender() // 立即执行一次
         this.notionOb = domObserver(NOTION_APP_SELECTOR, renderSideContent.call(this))
       },
     }
@@ -378,11 +387,19 @@ export default class NotionX {
 
   realRender () {
     const _self = this
+
+    // 页面统计
+    if (this.$pageStats) {
+      const words = document.querySelector('.notion-page-content')?.textContent?.replace(/\s/g, '')?.length || '-'
+      const blocks = document.querySelectorAll('.notion-page-content [data-block-id]').length || '-'
+      this.$pageStats.html(`Words:${words};Blocks:${blocks}`)
+    }
+
+    // sidebar生成
     const $wrap = this.$tocWrap
     if (_self.notionOb === null) return
     if (process.env.NODE_ENV !== 'production') performance.mark('notionOb-start')
-    // 获取并更新折叠状态
-    const checks = $wrap[0].querySelectorAll('input.notionx-toc-inp')
+    const checks = $wrap[0].querySelectorAll('input.notionx-toc-inp') // 获取并更新折叠状态
     let expandStatus = [...checks]
       .map(check => check.checked)
     if (_self.notionObCount === 0 && _self.#state.expandStatus) {
@@ -392,7 +409,11 @@ export default class NotionX {
     }
     const s = contentsToGenerate(expandStatus)
     $wrap.html(s)
+
+    // 事件激活
     _self.initActiveEvents()
+
+    // ob性能统计
     _self.notionObCount++
     if (process.env.NODE_ENV !== 'production') {
       performance.mark('notionOb-end')
@@ -403,6 +424,193 @@ export default class NotionX {
       )
       const measures = performance.getEntriesByName('notionOb')
       console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
+    }
+  }
+}
+
+function contentsToGenerate (statusArr) {
+  return [
+    {
+      generator: getToc,
+      header: 'Header Blocks',
+      name: 'toc',
+    },
+    {
+      generator: getToggle,
+      header: 'Toggle Blocks',
+      name: 'toggle',
+    },
+    {
+      generator: getDataBase,
+      header: 'DataBase',
+      name: 'dataBase',
+    },
+    {
+      generator: getComment,
+      header: 'Comments',
+      name: 'comment',
+    },
+    {
+      generator: getColorText,
+      header: 'Colored Text',
+      name: 'color',
+    },
+  ]
+    .map(generateHtml)
+    .join('')
+
+  function generateHtml (content, i) {
+    const contentStr = content.generator()
+    return `
+    <div class="toggle-box">
+      <input type="checkbox" class="notionx-toc-inp" id="notionx-toc-inp-${content.name}" ${statusArr[i] ? 'checked="true"' : ''}/>
+      <label for="notionx-toc-inp-${content.name}">
+        ${content.header}
+      </label>
+      <div class="content notionx-view-toc-content-wrap">${contentStr}</div>
+    </div>
+    `
+  }
+  function getToc () {
+    return [...document.querySelectorAll(
+      `.notion-header-block,
+      .notion-sub_header-block,
+      .notion-sub_sub_header-block
+    `)].map(extractInfo)
+      .filter(e => e.id && e.level)
+      .map(toHtml)
+      .join('')
+
+    function extractInfo (e) {
+      const id = e.dataset.blockId
+      const desc = e.innerText
+      return {
+        id,
+        desc,
+        level: e.classList.contains('notion-header-block')
+          ? 1
+          : e.classList.contains('notion-sub_header-block')
+            ? 2
+            : 3
+      }
+    }
+    function toHtml (e) {
+      return `<li class="level-${e.level}" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
+      </li>`
+    }
+  }
+  function getToggle () {
+    const levels = []
+    return [...document.querySelectorAll('.notion-toggle-block')].map(extractInfo)
+      .filter(e => e.id && e.desc)
+      .map(toHtml)
+      .join('')
+    function extractInfo (e) {
+      const id = e.dataset.blockId
+      const desc = e.querySelector('[contenteditable]')?.innerText
+      const left = e.offsetLeft
+      let level = levels.findIndex(i => i === left)
+      if (level === -1) {
+        levels.push(left)
+        levels.sort()
+      }
+      level = levels.findIndex(i => i === left)
+      return {
+        id,
+        desc,
+        level
+      }
+    }
+    function toHtml (e) {
+      return `<li class="level-${e.level + 1}" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
+      </li>`
+    }
+  }
+  function getComment () {
+    return [...document.querySelectorAll('.speechBubble')]
+      .map(extractInfo)
+      .filter(e => e.id && e.desc)
+      .map(toHtml)
+      .join('')
+    function extractInfo (bubble) {
+      const e = bubble.closest('[data-block-id]')
+      const id = e.dataset.blockId
+      const desc = e.querySelector('[contenteditable]')?.innerHTML
+      const comment = bubble?.nextSibling?.innerText
+      return {
+        id,
+        desc,
+        comment,
+      }
+    }
+    function toHtml (e) {
+      return `<li class="level-1" title="${e.comment || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}: ${e.comment || ''}</a>
+      </li>`
+    }
+  }
+  function getColorText () {
+    const theme = document.querySelector('.notion-body').classList.contains('dark') ? 'dark' : 'light'
+    const blocks = COLORS
+      .filter(i => i.theme === theme)
+      .map(selectorFromColor)
+      .flatMap(s => [...document.querySelectorAll(s)])
+      .map(e => e.closest('[data-block-id]'))
+      .filter(i => i)
+    return blocks
+      .filter(isDistinct)
+      .map(extractInfo)
+      .filter(i => i.id && i.content)
+      .map(toHtml)
+      .join('')
+    function isDistinct (block, i) {
+      return blocks.findIndex(blockIdEqual) === i
+      function blockIdEqual (b) {
+        return b.dataset.blockId === block.dataset?.blockId
+      }
+    }
+    function selectorFromColor (color) {
+      return color.type === 'font'
+        ? `[style*="color:${color.value.replace(/\s/g, '')}"]`
+        : `[style*="background:${color.value.replace(/\s/g, '')}"]`
+    }
+    function extractInfo (block) {
+      const id = block.dataset.blockId
+      const child = block.querySelector('[contenteditable]')
+      const content = child.innerHTML
+      const desc = child.innerText
+      return {
+        id,
+        content,
+        desc
+      }
+    }
+    function toHtml (e) {
+      return `<li class="level-1" title="${e.desc}">
+        <a href="#" data-for-block-id="${e.id}">${e.content}</a>
+      </li>`
+    }
+  }
+  function getDataBase () {
+    return [...document.querySelectorAll('.notion-collection_view-block [contenteditable][data-root=true]')].map(extractInfo)
+      .filter(e => e.id && e.desc)
+      .map(toHtml)
+      .join('')
+    function extractInfo (e) {
+      const block = e.closest('[data-block-id]')
+      const id = block?.dataset.blockId
+      const desc = e.innerText
+      return {
+        id,
+        desc,
+      }
+    }
+    function toHtml (e) {
+      return `<li class="level-1" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
+      </li>`
     }
   }
 }
