@@ -96,7 +96,7 @@
     "description": ""
   },
   "preventTableOverflowDesc": {
-    "message": "Prevent table overflow horizontal",
+    "message": "Prevent table overflow caused by too large width",
     "description": ""
   },
   "setCodeLang": {

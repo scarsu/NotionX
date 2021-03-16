@@ -2,19 +2,27 @@ English | [简体中文](./README.zh-CN.md)
 
 # NotionX
 
-Browser extension that enhances Notion experience.
-
 ![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142800.png)
 
-![NotionX Features](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142822.png)
+[[toc]]
 
-![NotionX Contact](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210129102351.png)
+## v2.1.0 Features (2021.03.16)
+
+### Set Code Language
+
+Set language for all code blocks in current Notion page
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316163725.gif)
+
+### Page Content statistics
+
+Count the number of words and blocks in current Notion page
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316164115.png)
 
 ## v2.0.0 Features (2021.02.01)
 
 ### Dynamic SideBar
-
-
 
 A shortcut directory is automatically generated in the sidebar of the page based on `Heading Block 1-3`, `Toggle Block`, `Database Block`, `Comments` and `Colored Text` in Notion Page.
 
@@ -58,9 +66,11 @@ Compared to Notion's official dark mode, the built-in dark mode of the extension
 
 ![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121124828.gif)
 
-### Preventing table overflow
+### Prevent table overflow
 
-![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121124917.gif)
+Prevent table overflow caused by too large width
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316165317.gif)
 
 ### Hide NotionX sidebar
 
@@ -85,6 +95,13 @@ Compared to Notion's official dark mode, the built-in dark mode of the extension
 ## Maintainers
 
 [@scarsu](https://github.com/scarsu)
+
+## Feedback
+
+- If any suggestion, please [feedback here⚡️](https://github.com/scarsu/NotionX/discussions/4) ;
+
+- contact:
+![NotionX Contact](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316180026.png)
 
 ## Contributing
 

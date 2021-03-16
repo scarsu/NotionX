@@ -2,13 +2,23 @@
 
 # NotionX
 
-一个增强 Notion 体验的浏览器插件。
-
 ![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142800.png)
 
-![NotionX 特性](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210123163052.png)
+[[toc]]
 
-![NotionX 讨论群](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210129102351.png)
+## v2.1.0 Features (2021.03.16)
+
+### 设置代码块语言
+
+为当前页面所有代码块设置语言
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316163725.gif)
+
+### 页面内容统计
+
+统计Notion Page中block数量以及字数
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316164115.png)
 
 ## v2.0.0 特性 (2021.02.01)
 
@@ -58,13 +68,16 @@
 
 ### 阻止表格溢出
 
+阻止表格因横向宽度过大导致的尺寸溢出
+
 ![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121124917.gif)
 
 ### 隐藏NotionX侧边栏
 
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121125002.gif)
+
 ## v1.0.0 特性 (2020.12.15)
 
-![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121125002.gif)
 - 侧边栏TOC： 根据Notion Page中的Heading Block 1-3，在网页侧边栏自动生成Notion文章的TOC目录。
 - 暗黑模式： 相比于Notion官方的暗黑模式，插件内置的暗黑模式的视觉对比度较低，在网页全局生效，包括图片等所有的内容。
 
@@ -82,6 +95,13 @@
 ## 维护者
 
 [@scarsu](https://github.com/scarsu)
+
+## 反馈
+
+- 如果有任何建议, 请 [遭此处反馈⚡️](https://github.com/scarsu/NotionX/discussions/4) ;
+
+- 联系:
+![NotionX Contact](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316180026.png)
 
 ## 贡献
 
