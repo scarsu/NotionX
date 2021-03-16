@@ -574,3 +574,28 @@ html.notionx-dark {
     width: 100%!important;
   }
 }
+
+/* 全屏遮罩 */
+.notionx-mask{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  padding-top: 20vh;
+  svg{
+    animation: loading 1s infinite;
+    transition: transform .2s ease;
+  }
+}
+@keyframes loading{
+  from{
+    transform: rotate(0);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}

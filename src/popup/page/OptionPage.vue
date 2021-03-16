@@ -161,6 +161,9 @@ export default {
         grid-column: 2/3;
         align-self: center;
         justify-self: center;
+        select{
+          max-width: 100px;
+        }
       }
       .desc{
         grid-row: 2/3;

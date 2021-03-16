@@ -162,3 +162,26 @@ export function scrollToBlock (id) {
     })
   }, 0)
 }
+
+// 全屏遮罩
+export function mask () {
+  let $mask = $('.notionx-mask')
+  if ($mask.length === 0) {
+    $mask = $(`
+      <div class="notionx-mask" style="display:none;">
+        <svg aria-hidden="true">
+          <use xlink:href="#icon-loading"></use>
+        </svg>
+      </div>
+    `)
+    document.body.appendChild($mask[0])
+  }
+  return {
+    show () {
+      $mask.show()
+    },
+    hide () {
+      $mask.hide()
+    }
+  }
+}

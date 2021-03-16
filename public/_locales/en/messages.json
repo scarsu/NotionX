@@ -99,6 +99,14 @@
     "message": "Prevent table overflow horizontal",
     "description": ""
   },
+  "setCodeLang": {
+    "message": "Set Code Language",
+    "description": ""
+  },
+  "setCodeLangDesc": {
+    "message": "Set language for all code blocks in current page",
+    "description": ""
+  },
   "place": {
     "message": "place",
     "description": ""

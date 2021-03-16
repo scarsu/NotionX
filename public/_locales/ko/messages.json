@@ -99,6 +99,14 @@
     "message": "테이블이 수평으로 넘치지 않도록 방지",
     "description": ""
   },
+  "setCodeLang": {
+    "message": "코드 언어 설정",
+    "description": ""
+  },
+  "setCodeLangDesc": {
+    "message": "현재 페이지의 모든 코드 블록에 대한 언어 설정",
+    "description": ""
+  },
   "place": {
     "message": "place",
     "description": ""

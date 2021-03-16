@@ -1,4 +1,7 @@
-import { EXTENSION_STORAGE_OPTION_KEY } from '@/utils/constant'
+import {
+  EXTENSION_STORAGE_OPTION_KEY,
+  LANGS
+} from '@/utils/constant'
 import Actions from '@/utils/Actions'
 import locales from '@public/_locales/locales.json'
 
@@ -22,6 +25,15 @@ export const ORIGIN_OPTIONS = [
     hide: false, // 不再显示此配置项
     scope: 'content', // 作用域
     pageCheckSelector: '.notion-page-content', // 页面初始化时需要等到此dom加载后再执行命令
+  },
+  {
+    action: 'showScrollToTop',
+    name: 'showScrollToTop',
+    desc: 'showScrollToTopDesc',
+    value: false,
+    type: 'switch',
+    hide: false,
+    scope: 'content',
   },
   {
     action: 'toggleDark',
@@ -61,13 +73,15 @@ export const ORIGIN_OPTIONS = [
     needLoading: 2000
   },
   {
-    action: 'showScrollToTop',
-    name: 'showScrollToTop',
-    desc: 'showScrollToTopDesc',
-    value: false,
-    type: 'switch',
+    action: 'setCodeLang',
+    name: 'setCodeLang',
+    desc: 'setCodeLangDesc',
+    value: 'en',
+    type: 'select',
+    options: LANGS,
     hide: false,
     scope: 'content',
+    needLoading: 2000
   },
   {
     action: 'preventTableOverflow',
@@ -199,7 +213,7 @@ export function contentAction (option) {
         console.warn('NotionX - popup : ', '连接失败')
       }
     }
-    delete option.event
+    option.event = !!option.event // 不可直接传event对象
     if (chrome) {
       chrome.tabs.sendMessage(contentTabId, {
         type: 'action',

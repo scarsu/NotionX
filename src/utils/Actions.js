@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { domObserver, mutateKeys, getLocalNotionXState } from '../utils/util'
+import { domObserver, mutateKeys, getLocalNotionXState, mask } from '../utils/util'
 import { NOTION_APP_SELECTOR } from '../utils/constant'
 import { ORIGIN_OPTIONS } from '../store/option'
 /**
@@ -47,9 +47,6 @@ const Actions = {
       var body = document.body
       iframe.style.display = 'none'
       body.appendChild(iframe)
-      iframe.addEventListener('load', function (e) {
-        console.log('iframe,', e)
-      })
       iframe.src = 'notion:' + location.pathname
     }
   },
@@ -128,7 +125,6 @@ const Actions = {
     if (data.value) {
       lineNumShow()
       const capacity = document.querySelectorAll('.line-numbers.notion-code-block').length
-      console.log('代码块count：', capacity)
       let interval = 5000
       if (capacity === 0) {
         interval = 5000
@@ -187,6 +183,7 @@ const Actions = {
       $top.classList.remove('show')
     }
   },
+  // content 阻止表格溢出
   preventTableOverflow: function (data) {
     const $notion = document.querySelector('.notion-body')
     const prevented = $notion.classList.contains('notionx-prevent-table-overflow')
@@ -194,6 +191,33 @@ const Actions = {
       $notion.classList.add('notionx-prevent-table-overflow')
     } else if (!data.value && prevented) {
       $notion.classList.remove('notionx-prevent-table-overflow')
+    }
+  },
+  // content 设置当前页面所有代码块的语言
+  setCodeLang: function (data) {
+    if (data.event) {
+      const lang = data.value
+      if (!lang) return
+      mask().show()
+      const codeLangTriggers = [...document.querySelectorAll('.notion-code-block>div>div>div>div[role=button]')]
+      codeLangTriggers.forEach((e) => {
+        e.click()
+      })
+      setTimeout(() => {
+        const langSelectors = [...document.querySelectorAll('.notion-scroller.vertical>div>div>div[role=button][tabindex="0"]>div>div>div')]
+        if (langSelectors.length === 0) {
+          const langSelectors = [...document.querySelectorAll('.notion-scroller.vertical>div>div>div[role=button][tabindex="0"]>div>div>div')]
+          langSelectors.filter((e) => e.textContent.toLowerCase() === lang.toLowerCase()).forEach((e) => {
+            e.click()
+          })
+        }
+        langSelectors.filter((e) => e.textContent.toLowerCase() === lang.toLowerCase()).forEach((e) => {
+          e.click()
+        })
+      }, 200)
+      setTimeout(() => {
+        mask().hide()
+      }, 200)
     }
   }
 }

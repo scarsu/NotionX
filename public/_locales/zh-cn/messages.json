@@ -99,6 +99,14 @@
     "message": "阻止表格因横向宽度过大导致的尺寸溢出",
     "description": ""
   },
+  "setCodeLang": {
+    "message": "设置代码快语言",
+    "description": ""
+  },
+  "setCodeLangDesc": {
+    "message": "为当前页面所有代码块设置语言",
+    "description": ""
+  },
   "place": {
     "message": "place",
     "description": ""

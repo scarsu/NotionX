@@ -99,6 +99,14 @@
     "message": "テーブルが水平方向にオーバーフローしないようにします",
     "description": ""
   },
+  "setCodeLang": {
+    "message": "コード言語の設定",
+    "description": ""
+  },
+  "setCodeLangDesc": {
+    "message": "現在のページのすべてのコードブロックの言語を設定する",
+    "description": ""
+  },
   "place": {
     "message": "place",
     "description": ""
