@@ -4,6 +4,8 @@
 
 ![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142800.png)
 
+![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210317110434.png)
+
 [[toc]]
 
 ## v2.1.0 Features (2021.03.16)
@@ -96,17 +98,12 @@
 
 [@scarsu](https://github.com/scarsu)
 
-## 反馈
+## 反馈 & 贡献
 
-- 如果有任何建议, 请 [遭此处反馈⚡️](https://github.com/scarsu/NotionX/discussions/4) ;
-
-- 联系:
-![NotionX Contact](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316180026.png)
-
-## 贡献
-
-- 如有问题或者建议，[请在此处反馈](https://github.com/scarsu/NotionX/discussions/4)
+- 如有问题或者建议，[请在此处反馈⚡️](https://github.com/scarsu/NotionX/discussions/4)
 - 欢迎翻译，语言相关JSON文件在当前仓库的以下目录:`/public/_locales`
+- 联系&交流:
+![NotionX Contact](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316180026.png)
 
 ## License
 

@@ -4,6 +4,8 @@ English | [简体中文](./README.zh-CN.md)
 
 ![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142800.png)
 
+![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210317105825.png)
+
 [[toc]]
 
 ## v2.1.0 Features (2021.03.16)
@@ -96,18 +98,13 @@ Prevent table overflow caused by too large width
 
 [@scarsu](https://github.com/scarsu)
 
-## Feedback
+## Feedback & Contributing
 
-- If any suggestion, please [feedback here⚡️](https://github.com/scarsu/NotionX/discussions/4) ;
-
-- contact:
-![NotionX Contact](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316180026.png)
-
-## Contributing
-
-- If you have questions or suggestions, [please feedback here](https://github.com/scarsu/NotionX/discussions/4)
+- If you have questions or suggestions, [please feedback here⚡️](https://github.com/scarsu/NotionX/discussions/4)
 - PRs accepted.
 - Translations are welcome, the language related JSON files are in the following directory of the current repository:`/public/_locales`
+- contact & discuss:
+![NotionX Contact](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210316180026.png)
 
 ## License
 
