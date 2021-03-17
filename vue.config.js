@@ -29,23 +29,6 @@ module.exports = {
   },
   configureWebpack: config => {
     config.output.publicPath = './'
-    if (process.env.NODE_ENV === 'production') {
-      config.plugins = config.plugins.concat(
-        [
-          new UglifyJsPlugin({
-            uglifyOptions: {
-              compress: {
-                drop_debugger: true,
-                drop_console: true,
-              },
-            },
-            sourceMap: false,
-            parallel: true,
-          })
-
-        ]
-      )
-    }
   },
   filenameHashing: false,
   css: {
