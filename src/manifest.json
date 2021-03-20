@@ -5,8 +5,7 @@
   "description": "A Browser Extension that enhances Notion experience.",
   "default_locale": "en",
   "permissions": [
-    "https://*.notion.so/*",
-    "storage"
+    "https://*.notion.so/*"
   ],
   "icons": {
     "16": "icons/notionx-white.png",

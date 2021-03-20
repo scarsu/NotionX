@@ -90,8 +90,8 @@ Prevent table overflow caused by too large width
 
 - [Google Store](https://chrome.google.com/webstore/detail/notionx/ojnlojnakahpmkbpigmjhcgibccnidpk)
 - [FireFox - Mozilla addons](https://addons.mozilla.org/firefox/addon/notionx/)
-- [Download the `crx` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx_for_notion_v2.0.0.crx)
-- [Download the `xpi` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx_for_notion-2.0.1-fx.xpi)
+- [Download the `crx` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx_for_notion_v2.1.0.crx)
+- [Download the `xpi` file](https://scarsu.oss-cn-shanghai.aliyuncs.com/notionx/notionx_for_notion-2.1.0-fx.xpi)
 - Clone this repository,`npm run build` to build package, import the entire `./dist` package in Chrome developer mode.
 
 ## Maintainers
