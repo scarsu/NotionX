@@ -1,0 +1,114 @@
+{
+  "extName": {
+    "message": "NotionX",
+    "description": ""
+  },
+  "xx": {
+    "message": "xx",
+    "description": ""
+  },
+  "changeLangDesc": {
+    "message": "Змінити мову розширення",
+    "description": ""
+  },
+  "changeLang": {
+    "message": "Змінити мову NotionX",
+    "description": ""
+  },
+  "showScrollToTopDesc": {
+    "message": "Додати кнопку 'Прокрутити сі догори' у правому нижньому куті",
+    "description": ""
+  },
+  "showScrollToTop": {
+    "message": "Прокрутити сі догори",
+    "description": ""
+  },
+  "Options": {
+    "message": "Параметри",
+    "description": ""
+  },
+  "Shortcuts": {
+    "message": "Комбінації клавіш",
+    "description": ""
+  },
+  "About": {
+    "message": "Про нас",
+    "description": ""
+  },
+  "hideComments": {
+    "message": "Приховати коментарі сторінки",
+    "description": ""
+  },
+  "hideCommentsDesc": {
+    "message": "Приховати коментарі (зверху сторінки)",
+    "description": ""
+  },
+  "hideNotionXSidebar": {
+    "message": "Приховати панель NotionX",
+    "description": ""
+  },
+  "hideNotionXSidebarDesc": {
+    "message": "Приховати панель NotionX",
+    "description": ""
+  },
+  "toggleDark": {
+    "message": "Темний режим",
+    "description": ""
+  },
+  "toggleDarkDesc": {
+    "message": "Увімкнути темний режим",
+    "description": ""
+  },
+  "openInDesktop": {
+    "message": "Відкрити у настільному застосунку",
+    "description": ""
+  },
+  "openInDesktopDesc": {
+    "message": "Відкрити сторінку у застосунку",
+    "description": ""
+  },
+  "toggleCompact": {
+    "message": "Компактний режим",
+    "description": ""
+  },
+  "toggleCompactDesc": {
+    "message": "малий текст і на повну ширину",
+    "description": ""
+  },
+  "toggleCodeLineNum": {
+    "message": "Показувати № рядка коду",
+    "description": ""
+  },
+  "toggleCodeLineNumDesc": {
+    "message": "Показувати номер рядка в блоках коду",
+    "description": ""
+  },
+  "resetOptions": {
+    "message": "Скинути параметри",
+    "description": ""
+  },
+  "resetOptionsDesc": {
+    "message": "Скинути усі параметри",
+    "description": ""
+  },
+  "preventTableOverflow": {
+    "message": "Запобігти переповненню таблиці",
+    "description": ""
+  },
+  "preventTableOverflowDesc": {
+    "message": "Запобігти виходження за рамки надто широкої таблиці",
+    "description": ""
+  },
+  "setCodeLang": {
+    "message": "Встановити мову коду",
+    "description": ""
+  },
+  "setCodeLangDesc": {
+    "message": "Встановити мову коду для усіх блоків на цій сторінці",
+    "description": ""
+  },
+  "place": {
+    "message": "місце",
+    "description": ""
+  }
+}
