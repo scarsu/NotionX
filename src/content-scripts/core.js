@@ -477,7 +477,7 @@ function contentsToGenerate (statusArr) {
       .notion-sub_header-block,
       .notion-sub_sub_header-block
     `)].map(extractInfo)
-      .filter(e => e.id && e.level)
+      .filter(e => e.id && e.level && e.desc)
       .map(toHtml)
       .join('')
 
