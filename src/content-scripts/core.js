@@ -390,7 +390,11 @@ export default class NotionX {
 
     // 页面统计
     if (this.$pageStats) {
-      const words = document.querySelector('.notion-page-content')?.textContent?.replace(/\s/g, '')?.length || '-'
+      const content = document.querySelector('.notion-page-content')?.textContent
+      // 英文单词数量
+      let words = content.match(/[a-zA-Z]+\s/g).length
+      // 其他符号字数
+      words += content.replaceAll(/[a-zA-Z\s]/g, '').length
       const blocks = document.querySelectorAll('.notion-page-content [data-block-id]').length || '-'
       this.$pageStats.html(`Words:${words};Blocks:${blocks}`)
     }
