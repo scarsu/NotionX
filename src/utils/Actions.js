@@ -16,6 +16,16 @@ const Actions = {
       $dom.parentElement.style.display = ''
     }
   },
+  // content 隐藏帮助按钮
+  hideHelpBtn: function (data) {
+    const $dom = document.querySelector('.notion-help-button')
+    if (!$dom) return
+    if (data.value) {
+      $dom.style.display = 'none'
+    } else {
+      $dom.style.display = 'flex'
+    }
+  },
   // content 隐藏NotionX的侧边栏
   hideNotionXSidebar: function (data) {
     const $dom = document.querySelector('#notionx')

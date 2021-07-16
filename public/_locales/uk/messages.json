@@ -43,6 +43,14 @@
     "message": "Приховати коментарі (зверху сторінки)",
     "description": ""
   },
+  "hideHelpBtn": {
+    "message": "Hide Help Button",
+    "description": ""
+  },
+  "hideHelpBtnDesc": {
+    "message": "Hide Help Button",
+    "description": ""
+  },
   "hideNotionXSidebar": {
     "message": "Приховати панель NotionX",
     "description": ""

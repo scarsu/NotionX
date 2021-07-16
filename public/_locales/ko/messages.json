@@ -43,6 +43,14 @@
     "message": "페이지 댓글 숨기기 (댓글이 아님)",
     "description": ""
   },
+  "hideHelpBtn": {
+    "message": "도움말 버튼을 숨 깁니다",
+    "description": ""
+  },
+  "hideHelpBtnDesc": {
+    "message": "도움말 버튼을 숨 깁니다",
+    "description": ""
+  },
   "hideNotionXSidebar": {
     "message": "NotionX 사이드 바 숨기기",
     "description": ""

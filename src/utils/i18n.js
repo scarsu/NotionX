@@ -2,12 +2,14 @@ import EN from '@public/_locales/en/messages.json'
 import ZH_CN from '@public/_locales/zh-cn/messages.json'
 import KO from '@public/_locales/ko/messages.json'
 import JA_JP from '@public/_locales/ja-jp/messages.json'
+import UK from '@public/_locales/uk/messages.json'
 
 const locales = {
   en: EN,
   'zh-cn': ZH_CN,
   ko: KO,
   'ja-jp': JA_JP,
+  uk: UK,
 }
 
 export default {

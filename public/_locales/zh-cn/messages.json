@@ -35,6 +35,14 @@
     "message": "隐藏页面评论和属性(注意是页标题下的评论，而不是行评论)",
     "description": ""
   },
+  "hideHelpBtn": {
+    "message": "隐藏帮助按钮",
+    "description": ""
+  },
+  "hideHelpBtnDesc": {
+    "message": "隐藏帮助按钮",
+    "description": ""
+  },
   "hideNotionXSidebar": {
     "message": "隐藏NotionX侧边栏",
     "description": ""

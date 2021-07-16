@@ -36,6 +36,16 @@ export const ORIGIN_OPTIONS = [
     scope: 'content',
   },
   {
+    action: 'hideHelpBtn',
+    type: 'switch',
+    name: 'hideHelpBtn',
+    desc: 'hideHelpBtnDesc',
+    value: false,
+    hide: false,
+    scope: 'content',
+    pageCheckSelector: '.notion-page-content',
+  },
+  {
     action: 'toggleDark',
     name: 'toggleDark',
     desc: 'toggleDarkDesc',

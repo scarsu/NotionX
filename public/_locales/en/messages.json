@@ -43,6 +43,14 @@
     "message": "Hide page comments and Properties (not line comments)",
     "description": ""
   },
+  "hideHelpBtn": {
+    "message": "Hide Help Button",
+    "description": ""
+  },
+  "hideHelpBtnDesc": {
+    "message": "Hide Help Button",
+    "description": ""
+  },
   "hideNotionXSidebar": {
     "message": "Hide NotionX SideBar",
     "description": ""
