@@ -472,13 +472,14 @@ function contentsToGenerate (statusArr) {
     `
   }
   function getToc () {
-    return [...document.querySelectorAll(
+    let tocs = [...document.querySelectorAll(
       `.notion-header-block,
       .notion-sub_header-block,
       .notion-sub_sub_header-block
     `)].map(extractInfo)
       .filter(e => e.id && e.level && e.desc)
-      .map(toHtml)
+    tocs = flatLevel(tocs)
+    return tocs.map(toHtml)
       .join('')
 
     function extractInfo (e) {
@@ -493,6 +494,17 @@ function contentsToGenerate (statusArr) {
             ? 2
             : 3
       }
+    }
+    function flatLevel (arr) {
+      const min = arr.reduce((p, c) => {
+        return Math.min(p, c.level)
+      }, Number.MAX_SAFE_INTEGER)
+      return arr.map(i => {
+        return {
+          ...i,
+          level: i.level - min + 1
+        }
+      })
     }
     function toHtml (e) {
       return `<li class="level-${e.level}" title="${e.desc || ''}">
