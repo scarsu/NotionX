@@ -16,7 +16,7 @@ const Actions = {
       $dom.parentElement.style.display = ''
     }
   },
-  // content 隐藏NotionX的TOC按钮
+  // content 隐藏NotionX的侧边栏
   hideNotionXSidebar: function (data) {
     const $dom = document.querySelector('#notionx')
     if (!$dom) return
@@ -32,6 +32,17 @@ const Actions = {
       } else {
         if (window.notionx && window.notionx.__ob__) window.notionx.__ob__.start()
       }
+    }
+  },
+  // content 隐藏NotionX的暗黑模式按钮
+  hideNotionXDarkMode: function (data) {
+    const $dom = document.querySelector('#notionx-dark-btn')
+    if (!$dom) return
+
+    if (data.value) {
+      document.querySelector('#notionx-dark-btn').style.display = 'none'
+    } else {
+      document.querySelector('#notionx-dark-btn').style.display = 'flex'
     }
   },
   // popup 切换语言

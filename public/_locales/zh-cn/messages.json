@@ -43,6 +43,14 @@
     "message": "隐藏NotionX侧边栏",
     "description": ""
   },
+  "hideNotionXDarkMode": {
+    "message": "隐藏NotionX暗黑模式按钮",
+    "description": ""
+  },
+  "hideNotionXDarkModeDesc": {
+    "message": "隐藏页面右上角的NotionX暗黑模式按钮",
+    "description": ""
+  },
   "toggleDark": {
     "message": "暗黑模式",
     "description": ""

@@ -51,6 +51,14 @@
     "message": "NotionXサイドバーを非表示",
     "description": ""
   },
+  "hideNotionXDarkMode": {
+    "message": "NotionX ダークモードを隠す",
+    "description": ""
+  },
+  "hideNotionXDarkModeDesc": {
+    "message": "右上のNotionXダークモードボタンを非表示にする",
+    "description": ""
+  },
   "toggleDark": {
     "message": "ダークモード",
     "description": ""

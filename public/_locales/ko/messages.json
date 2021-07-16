@@ -51,6 +51,14 @@
     "message": "NotionX 사이드 바 숨기기",
     "description": ""
   },
+  "hideNotionXDarkMode": {
+    "message": "Notionx 어두운 모드 숨기기",
+    "description": ""
+  },
+  "hideNotionXDarkModeDesc": {
+    "message": "오른쪽 상단 모서리에서 Notionx 어두운 모드 버튼 숨기기",
+    "description": ""
+  },
   "toggleDark": {
     "message": "다크 모드",
     "description": ""

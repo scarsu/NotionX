@@ -51,6 +51,14 @@
     "message": "Hide NotionX SideBar",
     "description": ""
   },
+  "hideNotionXDarkMode": {
+    "message": "Hide NotionX DarkMode",
+    "description": ""
+  },
+  "hideNotionXDarkModeDesc": {
+    "message": "Hide NotionX Dark Mode Button at top-right corner",
+    "description": ""
+  },
   "toggleDark": {
     "message": "Dark Mode",
     "description": ""

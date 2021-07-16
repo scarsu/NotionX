@@ -102,6 +102,15 @@ export const ORIGIN_OPTIONS = [
     scope: 'content',
   },
   {
+    action: 'hideNotionXDarkMode',
+    name: 'hideNotionXDarkMode',
+    desc: 'hideNotionXDarkModeDesc',
+    value: false,
+    type: 'switch',
+    hide: false,
+    scope: 'content',
+  },
+  {
     action: 'resetOptions',
     name: 'resetOptions',
     desc: 'resetOptionsDesc',

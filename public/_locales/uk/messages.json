@@ -51,6 +51,14 @@
     "message": "Приховати панель NotionX",
     "description": ""
   },
+  "hideNotionXDarkMode": {
+    "message": "Hide NotionX DarkMode",
+    "description": ""
+  },
+  "hideNotionXDarkModeDesc": {
+    "message": "Hide NotionX Dark Mode Button at top-right corner",
+    "description": ""
+  },
   "toggleDark": {
     "message": "Темний режим",
     "description": ""
