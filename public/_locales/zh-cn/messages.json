@@ -32,7 +32,7 @@
     "description": ""
   },
   "hideCommentsDesc": {
-    "message": "隐藏页面评论(注意是页标题下的评论，而不是行评论)",
+    "message": "隐藏页面评论和属性(注意是页标题下的评论，而不是行评论)",
     "description": ""
   },
   "hideNotionXSidebar": {
