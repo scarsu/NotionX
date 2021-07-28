@@ -3,7 +3,10 @@ import '@/assets/svg'
 import './content.less'
 import { waitNotionPageReady, domObserver } from '@/utils/util'
 import Actions from '@/utils/Actions'
-import { CONTENT_DETECT } from '@/utils/constant'
+import {
+  NOTION_CONTENT_SELECTOR,
+  CONTENT_DETECT,
+} from '../utils/constant'
 
 const platform = chrome || browser
 
@@ -48,7 +51,7 @@ platform.runtime.onMessage.addListener(function (request, sender, sendResponse) 
 })
 
 // 监控dark mode+compact mode 客户端变更，发送消息至background
-waitNotionPageReady().then(() => {
+waitNotionPageReady(NOTION_CONTENT_SELECTOR).then(() => {
   if (!window.notionx) window.notionx = new NotionX()
 
   domObserver('.notion-body', mutationList => {

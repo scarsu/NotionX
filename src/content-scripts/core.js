@@ -241,6 +241,7 @@ export default class NotionX {
         dom.style.display = ''
       })
       this.#state.genFlagList = new Array(toggles.length).fill(true)
+      this.sidebarRender()
     })
 
     // sidebar内部滚动至顶部
