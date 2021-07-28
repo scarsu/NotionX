@@ -1,4 +1,5 @@
 export const NOTION_APP_SELECTOR = '#notion-app'
+export const NOTION_CONTENT_SELECTOR = '.notion-page-content'
 export const NOTION_SCROLLER_SELECTOR = '.notion-scroller'
 export const NOTION_WRAPPER_SELECTOR = '.notion-cursor-listener'
 
@@ -12,6 +13,7 @@ export const DEFAULT_OPTS = {
   viewKey: 'toc',
   fsmState: 'hide',
   expandStatus: null,
+  genFlagList: null,
 }
 
 export const DEFAULT_VIEW_KEY = 'toc'

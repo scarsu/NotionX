@@ -227,7 +227,9 @@ export function contentAction (option) {
     const contentTabId = tabs[0].id
     const inCb = function (response) {
       if (response && response.success) {
-        console.log(response.message)
+        if (process.env.NODE_ENV !== 'production') {
+          console.log(response.message)
+        }
       } else {
         console.warn('NotionX - popup : ', '连接失败')
       }

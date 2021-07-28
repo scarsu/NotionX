@@ -9,14 +9,18 @@ const platform = chrome || browser
 
 // content发送消息至background,客户端侦测消息
 platform.runtime.sendMessage({ type: CONTENT_DETECT })
-console.log('NotionX: CONTENT_DETECT')
+if (process.env.NODE_ENV !== 'production') {
+  console.log('NotionX: CONTENT_DETECT')
+}
 
 // content接收background消息,执行命令
 platform.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   // console.log(sender.tab ? 'from a content script:' + sender.tab.url : 'from the extension')
   if (request.type === 'action') {
     try {
-      console.log('NotionX: action,data:', request.data)
+      if (process.env.NODE_ENV !== 'production') {
+        console.log('NotionX: action,data:', request.data)
+      }
       Actions[request.data.action].call(window, request.data)
     } catch (e) {
       console.error(`NotionX - content: 执行命令${request.data.action}失败`)
@@ -24,7 +28,9 @@ platform.runtime.onMessage.addListener(function (request, sender, sendResponse) 
     }
   }
   if (request.type === 'actions') {
-    console.log('NotionX: actions,data:', request.data)
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('NotionX: actions,data:', request.data)
+    }
     request.data.forEach(a => {
       if (a.scope === 'content') {
         waitNotionPageReady(a.pageCheckSelector || undefined).then(() => {

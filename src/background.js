@@ -11,11 +11,15 @@ let contentTabId = null
 const platform = chrome || browser
 platform.runtime.onMessage.addListener(function (request, sender, sendResponse) {
   if (request.type === CONTENT_DETECT) { // 初始化：侦测到content后,根据local配置初始化
-    console.log('NotionX: CONTENT_DETECT')
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('NotionX: CONTENT_DETECT')
+    }
     contentTabId = sender.tab.id
     effectLocal()
   } else if (request.type === 'DARK_MODE') { // 侦测到客户端配置变更后,更新插件存储
-    console.log('NotionX: DARK_MODE_CHANGE_DETECT')
+    if (process.env.NODE_ENV !== 'production') {
+      console.log('NotionX: DARK_MODE_CHANGE_DETECT')
+    }
     let localOptions = window.localStorage.getItem(EXTENSION_STORAGE_OPTION_KEY)
     if (localOptions === null) {
       localOptions = ORIGIN_OPTIONS

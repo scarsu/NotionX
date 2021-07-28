@@ -18,13 +18,13 @@ const template = {
               <a target="_blank" href="https://github.com/scarsu/NotionX">ScarSu</a>
             </span>
           </div>
-          <div class="notionx-icon option-btn">
+          <div class="notionx-reset-btn notionx-icon" title="Show All">
             <svg aria-hidden="true">
-              <use xlink:href="#icon-setting"></use>
+              <use xlink:href="#icon-list-check"></use>
             </svg>
           </div>
         </div>
-        <div class="notionx-hider-btn notionx-icon">
+        <div class="notionx-hider-btn notionx-icon" title="Toggle Sidebar">
           <svg aria-hidden="true">
             <use xlink:href="#icon-right-arrow"></use>
           </svg>

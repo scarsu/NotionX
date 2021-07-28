@@ -133,6 +133,7 @@
         }
         .toggle-box{/* 纯css控制可折叠区块 */
           border-bottom: 1px solid rgba(0,0,0,0.1);
+          position: relative;
           &>input{
             display: none;
             &+label+.content{
@@ -159,6 +160,27 @@
               color: rgba(55, 53, 47, 0.6);
               background-color: rgba(55, 53, 47, 0.08);;
             }
+          }
+          .close-btn{
+            height: fit-content;
+            width: fit-content;
+            display: inline-block;
+            vertical-align: middle;
+            position: absolute;
+            top: 6px;
+            right: 0px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 20ms ease-in 0s;
+            svg{
+              color: rgba(55, 53, 47, 0.4);
+              fill: rgba(55, 53, 47, 0.4);
+              width: 14px;
+              height: 14px;
+            }
+          }
+          &:hover .close-btn{
+            opacity: 1;
           }
         }
         .form-item{
@@ -193,7 +215,7 @@
       font-size: 14px;
     }
     .notionx-view-toc-content-wrap{
-      padding-bottom: 20px;
+      padding-bottom: 10px;
       font-size: 14px;
       /* 响应式侧边栏内容行li */
       li {
@@ -322,6 +344,7 @@
       right: 0px;
       width: 24px;
       height: 24px;
+      cursor: pointer;
     }
     &.active{
       opacity: 0;
@@ -422,6 +445,7 @@ html.notionx-dark {
   justify-content: center;
   width: 24px;
   height: 24px;
+  cursor: pointer;
   border-radius: 3px;
   transition: background-color 20ms ease-in 0s;
   svg{
