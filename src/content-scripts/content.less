@@ -594,11 +594,18 @@ html.notionx-dark {
 .notion-body.notionx-prevent-table-overflow{
   .notion-page-content>.notion-collection_view-block{
     width: 100%!important;
-    div:first-child{
-      padding: 0!important;
-    }
+    &>div:first-child,
+    .notion-board-view,
+    .notion-calendar-view,
+    .notion-gallery-view,
     .notion-table-view{
       padding: 0!important;
+    }
+  }
+  .notion-timeline-view{
+    .notion-selectable.notion-collection_view-block{
+      padding: 0!important;
+      width: fit-content!important;
     }
   }
 }
