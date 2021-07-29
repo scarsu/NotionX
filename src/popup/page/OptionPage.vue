@@ -77,7 +77,7 @@ export default {
   },
   computed: {
     options () {
-      return this.$store.state.option.items
+      return this.$store.state.option.items.filter(i => !i.hide)
     }
   },
   watch: {},
@@ -135,6 +135,8 @@ export default {
         background-color: rgba(0, 0, 0, 0.3);
         padding-top: 5%;
         svg{
+          width: 40px;
+          height: 40px;
           animation: loading 1s infinite;
           transition: transform .2s ease;
         }

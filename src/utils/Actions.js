@@ -26,6 +26,10 @@ const Actions = {
       $dom.style.display = 'flex'
     }
   },
+  // content 禁用插件
+  disableNotionX: function (data) {
+    Actions.hideNotionXSidebar(data)
+  },
   // content 隐藏NotionX的侧边栏
   hideNotionXSidebar: function (data) {
     const $dom = document.querySelector('#notionx')
@@ -33,9 +37,11 @@ const Actions = {
 
     if (data.value) {
       document.querySelector('#notionx').style.display = 'none'
+      document.querySelector('#notionx-sidebar-btn').style.display = 'none'
       if (window.notionx) window.notionx.__ob__.stop()
     } else {
       document.querySelector('#notionx').style.display = ''
+      document.querySelector('#notionx-sidebar-btn').style.display = ''
       const state = getLocalNotionXState()?.fsmState
       if (state === 'hide') {
         if (window.notionx && window.notionx.__ob__) window.notionx.__ob__.stop()

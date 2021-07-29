@@ -27,6 +27,16 @@ export const ORIGIN_OPTIONS = [
     pageCheckSelector: '.notion-page-content', // 页面初始化时需要等到此dom加载后再执行命令
   },
   {
+    action: 'disableNotionX',
+    type: 'switch',
+    name: 'disableNotionX',
+    desc: 'disableNotionXDesc',
+    value: false,
+    hide: true,
+    scope: 'content',
+    pageCheckSelector: '.notion-page-content',
+  },
+  {
     action: 'showScrollToTop',
     name: 'showScrollToTop',
     desc: 'showScrollToTopDesc',
@@ -151,7 +161,7 @@ export default {
     items: options
   }),
   mutations: {
-    updateOption (state, { option }) {
+    updateOption (state, { option, needEffect = false }) {
       const i = state.items.findIndex(o => o.action === option.action)
       if (i > -1) {
         // 只允许变更部分字段
@@ -160,6 +170,10 @@ export default {
       }
 
       window.localStorage.setItem(EXTENSION_STORAGE_OPTION_KEY, JSON.stringify(state.items))
+
+      if (needEffect) {
+        handleOption.call(this, state.items[i])
+      }
     },
     updateOptions (state, { options, needEffect = false, scope = '' }) {
       options.forEach(e => {
@@ -180,11 +194,12 @@ export default {
       }
     }
   },
-  actions: {
-
-  },
   getters: {
-
+    // 插件启用状态
+    active: state => {
+      const option = state.items.find(o => o.action === 'disableNotionX')
+      return !option.value
+    }
   }
 }
 

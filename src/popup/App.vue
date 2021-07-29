@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div :class="{home:true,disable:!active}">
     <header>
       <svg aria-hidden="true">
         <use xlink:href="#icon-notionx"></use>
@@ -7,6 +7,22 @@
       <div class="title">
         NotionX
         <span class="title-desc">Enhance Notion experience~</span>
+      </div>
+      <div
+        :class="{switch:true, active:active}"
+        @click="switchNotionx"
+        :title="active?'禁用Disable':'启用Enable'"
+      >
+        <!-- <div class="name">关闭插件</div> -->
+        <div class="operate">
+          <div
+            class="button toggle"
+          >
+            <div class="bg">
+              <div class="point"></div>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
     <section>
@@ -64,6 +80,10 @@
         </tab-panel>
       </tab>
     </section>
+    <div class="disable-mask" v-if="!active">
+      <p>已禁用</p>
+      <p>Disabled</p>
+    </div>
   </div>
 </template>
 
@@ -87,8 +107,21 @@ export default {
     }
   },
   computed: {
+    active () {
+      return this.$store.getters.active
+    }
   },
   methods: {
+    switchNotionx () {
+      this.$store.commit('updateOption', {
+        option: {
+          action: 'disableNotionX',
+          value: this.active,
+          hide: true,
+        },
+        needEffect: true
+      })
+    },
     getCurrentTabId () {
       return new Promise((resolve, reject) => {
         if (chrome) {
@@ -106,7 +139,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 /* ==================== 页面内容 start */
 .home{
   width: var(--bodyWidth);
@@ -137,6 +170,7 @@ export default {
       font-size: 18rem;
       font-weight: bold;
       line-height: 50px;
+      flex: 1 1 auto;
       .title-desc{
         font-size: 12px;
         font-style: italic;
@@ -230,6 +264,62 @@ export default {
       overflow: auto;
       position: relative;
     }
+  }
+  /* 开关 */
+  .switch{
+    margin: 20px 20px 0 0;
+    z-index: 100;
+    .button.toggle{
+      user-select: none;
+      transition: background-color 20ms ease-in 0s;
+      cursor: pointer;
+      border-radius: 44px;
+      outline: none;
+      .bg{
+        display: flex;
+        flex-shrink: 0;
+        height: 14px;
+        width: 26px;
+        border-radius: 44px;
+        padding: 2px;
+        box-sizing: content-box;
+        transition: border-color,background-color 200ms ease 0s, box-shadow 200ms ease 0s;
+        background: rgba(255,255,255,0.6);
+        border: 1px solid transparent;
+      }
+      .point{
+        width: 14px;
+        height: 14px;
+        border-radius: 44px;
+        background: #fff;
+        transition: transform 50ms ease-out 0s, background-color 50ms ease-out 0s;
+        transform: translateX(0px) translateY(0px);
+      }
+    }
+    &.active .button.toggle{
+      .bg{
+        background: var(--bgColor);
+        border-color: #fff;
+      }
+      .point{
+        transform: translateX(12px) translateY(0px);
+      }
+    }
+  }
+  .disable-mask{
+    position: absolute;
+    width: var(--bodyWidth);
+    height: var(--bodyHeight);
+    z-index: 99;
+    top: 0;
+    cursor: not-allowed;
+    right: 0;
+    background: rgba(200,200,200,0.9);
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #fff;
+    padding-top: 5em;
   }
 }
 /* ==================== 页面内容 end */

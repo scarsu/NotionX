@@ -419,6 +419,7 @@ export default class NotionX {
           this.notionOb = domObserver(NOTION_CONTENT_SELECTOR, renderSideContent.call(this))
         }
         this.notionObRunning = true
+        this.sidebarRender()
       },
     }
   }
@@ -426,15 +427,18 @@ export default class NotionX {
   sidebarRender () {
     const _self = this
     if (_self.notionOb === null) return
+    if (document.querySelector('#notionx')?.style?.display === 'none') return
 
     // 更新页面统计数据
     if (this.$pageStats) {
-      const content = document.querySelector('.notion-page-content')?.textContent
+      let content = document.querySelector('.notion-page-content')?.innerHTML
       if (!content) return
+      // 文字内容识别
+      content = content.replace(/(<[\w'"\s\-.&/();=:%,]*>)+/g, '*')
       // 英文单词数量
-      let words = content.match(/[a-zA-Z]+\s/g).length
+      let words = content.match(/[a-zA-Z]+[\s*]/g)?.length
       // 其他符号字数
-      words += content.replaceAll(/[a-zA-Z\s]/g, '').length
+      words += content.replace(/([a-zA-Z]+[\s*])|\*/g, '')?.length
       // block数量
       const blocks = document.querySelectorAll('.notion-page-content [data-block-id]').length || '-'
       this.$pageStats.html(`Words:${words};Blocks:${blocks}`)
