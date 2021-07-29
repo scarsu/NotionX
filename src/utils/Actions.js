@@ -87,6 +87,30 @@ const Actions = {
       iframe.src = 'notion:' + location.pathname
     }
   },
+  // TODO content 生成标题序号
+  genHeaderNumber: function (data) {
+    if (data.event) {
+      console.log('genHeaderNumber')
+      // 获取所有的header
+      var $headers = [...document.querySelectorAll(`.notion-header-block,
+        .notion-sub_header-block,
+        .notion-sub_sub_header-block`)]
+      // 遍历生成序号
+      // let f=0,s=0,t=0
+      $headers.forEach(header => {
+        // conat info = extractInfo(header)
+        // const num = genNumber()
+      })
+      // 更改dom
+      // $0.textContent = '1'
+      // 手动触发input event
+      // var event = new Event('input', {
+      //   bubbles: true,
+      //   cancelable: true,
+      // })
+      // $0.dispatchEvent(event)
+    }
+  },
   // content 切换暗黑模式
   toggleDark: function (data) {
     const $notion = document.querySelector('.notion-body')

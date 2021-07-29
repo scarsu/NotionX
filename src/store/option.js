@@ -103,6 +103,16 @@ export const ORIGIN_OPTIONS = [
     needLoading: 2000
   },
   {
+    action: 'genHeaderNumber',
+    name: 'genHeaderNumber',
+    desc: 'genHeaderNumberDesc',
+    value: null,
+    type: 'button',
+    hide: false,
+    scope: 'content',
+    needLoading: 2000
+  },
+  {
     action: 'setCodeLang',
     name: 'setCodeLang',
     desc: 'setCodeLangDesc',
