@@ -54,3 +54,11 @@ function effectLocal () {
     console.warn('NotionX - background: ', '连接失败')
   }
 }
+
+// newUserVersionDetect
+function newUserVersionDetect () {
+  if (window.localStorage.getItem(EXTENSION_STORAGE_OPTION_KEY) === null) {
+    window.open('http://www.scarsu.cn/notionx/index.html')
+  }
+}
+newUserVersionDetect()

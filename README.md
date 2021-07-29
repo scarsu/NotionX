@@ -8,6 +8,8 @@ English | [简体中文](./README.zh-CN.md)
 
 [[toc]]
 
+## v2.1.1 Features (2021.08.01)
+
 ## v2.1.0 Features (2021.03.16)
 
 ### Set Code Language
