@@ -56,6 +56,16 @@ export const ORIGIN_OPTIONS = [
     pageCheckSelector: '.notion-page-content',
   },
   {
+    action: 'hideAddBtn',
+    type: 'switch',
+    name: 'hideAddBtn',
+    desc: 'hideAddBtnDesc',
+    value: false,
+    hide: false,
+    scope: 'content',
+    pageCheckSelector: '.notion-page-content',
+  },
+  {
     action: 'toggleDark',
     name: 'toggleDark',
     desc: 'toggleDarkDesc',

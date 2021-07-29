@@ -51,6 +51,14 @@
     "message": "Hide Help Button",
     "description": ""
   },
+  "hideAddBtn": {
+    "message": "Hide 'New' Button",
+    "description": ""
+  },
+  "hideAddBtnDesc": {
+    "message": "Hide Table 'New' Button",
+    "description": ""
+  },
   "hideNotionXSidebar": {
     "message": "Hide NotionX SideBar",
     "description": ""

@@ -51,6 +51,14 @@
     "message": "ヘルプボタンを隠す",
     "description": ""
   },
+  "hideAddBtn": {
+    "message": "'New'ボタンを非表示",
+    "description": ""
+  },
+  "hideAddBtnDesc": {
+    "message": "テーブルを非表示にする 'New'ボタン",
+    "description": ""
+  },
   "hideNotionXSidebar": {
     "message": "NotionXサイドバーを非表示",
     "description": ""

@@ -26,6 +26,16 @@ const Actions = {
       $dom.style.display = 'flex'
     }
   },
+  // content 隐藏table的New按钮
+  hideAddBtn: function (data) {
+    const $notion = document.querySelector('.notion-body')
+    const currentCompact = $notion.classList.contains('notionx-hide-table-new')
+    if (data.value && !currentCompact) {
+      $notion.classList.add('notionx-hide-table-new')
+    } else if (!data.value && currentCompact) {
+      $notion.classList.remove('notionx-hide-table-new')
+    }
+  },
   // content 禁用插件
   disableNotionX: function (data) {
     Actions.hideNotionXSidebar(data)

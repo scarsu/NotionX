@@ -43,6 +43,14 @@
     "message": "隐藏帮助按钮",
     "description": ""
   },
+  "hideAddBtn": {
+    "message": "隐藏'New'按钮",
+    "description": ""
+  },
+  "hideAddBtnDesc": {
+    "message": "隐藏table的'New'按钮",
+    "description": ""
+  },
   "hideNotionXSidebar": {
     "message": "隐藏NotionX侧边栏",
     "description": ""
