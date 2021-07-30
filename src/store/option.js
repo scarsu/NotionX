@@ -110,7 +110,7 @@ export const ORIGIN_OPTIONS = [
     type: 'button',
     hide: false,
     scope: 'content',
-    needLoading: 2000
+    needLoading: 1000
   },
   {
     action: 'setCodeLang',

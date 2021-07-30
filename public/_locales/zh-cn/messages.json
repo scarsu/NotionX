@@ -83,6 +83,14 @@
     "message": "在桌面端中打开当前页面",
     "description": ""
   },
+  "genHeaderNumber": {
+    "message": "生成Headers序号",
+    "description": ""
+  },
+  "genHeaderNumberDesc": {
+    "message": "为Header Block生成形如1.2.1.的序号",
+    "description": ""
+  },
   "toggleCompact": {
     "message": "紧凑模式",
     "description": ""

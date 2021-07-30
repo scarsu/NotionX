@@ -91,6 +91,14 @@
     "message": "데스크톱 앱에서 현재 페이지 열기",
     "description": ""
   },
+  "genHeaderNumber": {
+    "message": "'Herder Block' 일련 번호 생성",
+    "description": ""
+  },
+  "genHeaderNumberDesc": {
+    "message": "'Herder Block'에 대해 1.2.1.과 같은 일련 번호를 생성합니다.",
+    "description": ""
+  },
   "toggleCompact": {
     "message": "호환 모드",
     "description": ""

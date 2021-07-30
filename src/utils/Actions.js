@@ -87,28 +87,70 @@ const Actions = {
       iframe.src = 'notion:' + location.pathname
     }
   },
-  // TODO content 生成标题序号
+  // content 生成标题序号
   genHeaderNumber: function (data) {
     if (data.event) {
-      console.log('genHeaderNumber')
       // 获取所有的header
       var $headers = [...document.querySelectorAll(`.notion-header-block,
         .notion-sub_header-block,
         .notion-sub_sub_header-block`)]
-      // 遍历生成序号
-      // let f=0,s=0,t=0
-      $headers.forEach(header => {
-        // conat info = extractInfo(header)
-        // const num = genNumber()
-      })
-      // 更改dom
-      // $0.textContent = '1'
-      // 手动触发input event
-      // var event = new Event('input', {
-      //   bubbles: true,
-      //   cancelable: true,
-      // })
-      // $0.dispatchEvent(event)
+      // 遍历生成序号，固定格式：
+      // level1 x.
+      // level2 x.x.
+      // level3 x.x.x.
+      let outermostLevel = 0 // 最外层的level
+      let lastPrefix = '' // 上一项的前缀
+      let lastLevel = 0 // 上一项的level
+      for (let i = 0; i < $headers.length; i++) {
+        const $header = $headers[i]
+        const level = $header.classList.contains('notion-header-block')
+          ? 1 : $header.classList.contains('notion-sub_header-block')
+            ? 2 : 3
+        let curPrefix = ''
+        if (i === 0) {
+          outermostLevel = level
+          curPrefix = '1.'
+        } else {
+          if (level < outermostLevel) {
+            // 不规范格式，直接停止转换
+            break
+          }
+          if (level === lastLevel) {
+            // 同一层级
+            curPrefix = leftMoveAndAddSeq(lastPrefix, 0)
+          }
+          if (level > lastLevel) {
+            // 下一层级
+            curPrefix = lastPrefix + 1 + '.'
+          }
+          if (level < lastLevel) {
+            // 外层
+            if (lastLevel - level === 1) {
+              if (lastPrefix.length < 4) break
+              curPrefix = leftMoveAndAddSeq(lastPrefix, 1)
+            } else if (lastLevel - level === 2) {
+              if (lastPrefix.length < 6) break
+              curPrefix = leftMoveAndAddSeq(lastPrefix, 2)
+            }
+          }
+        }
+
+        // 删除之前生成的prefix
+        const originContent = removeOldPrefix($header.textContent)
+        // 更改dom
+        const $edit = $header.querySelector('.notranslate[contenteditable=true]')
+        $edit.textContent = curPrefix + ' ' + originContent
+        // 手动触发input event 以触发notion进行远程更新
+        setTimeout(() => {
+          $edit.dispatchEvent(new Event('input', {
+            bubbles: true,
+            cancelable: true,
+          }))
+        }, 0)
+        // 更新变量
+        lastPrefix = curPrefix
+        lastLevel = level
+      }
     }
   },
   // content 切换暗黑模式
@@ -283,3 +325,15 @@ const Actions = {
   }
 }
 export default Actions
+
+// 删除最后gap个数字后seq+1
+function leftMoveAndAddSeq (str, gap) {
+  const lastNumIndex = str.length - (gap + 1) * 2
+  const lastNum = str[lastNumIndex] * 1
+  return str.substr(0, lastNumIndex) + (lastNum + 1) + '.'
+}
+
+// 删除过去生成的序号
+function removeOldPrefix (content) {
+  return content.replace(/^(\d\.\d\.\d\.\s)/, '').replace(/^(\d\.\d\.\s)/, '').replace(/^(\d\.\s)/, '')
+}

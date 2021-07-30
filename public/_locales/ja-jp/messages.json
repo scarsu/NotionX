@@ -91,6 +91,14 @@
     "message": "デスクトップアプリで現在のページを開く",
     "description": ""
   },
+  "genHeaderNumber": {
+    "message": "「HerderBlock」番号生成",
+    "description": ""
+  },
+  "genHeaderNumberDesc": {
+    "message": "「HerderBlock」の1.2.1。のようなシリアル番号を生成します",
+    "description": ""
+  },
   "toggleCompact": {
     "message": "コンパクトモード",
     "description": ""

@@ -91,6 +91,14 @@
     "message": "Відкрити сторінку у застосунку",
     "description": ""
   },
+  "genHeaderNumber": {
+    "message": "Generate index for Headers",
+    "description": ""
+  },
+  "genHeaderNumberDesc": {
+    "message": "Generate index for Headers like 1.2.1.",
+    "description": ""
+  },
   "toggleCompact": {
     "message": "Компактний режим",
     "description": ""
