@@ -47,14 +47,14 @@ export function sideBarScrollToTop () {
 /**
  * @param {string} selector :for judging the loading status of notion app
  */
-export const waitNotionPageReady = (selector = '.notion-topbar') => new Promise((resolve) => {
+export const waitNotionPageReady = (selector = '.notion-topbar>div') => new Promise((resolve) => {
   const max = 100
   let i = 0
   const delay = 500
   const f = () => {
     i++
-    const element = document.querySelector(selector)
-    if (i > max || (element != null && element.children.length > 0)) {
+    const element = document.querySelectorAll(selector)
+    if (i > max || (element.length > 0)) {
       resolve(element)
     } else {
       setTimeout(f, delay)

@@ -589,7 +589,7 @@ export default class NotionX {
         .join('')
       function extractInfo (e) {
         const id = e.dataset.blockId
-        const desc = e.querySelector('.notranslate[contenteditable]')?.innerText
+        const desc = e.querySelector('[contenteditable][data-content-editable-leaf]')?.innerText
         const left = e.offsetLeft
         let level = levels.findIndex(i => i === left)
         if (level === -1) {
@@ -675,7 +675,7 @@ export default class NotionX {
       }
     }
     function getDataBase () {
-      return [...document.querySelectorAll('.notion-collection_view-block .notranslate[contenteditable]')].map(extractInfo)
+      return [...document.querySelectorAll('.notion-collection_view-block [data-content-editable-leaf][contenteditable]')].map(extractInfo)
         .filter(e => e.id && e.desc)
         .map(toHtml)
         .join('')

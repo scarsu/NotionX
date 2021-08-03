@@ -58,6 +58,7 @@ function effectLocal () {
 // newUserVersionDetect
 function newUserVersionDetect () {
   if (window.localStorage.getItem(EXTENSION_STORAGE_OPTION_KEY) === null) {
+    window.localStorage.setItem(EXTENSION_STORAGE_OPTION_KEY, {})
     window.open('http://www.scarsu.cn/notionx/index.html')
   }
 }

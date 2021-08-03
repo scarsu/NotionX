@@ -1,5 +1,6 @@
 export const NOTION_APP_SELECTOR = '#notion-app'
 export const NOTION_CONTENT_SELECTOR = '.notion-page-content'
+export const NOTION_TOPBAR_SELECTOR = '.notion-topbar>div'
 export const NOTION_SCROLLER_SELECTOR = '.notion-scroller'
 export const NOTION_WRAPPER_SELECTOR = '.notion-cursor-listener'
 

@@ -138,9 +138,13 @@ const Actions = {
         // 删除之前生成的prefix
         const originContent = removeOldPrefix($header.textContent)
         // 更改dom
-        const $edit = $header.querySelector('.notranslate[contenteditable=true]')
+        const $edit = $header.querySelector('[data-content-editable-leaf][contenteditable]')
         $edit.textContent = curPrefix + ' ' + originContent
         // 手动触发input event 以触发notion进行远程更新
+        $edit.dispatchEvent(new Event('input', {
+          bubbles: true,
+          cancelable: true,
+        }))
         setTimeout(() => {
           $edit.dispatchEvent(new Event('input', {
             bubbles: true,
