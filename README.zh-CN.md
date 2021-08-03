@@ -1,14 +1,34 @@
 简体中文 | [English](./README.md)
 
-# NotionX
-
 ![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142800.png)
-
-![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210317110434.png)
 
 [[toc]]
 
 ## v2.1.1 Features (2021.08.01)
+
+### [New Feature] 自动生成 Header Block 序号
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210803113702.gif)
+
+### [New Feature] 启用/禁用插件按钮
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210803110849.gif)
+
+### [New Feature] SideBar模块可关闭和恢复
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210803113704.gif)
+
+### [New Feature] 隐藏Table的'New'按钮
+
+### [New Feature] 隐藏右上角的暗黑模式按钮
+
+### [New Feature] Add ukrainian locale
+
+### [Fix] 页面内容统计：计算单词数量而不是字符数量
+
+### [Fix] SideBar内容闪现问题
+
+### [Improvement] 提升SideBar自动生成性能
 
 ## v2.1.0 Features (2021.03.16)
 

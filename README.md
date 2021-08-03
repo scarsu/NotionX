@@ -1,14 +1,34 @@
 English | [简体中文](./README.zh-CN.md)
 
-# NotionX
-
 ![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210121142800.png)
-
-![NotionX](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210317105825.png)
 
 [[toc]]
 
 ## v2.1.1 Features (2021.08.01)
+
+### [New Feature] Generate index for Header blocks
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210803113702.gif)
+
+### [New Feature] Enable/Disable button for NotionX
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210803110849.gif)
+
+### [New Feature] SideBar modules can be closed and restored
+
+![preview](https://scarsu.oss-cn-shanghai.aliyuncs.com/picgo20210803113704.gif)
+
+### [New Feature] Hide Table block's 'New' button
+
+### [New Feature] Hide the dark mode button in the upper right corner
+
+### [New Feature] Add ukrainian locale
+
+### [Fix] Page content statistics: count the number of words instead of the number of characters
+
+### [Fix] SideBar content flashing problem
+
+### [Improvement] Improve performance
 
 ## v2.1.0 Features (2021.03.16)
 
