@@ -14,7 +14,6 @@ import {
 import {
   DEFAULT_OPTS,
   NOTION_WRAPPER_SELECTOR,
-  NOTION_CONTENT_SELECTOR,
   MAX_WIDTH,
   MIN_WIDTH,
   DEFAULT_VIEW_KEY,
@@ -404,7 +403,7 @@ export default class NotionX {
       if (process.env.NODE_ENV !== 'production') {
         console.log('debounce excute')
       }
-      return _.debounce(cb, interval, { leading: true, trailing: true, maxWait: interval })
+      return _.debounce(cb, interval, { leading: false, trailing: true, maxWait: interval })
     }
     return {
       stop: () => {
@@ -414,9 +413,9 @@ export default class NotionX {
       start: () => {
         if (this.notionObRunning !== true) {
           if (process.env.NODE_ENV !== 'production') {
-            console.log('notionPb.start excute')
+            console.log('notionOb.start excute')
           }
-          this.notionOb = domObserver(NOTION_CONTENT_SELECTOR, renderSideContent.call(this))
+          this.notionOb = domObserver('.notion-frame.notionX-notionCenter', renderSideContent.call(this))
         }
         this.notionObRunning = true
         this.sidebarRender()
@@ -612,11 +611,12 @@ export default class NotionX {
     function getComment () {
       return [...document.querySelectorAll('.speechBubble')]
         .map(extractInfo)
-        .filter(e => e.id && e.desc)
+        .filter(e => e && e.id && e.desc)
         .map(toHtml)
         .join('')
       function extractInfo (bubble) {
         const e = bubble.closest('[data-block-id]')
+        if (!e) return
         const id = e.dataset.blockId
         const desc = e.querySelector('[contenteditable]')?.innerHTML
         const comment = bubble?.nextSibling?.innerText

@@ -18,7 +18,8 @@ export function domObserver (selector, cb, config) {
   const el = document.querySelector(selector)
   config = config || {
     childList: true,
-    subtree: true
+    subtree: true,
+    characterData: true,
   }
   observer.observe(el, config)
   return observer
