@@ -4,7 +4,7 @@ English | [简体中文](./README.zh-CN.md)
 
 [[toc]]
 
-## v2.1.1 Features (2021.08.01)
+## v2.1.2 Features (2021.08.01)
 
 ### [New Feature] Generate index for Header blocks
 
