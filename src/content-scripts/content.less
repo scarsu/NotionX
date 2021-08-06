@@ -592,7 +592,10 @@ html.notionx-dark {
 
 /* 隐藏table new按钮 */
 .notion-body.notionx-hide-table-new{
-  .notion-collection-view-item-add{
+  // .notion-collection-view-item-add{
+  //   display: none!important;
+  // }
+  .notion-gallery-view .notion-collection_view-block>div>.notion-focusable[role="button"]{
     display: none!important;
   }
 }
