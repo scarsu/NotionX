@@ -634,34 +634,28 @@ export default class NotionX {
     }
     function getColorText () {
       const theme = document.querySelector('.notion-body').classList.contains('dark') ? 'dark' : 'light'
+      const $content = document.querySelector('.notion-page-content')
       const blocks = COLORS
         .filter(i => i.theme === theme)
         .map(selectorFromColor)
-        .flatMap(s => [...document.querySelectorAll(s)])
-        .map(e => e.closest('[data-block-id]'))
+        .flatMap(s => [...$content.querySelectorAll(s)])
         .filter(i => i)
       return blocks
-        .filter(isDistinct)
         .map(extractInfo)
         .filter(i => i.id && i.content)
         .map(toHtml)
         .join('')
-      function isDistinct (block, i) {
-        return blocks.findIndex(blockIdEqual) === i
-        function blockIdEqual (b) {
-          return b.dataset.blockId === block.dataset?.blockId
-        }
-      }
       function selectorFromColor (color) {
         return color.type === 'font'
           ? `[style*="color:${color.value.replace(/\s/g, '')}"]`
           : `[style*="background:${color.value.replace(/\s/g, '')}"]`
       }
-      function extractInfo (block) {
+      function extractInfo (e) {
+        const block = e.closest('[data-block-id]')
+        if (!block) return
         const id = block.dataset.blockId
-        const child = block.querySelector('[contenteditable]')
-        const content = child.innerHTML
-        const desc = child.innerText
+        const content = e.outerHTML
+        const desc = e.innerText
         return {
           id,
           content,
