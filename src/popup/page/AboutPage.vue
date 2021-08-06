@@ -5,7 +5,7 @@
       <li>If any suggestion, please <a target="_blank" href="https://github.com/scarsu/NotionX/discussions/4">feedback here⚡️ </a>;</li>
       <li>Open Source on <a target="_blank" href="https://github.com/scarsu/NotionX">Github</a> by <a target="_blank" href="https://www.scarsu.com">ScarSu</a> with ❤️ for <a target="_blank" href="https://www.notion.so/product">Notion</a>;</li>
       <li><a target="_blank" href="http://www.scarsu.cn/notionx/privacy.html">Privacy Policy</a>;</li>
-      <li>version: 2.1.2</li>
+      <li>version: 2.1.3</li>
     </div>
   </div>
 </template>

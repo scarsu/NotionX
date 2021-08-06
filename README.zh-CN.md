@@ -4,7 +4,7 @@
 
 [[toc]]
 
-## v2.1.2 Features (2021.08.01)
+## v2.1.3 Features (2021.08.01)
 
 ### [New Feature] 自动生成 Header Block 序号
 
@@ -29,6 +29,8 @@
 ### [Fix] SideBar内容闪现问题
 
 ### [Improvement] 提升SideBar自动生成性能
+
+[issue#13@github](https://github.com/scarsu/NotionX/issues/13) By [fcherman](https://github.com/fcherman)
 
 ## v2.1.0 Features (2021.03.16)
 

@@ -4,7 +4,7 @@ export const NOTION_TOPBAR_SELECTOR = '.notion-topbar>div'
 export const NOTION_SCROLLER_SELECTOR = '.notion-scroller'
 export const NOTION_WRAPPER_SELECTOR = '.notion-cursor-listener'
 
-export const NOTIONX_STORE_KEY = 'notionx_2.1.2'
+export const NOTIONX_STORE_KEY = 'notionx_2.1.3'
 
 export const DEFAULT_OPTS = {
   showDark: true,
@@ -20,7 +20,7 @@ export const DEFAULT_OPTS = {
 export const DEFAULT_VIEW_KEY = 'toc'
 export const MAX_WIDTH = 480
 export const MIN_WIDTH = 190
-export const EXTENSION_STORAGE_OPTION_KEY = 'notionx_options_2.1.2'
+export const EXTENSION_STORAGE_OPTION_KEY = 'notionx_options_2.1.3'
 export const CONTENT_DETECT = 'CONTENT_DETECT'
 export const COMMENT_STYLE = 'background:rgba(255,212,0,0.14);border-bottom:2px solid rgb(255, 212, 0);padding-bottom:2px'
 export const COLORS = [

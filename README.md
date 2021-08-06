@@ -4,7 +4,7 @@ English | [简体中文](./README.zh-CN.md)
 
 [[toc]]
 
-## v2.1.2 Features (2021.08.01)
+## v2.1.3 Features (2021.08.01)
 
 ### [New Feature] Generate index for Header blocks
 
@@ -29,6 +29,10 @@ English | [简体中文](./README.zh-CN.md)
 ### [Fix] SideBar content flashing problem
 
 ### [Improvement] Improve performance
+
+### [Improvement] split colored text in one block showing in sidebar
+
+[issue#13@github](https://github.com/scarsu/NotionX/issues/13) By [fcherman](https://github.com/fcherman)
 
 ## v2.1.0 Features (2021.03.16)
 
