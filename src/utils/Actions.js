@@ -331,10 +331,14 @@ const Actions = {
 export default Actions
 
 // 删除最后gap个数字后seq+1
-function leftMoveAndAddSeq (str, gap) {
-  const lastNumIndex = str.length - (gap + 1) * 2
-  const lastNum = str[lastNumIndex] * 1
-  return str.substr(0, lastNumIndex) + (lastNum + 1) + '.'
+function leftMoveAndAddSeq(str, gap) {
+    let arr = str.split(".")
+    arr[arr.length - 2 - gap] = parseInt(arr[arr.length - 2 - gap]) + 1
+    while (gap >= 0) {
+        arr.pop();
+        gap -= 1;
+    }
+    return arr.join(".") + ".";
 }
 
 // 删除过去生成的序号
