@@ -12,9 +12,9 @@ export const DEFAULT_OPTS = {
   hotKeys: '⌘+⇧+x',
   width: 220,
   viewKey: 'toc',
-  fsmState: 'hide',
+  sidebarShow: false,
   expandStatus: null,
-  genFlagList: null,
+  genFlagList: [],
 }
 
 export const DEFAULT_VIEW_KEY = 'toc'
@@ -25,217 +25,217 @@ export const CONTENT_DETECT = 'CONTENT_DETECT'
 export const COMMENT_STYLE = 'background:rgba(255,212,0,0.14);border-bottom:2px solid rgb(255, 212, 0);padding-bottom:2px'
 export const COLORS = [
   {
-    value: 'rgb(155, 154, 151)',
+    value: 'rgba(120, 119, 116, 1)',
     name: 'font-gray',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(100, 71, 58)',
+    value: 'rgba(159, 107, 83, 1)',
     name: 'font-brown',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(217, 115, 13)',
+    value: 'rgba(217, 115, 13, 1)',
     name: 'font-orange',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(223, 171, 1)',
+    value: 'rgba(203, 145, 47, 1)',
     name: 'font-yellow',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(15, 123, 108)',
+    value: 'rgba(68, 131, 97, 1)',
     name: 'font-green',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(11, 110, 153)',
+    value: 'rgba(51, 126, 169, 1)',
     name: 'font-blue',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(105, 64, 165)',
+    value: 'rgba(144, 101, 176, 1)',
     name: 'font-purple',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(173, 26, 114)',
+    value: 'rgba(193, 76, 138, 1)',
     name: 'font-pink',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(224, 62, 62)',
+    value: 'rgba(212, 76, 71, 1)',
     name: 'font-red',
     theme: 'light',
     type: 'font'
   },
   {
-    value: 'rgb(235, 236, 237)',
+    value: 'rgba(241, 241, 239, 1)',
     name: 'background-gray',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgb(233, 229, 227)',
+    value: 'rgba(244, 238, 238, 1)',
     name: 'background-brown',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgb(250, 235, 221)',
+    value: 'rgba(251, 236, 221, 1)',
     name: 'background-orange',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgb(251, 243, 219)',
+    value: 'rgba(251, 243, 219, 1)',
     name: 'background-yellow',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgb(221, 237, 234)',
+    value: 'rgba(237, 243, 236, 1)',
     name: 'background-green',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgb(221, 235, 241)',
+    value: 'rgba(231, 243, 248, 1)',
     name: 'background-blue',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgb(234, 228, 242)',
+    value: 'rgba(244, 240, 247, 0.8)',
     name: 'background-purple',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgb(244, 223, 235)',
+    value: 'rgba(249, 238, 243, 0.8)',
     name: 'background-pink',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgb(251, 228, 228)',
+    value: 'rgba(253, 235, 236, 1)',
     name: 'background-red',
     theme: 'light',
     type: 'background'
   },
   {
-    value: 'rgba(151, 154, 155, 0.95)',
+    value: 'rgba(159, 164, 169, 1)',
     name: 'font-gray',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(147, 114, 100)',
+    value: 'rgba(212, 150, 117, 1)',
     name: 'font-brown',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(255, 163, 68)',
+    value: 'rgba(217, 133, 56, 1)',
     name: 'font-orange',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(255, 220, 73)',
+    value: 'rgba(201, 145, 38, 1)',
     name: 'font-yellow',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(77, 171, 154)',
+    value: 'rgba(113, 178, 131, 1)',
     name: 'font-green',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(82, 156, 202)',
+    value: 'rgba(102, 170, 218, 1)',
     name: 'font-blue',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(154, 109, 215)',
+    value: 'rgba(176, 152, 217, 1)',
     name: 'font-purple',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(226, 85, 161)',
+    value: 'rgba(223, 132, 209, 1)',
     name: 'font-pink',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(255, 115, 105)',
+    value: 'rgba(234, 135, 140, 1)',
     name: 'font-red',
     theme: 'dark',
     type: 'font'
   },
   {
-    value: 'rgb(69, 75, 78)',
+    value: 'rgba(60, 65, 68, 1)',
     name: 'background-gray',
     theme: 'dark',
     type: 'background'
   },
   {
-    value: 'rgb(67, 64, 64)',
+    value: 'rgba(76, 61, 53, 1)',
     name: 'background-brown',
     theme: 'dark',
     type: 'background'
   },
   {
-    value: 'rgb(89, 74, 58)',
+    value: 'rgba(85, 59, 41, 1)',
     name: 'background-orange',
     theme: 'dark',
     type: 'background'
   },
   {
-    value: 'rgb(89, 86, 59)',
+    value: 'rgba(79, 64, 41, 1)',
     name: 'background-yellow',
     theme: 'dark',
     type: 'background'
   },
   {
-    value: 'rgb(53, 76, 75)',
+    value: 'rgba(46, 68, 58, 1)',
     name: 'background-green',
     theme: 'dark',
     type: 'background'
   },
   {
-    value: 'rgb(54, 73, 84)',
+    value: 'rgba(45, 66, 86, 1)',
     name: 'background-blue',
     theme: 'dark',
     type: 'background'
   },
   {
-    value: 'rgb(68, 63, 87)',
+    value: 'rgba(69, 58, 91, 1)',
     name: 'background-purple',
     theme: 'dark',
     type: 'background'
   },
   {
-    value: 'rgb(83, 59, 76)',
+    value: 'rgba(81, 56, 77, 1)',
     name: 'background-pink',
     theme: 'dark',
     type: 'background'
   },
   {
-    value: 'rgb(89, 65, 65)',
+    value: 'rgba(94, 52, 54, 1)',
     name: 'background-red',
     theme: 'dark',
     type: 'background'

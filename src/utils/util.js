@@ -124,12 +124,37 @@ export function getLocalNotionXState () {
   return JSON.parse(localStorage.getItem(NOTIONX_STORE_KEY) || '{}')
 }
 
+// 隐藏notion自带sidebar
+export function hideNotionRightSide () {
+  const selectors = [
+    '.notion-topbar-comments-button',
+    '.notion-topbar-updates-button',
+  ]
+  selectors.find(selector => {
+    const sideBtn = document.querySelector(selector)
+    const isActive = e => {
+      return !!e.style.backgroundColor
+    }
+    if (isActive(sideBtn)) {
+      sideBtn.style.backgroundColor = ''
+      setTimeout(() => {
+        console.log('sideBtn.click')
+        sideBtn.click()
+      }, 0)
+      // sideBtn.click()
+      return true
+    }
+  })
+}
+
 // adapt to various page situations and find our button's container
 // 找到notion页面header节点
 export function adapterNotionHeader () {
   const siblings = [
     '.notion-topbar-share-menu',
     '.notion-topbar-more-button',
+    '.notion-topbar-comments-button',
+    '.notion-topbar-updates-button',
   ]
   for (let i = 0; i < siblings.length; i++) {
     const selector = siblings[i]

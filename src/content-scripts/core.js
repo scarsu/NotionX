@@ -5,80 +5,64 @@ import template from './template'
 import {
   domObserver,
   sideBarScrollToTop,
-  scrollToTop,
   setLocalNotionXState,
   getLocalNotionXState,
   adapterNotionHeader,
   scrollToBlock,
+  hideNotionRightSide,
 } from '../utils/util'
 import {
   DEFAULT_OPTS,
   NOTION_WRAPPER_SELECTOR,
   MAX_WIDTH,
   MIN_WIDTH,
-  DEFAULT_VIEW_KEY,
   COLORS,
 } from '../utils/constant'
 
 export default class NotionX {
-  // 响应式状态
+  // reactive states
   #state = new Proxy({}, {
     set: (target, key, newVal) => {
-      // this.#state.dark 变更 自动更新视图
-      if (key === 'dark') {
-        setTimeout(() => {
-          if (document.querySelector('#dark-mode-inp')) {
-            document.querySelector('#dark-mode-inp').checked = newVal
-            if (newVal) {
-              $('html').addClass('notionx-dark')
-            } else {
-              $('html').removeClass('notionx-dark')
+      try {
+        // this.#state.dark 变更 自动更新视图暗黑模式
+        if (key === 'dark') {
+          setTimeout(() => {
+            if (document.querySelector('#dark-mode-inp')) {
+              document.querySelector('#dark-mode-inp').checked = newVal
+              if (newVal) {
+                $('body.notion-body').addClass('dark')
+              } else {
+                $('body.notion-body').removeClass('dark')
+              }
             }
-          }
-        }, 0)
-      }
-      // this.#state.viewKey 变更 自动更新视图
-      if (key === 'viewKey') {
-        const oldVal = Reflect.get(target, key)
-        newVal = newVal || DEFAULT_VIEW_KEY
-        if (oldVal !== newVal) {
-          const views = this.$views.find('.notionx-view')
-          for (let i = 0; i < views.length; i++) {
-            const curKey = views[i].dataset.view
-            const curShow = !views[i].classList.contains('hide')
-            if (newVal === curKey && !curShow) {
-              views[i].classList.remove('hide') // 显示
-            } else if (newVal !== curKey && curShow) {
-              views[i].classList.add('hide') // 隐藏
-            }
-          }
-          if (newVal === 'option') {
-            this.$optionBtn.addClass('active')
-          } else {
-            this.$optionBtn.removeClass('active')
-          }
-        } else {
-          return // 无需更新
+          }, 0)
         }
-      }
-      if (key === 'fsmState') {
-        newVal = newVal || 'hide'
-        const cb = this.#fsm.hide[newVal]
-        if (this.__ob__) {
-          if (newVal === 'hide') {
-            this.__ob__.stop()
-          } else {
+        if (key === 'sidebarShow') {
+          if (!this.__ob__) {
+            this.__ob__ = this.initNotionOb()
+          }
+          if (newVal) {
             this.__ob__.start()
+          } else {
+            this.__ob__.stop()
           }
         }
-        cb && cb.call(this, false)
+        // this.#state.width 变更 自动更新sidebar宽度css变量
+        if (key === 'width') {
+          if (this.__ob__ && this.#state.showSidebar) {
+            this.$notionx[0].style.setProperty('--sidebarWidth', newVal + 'px')
+          }
+        }
+        // sidebar 响应式内容启用/禁用状态genFlagList
+        if (key === 'genFlagList') {
+          if (this.__ob__) {
+            this.__ob__.update()
+          }
+        }
+      } catch (e) {
+        console.error(e)
       }
-      // this.#state.width 变更 自动更新sidebar宽度css变量
-      if (key === 'width') {
-        this.$notionx[0].style.setProperty('--sidebarWidth', newVal + 'px')
-      }
-      // sidebar 响应式内容启用/禁用状态genFlagList
-      if (key === 'genFlagList') { }
+
       // 变更自动同步本地存储
       const ret = Reflect.set(target, key, newVal)
       setLocalNotionXState(this.#state)
@@ -86,97 +70,47 @@ export default class NotionX {
     }
   })
 
-  // fsm状态机 控制sidebar的hide/hover/pinned三种状态
-  #fsm = {
-    /* ================= hide ============= */
-    hide: {
-      // hide => hover
-      hover: (needUpdate = true) => {
-        this.$notionx.removeClass('pinned')
-        this.$notionx.addClass('hover')
-        this.$sideBarBtn.addClass('hover')
-        this.$sideBarBtn.removeClass('hide')
-        if (needUpdate) this.#state.fsmState = 'hover'
-      },
-      // hide => pinned
-      pinned: (needUpdate = true) => {
-        this.$notionx.removeClass('hover')
-        this.$notionx.addClass('pinned')
-        this.$sideBarBtn.removeClass('hover')
-        this.$sideBarBtn.addClass('hide')
-        if (needUpdate) this.#state.fsmState = 'pinned'
-      }
-    },
-    /* ================= hover ============= */
-    hover: {
-      // hover => hide
-      hide: (needUpdate = true) => {
-        this.$notionx.removeClass('pinned')
-        this.$notionx.removeClass('hover')
-        this.$sideBarBtn.removeClass('hover')
-        this.$sideBarBtn.removeClass('hide')
-        if (needUpdate) this.#state.fsmState = 'hide'
-      },
-      // hover => pinned
-      pinned: (needUpdate = true) => {
-        this.$notionx.removeClass('hover')
-        this.$notionx.addClass('pinned')
-        this.$sideBarBtn.removeClass('hover')
-        this.$sideBarBtn.addClass('hide')
-        if (needUpdate) this.#state.fsmState = 'pinned'
-      }
-    },
-    /* ================= pinned状态 ============= */
-    pinned: {
-      // pinned => hide
-      hide: () => {
-        this.$notionx.removeClass('pinned')
-        this.$notionx.removeClass('hover')
-        this.$sideBarBtn.removeClass('hover')
-        this.$sideBarBtn.removeClass('hide')
-        this.#state.fsmState = 'hide'
-      },
-      // pinned => hover
-      hover: () => {
-        this.$notionx.addClass('hover')
-        this.$notionx.removeClass('pinned')
-        this.$sideBarBtn.addClass('hover')
-        this.$sideBarBtn.removeClass('hide')
-        this.#state.fsmState = 'hover'
-      }
-    }
-  }
-
   constructor () {
     this.init()
     return this
   }
 
-  async init () {
+  init () {
     try {
       if (this.mount()) {
         this.initStates()
         this.initEvents()
-        this.sidebarRender()
-        this.__ob__ = this.initNotionOb()
-        this.#state.fsmState = this.#state.fsmState // 强制更新一次
       } else {
-        console.warn('NotionX - 初始化失败 NotionX.mount()')
+        console.error('NotionX - mount失败 ')
       }
     } catch (e) {
-      console.warn(`NotionX - 初始化失败 ${e.message}`)
+      console.error(`NotionX - 初始化失败 ${e.message}`)
     }
   }
 
-  destroy () {
-    if (this.notionOb) {
-      this.notionOb.disconnect()
-      this.notionOb = null
-      window.notionx = null
+  // init dom
+  mount () {
+    try {
+      // inject
+      this.$html = $('html')
+      this.$notionApp = $('#notion-app')
+      this.$notionCenter = this.$notionApp.find('.notion-frame')
+      this.$document = $(document)
+      this.$headerBtnWrap = $(adapterNotionHeader())
+      if (this.$headerBtnWrap.length === 0) return false
+
+      // dom append
+      this.$sideBarBtn = $(template.sideBarBtn)
+      this.$darkBtn = $(template.darkBtn)
+      this.$headerBtnWrap.append(this.$darkBtn)
+      this.$headerBtnWrap.append(this.$sideBarBtn)
+      return true
+    } catch {
+      return false
     }
   }
 
-  // 合并默认配置 + 获取本地存储配置
+  // merge default options and localstorage options
   initStates () {
     const options = DEFAULT_OPTS
     const localState = getLocalNotionXState()
@@ -186,71 +120,39 @@ export default class NotionX {
       }
       this.#state[key] = options[key]
     }
-  }
-
-  // init dom/style
-  mount () {
-    // inject
-    this.$html = $('html')
-    this.$notionApp = $('#notion-app')
-    this.$notionCenter = this.$notionApp.find('.notion-frame')
-    this.$document = $(document)
-    this.$notionXWrap = $(NOTION_WRAPPER_SELECTOR)
-    this.$headerBtnWrap = $(adapterNotionHeader())
-    if (this.$headerBtnWrap.length === 0) return false
-    adapterNotionStyle.call(this)
-
-    // dom append
-    this.$notionx = $(template.notionx)
-    this.$sidebar = this.$notionx.find('.notionx-sidebar')
-    this.$hiderBtn = this.$notionx.find('.notionx-hider-btn')
-    this.$sideHeader = this.$notionx.find('.notionx-header')
-    this.$tocWrap = this.$notionx.find('.notionx-view[data-view="toc"] .content')
-    this.$pageTopBtn = this.$notionx.find('.notionx-view[data-view="toc"] .pageTopBtn')
-    this.$toTopBtn = this.$notionx.find('.to-top-btn')
-    this.$pageStats = this.$notionx.find('.notionx-page-stats')
-    this.$optionBtn = this.$notionx.find('.option-btn')
-    this.$resetBtn = this.$notionx.find('.notionx-reset-btn')
-    this.$optionView = this.$notionx.find('.notionx-view-option')
-    this.$resizer = this.$notionx.find('.notionx-resizer')
-    this.$views = this.$notionx.find('.notionx-views')
-    this.$sideBarBtn = $(template.sideBarBtn)
-    this.$darkBtn = $(template.darkBtn)
-    this.$headerBtnWrap.append(this.$darkBtn)
-    this.$headerBtnWrap.append(this.$sideBarBtn)
-    this.$notionXWrap.append(this.$notionx)
-    return true
-
-    function adapterNotionStyle () {
-      this.$notionCenter.addClass('notionX-notionCenter')
+    if (!this.#state.genFlagList) {
+      this.#state.genFlagList = new Array(this.contentsToGenerate.length).fill(true)
     }
   }
 
-  // event handlers中只更新状态 不接触视图
+  destroy () {
+    if (window.notionx) {
+      window.notionx.__ob__ && window.notionx.__ob__.stop()
+      window.notionx = null
+    }
+  }
+
+  // event handlers：only change state, not touch view
   initEvents () {
-    // 离开页面销毁
+    // destory before leave page
     window.addEventListener('beforeunload', () => {
       this.destroy()
     })
 
-    // 显示toc内的所有模块
-    this.$resetBtn.click(() => {
-      const toggles = [...this.$tocWrap.find('.toggle-box')]
-      toggles.forEach(dom => {
-        dom.style.display = ''
-      })
-      this.#state.genFlagList = new Array(toggles.length).fill(true)
-      this.sidebarRender()
-    })
+    // notion native sidebar handler
+    const track = eve => {
+      const el = eve.currentTarget
+      const isActive = !!el.style.backgroundColor
+      const notionxActive = this.#state.sidebarShow
+      if (isActive && notionxActive) {
+        this.#state.sidebarShow = false
+      }
+    }
+    this.$headerBtnWrap.find('.notion-topbar-comments-button').on('click', track)
+    this.$headerBtnWrap.find('.notion-topbar-updates-button').on('click', track)
 
-    // sidebar内部滚动至顶部
-    this.$toTopBtn.click(sideBarScrollToTop)
-
-    // notion page滚动至顶部
-    this.$pageTopBtn.click(scrollToTop)
-
-    // Dark Mode 开关
-    this.$darkBtn.find('label').click(e => {
+    // Dark Mode toggle handler
+    this.$darkBtn.find('label').on('click', e => {
       e.stopPropagation()
       const oldChecked = $(e.currentTarget)
         ?.parent()
@@ -263,128 +165,20 @@ export default class NotionX {
       }
     })
 
-    // change view handler
-    this.$optionBtn.click(() => {
-      if (this.#state.viewKey === 'option') {
-        this.#state.viewKey = DEFAULT_VIEW_KEY
+    // sideBar button handler
+    this.$sideBarBtn.on('click', e => {
+      if (this.#state.sidebarShow) {
+        this.#state.sidebarShow = false
       } else {
-        this.#state.viewKey = 'option'
+        this.#state.sidebarShow = true
       }
-    })
-
-    // sideBar & button handler
-    {
-      this.$sideBarBtn.hover(
-      // mouseover
-        e => {
-          const cb = this.#fsm[this.#state.fsmState].hover
-          cb && cb.call(this, e)
-        },
-        // mouseout
-        e => {
-          if (this.#state.fsmState === 'pinned') return
-          const cb = this.#fsm[this.#state.fsmState].hide
-          cb && cb.call(this, e)
-        }
-      )
-      this.$sidebar.hover(
-      // mouseover
-        e => {
-          if (this.#state.fsmState === 'pinned') return
-          const cb = this.#fsm[this.#state.fsmState].hover
-          cb && cb.call(this, e)
-        },
-        // mouseout
-        e => {
-          if (this.#state.fsmState === 'pinned') return
-          const cb = this.#fsm[this.#state.fsmState].hide
-          cb && cb.call(this, e)
-        }
-      )
-      this.$sideBarBtn.click(e => {
-        const cb = this.#fsm[this.#state.fsmState].pinned
-        cb && cb.call(this, e)
-      })
-      this.$hiderBtn.click(e => {
-        const cb = this.#fsm[this.#state.fsmState].hide
-        cb && cb.call(this, e)
-      })
-    }
-
-    // resizer: adjust sidebar width
-    const _resizer = this.$resizer
-    const _box = this.$notionx
-    const _fa = this.$notionXWrap
-    this.$resizer.mousedown((e) => {
-      if (this.#state.fsmState !== 'pinned') return // 非pinned状态禁止调节宽度
-
-      _box.addClass('no-transition')
-      const box = _box[0]
-      const fa = _fa[0]
-      e.stopPropagation()
-      e.preventDefault()
-      const pos = {
-        w: box.offsetWidth,
-        x: e.clientX
-      }
-      fa.onmousemove = (ev) => {
-        ev.preventDefault()
-        const w = Math.min(Math.max(MIN_WIDTH, pos.x - ev.clientX + pos.w), MAX_WIDTH)
-
-        requestAnimationFrame(() => {
-          // 存储新宽度 并更新视图的操作，交给#state的proxy来做
-          this.#state.width = w
-        })
-      }
-      fa.onmouseleave = () => {
-        fa.onmousemove = null
-        fa.onmouseup = null
-        if (_resizer.releaseCapture) _resizer.releaseCapture()
-        _box.removeClass('no-transition')
-      }
-      fa.onmouseup = () => {
-        fa.onmousemove = null
-        fa.onmouseup = null
-        if (_resizer.releaseCapture) _resizer.releaseCapture()
-        _box.removeClass('no-transition')
-      }
-      if (_resizer.setCapture) _resizer.setCapture()
-    })
-  }
-
-  // 响应式内容的监听
-  activeSidebarEvents () {
-    // 点击滚动至视口
-    this.$notionx.find('a[data-for-block-id]').click(e => {
-      const id = e.currentTarget?.attributes['data-for-block-id']?.value
-      id && scrollToBlock(id)
-    })
-    // 保存折叠状态
-    // this.$notionx.find('label').click(e => {
-    //   setTimeout(() => {
-    //     const checks = this.$notionx.find('input.notionx-toc-inp')
-    //     const expandStatus = [...checks]
-    //       .map(check => check.checked)
-    //     this.#state.expandStatus = expandStatus
-    //   }, 0)
-    // })
-
-    // 模块启用状态
-    this.$notionx.find('div.close-btn').click(e => {
-      const parentDom = e.currentTarget.closest('.toggle-box')
-      parentDom.style.display = 'none'
-      const index = parseInt(parentDom.dataset.toggleIndex)
-      const arr = this.#state.genFlagList
-      this.#state.genFlagList = arr.map((flag, i) => {
-        return i === index ? false : flag
-      })
-      e.stopPropagation()
     })
   }
 
   // notion app observer for update TOC dynamically
   initNotionOb () {
     this.notionObCount = 0
+
     // update sidebar content (using throttle)
     // 根据页面总字数 确定节流时间间隔
     const capacity = document.querySelector('.notion-page-content')?.textContent?.length || 0
@@ -398,36 +192,186 @@ export default class NotionX {
     } else if (capacity <= 50000) {
       interval = 2000
     }
-    function renderSideContent () {
-      const cb = () => { this.sidebarRender() }
-      if (process.env.NODE_ENV !== 'production') {
-        console.log('debounce excute')
-      }
-      return _.debounce(cb, interval, { leading: false, trailing: true, maxWait: interval })
-    }
     return {
       stop: () => {
+        this.hideSidebar()
+
+        // observer stop
+        if (this.notionOb) this.notionOb.disconnect()
         this.notionOb = null
         this.notionObRunning = false
       },
       start: () => {
-        if (this.notionObRunning !== true) {
-          if (process.env.NODE_ENV !== 'production') {
-            console.log('notionOb.start excute')
-          }
-          this.notionOb = domObserver('.notion-frame.notionX-notionCenter', renderSideContent.call(this))
+        if (!this.notionObRunning) {
+          this.showSidebar()
+
+          // observer start
+          const cb = () => { this.updateSidebar() }
+          this.notionOb = domObserver(
+            '#notion-app .notion-frame',
+            _.debounce(cb, interval, { leading: false, trailing: true, maxWait: interval })
+          )
+          this.notionObRunning = true
+        } else {
+          this.updateSidebar()
         }
-        this.notionObRunning = true
-        this.sidebarRender()
+      },
+      update: () => {
+        if (this.notionObRunning) {
+          this.updateSidebar()
+        }
       },
     }
   }
 
-  sidebarRender () {
-    const _self = this
-    if (_self.notionOb === null) return
-    if (document.querySelector('#notionx')?.style?.display === 'none') return
+  showSidebar () {
+    // if (!this.#state.sidebarShow) return
+    // 隐藏notion 原生 sidebar
+    hideNotionRightSide()
+    setTimeout(() => {
+      this.$notionXWrap = $(NOTION_WRAPPER_SELECTOR)
+      this.$notionx = $(template.notionx)
+      this.$sidebar = this.$notionx.find('.notionx-sidebar')
+      this.$sideHeader = this.$notionx.find('.notionx-header')
+      this.$tocWrap = this.$notionx.find('.notionx-view[data-view="toc"] .content')
+      this.$toTopBtn = this.$notionx.find('.to-top-btn')
+      this.$pageStats = this.$notionx.find('.notionx-page-stats')
+      this.$resetBtn = this.$notionx.find('.notionx-reset-btn')
+      this.$optionView = this.$notionx.find('.notionx-view-option')
+      this.$resizer = this.$notionx.find('.notionx-resizer')
+      this.$views = this.$notionx.find('.notionx-views')
+      this.$notionXWrap.append(this.$notionx)
+      const _self = this
+      // if (_self.notionOb === null) return
 
+      if (process.env.NODE_ENV !== 'production') performance.mark('notionOb-start')
+
+      // 事件激活
+      this.$notionx.find('a[data-for-block-id]').on('click', e => {
+        const id = e.currentTarget?.attributes['data-for-block-id']?.value
+        id && scrollToBlock(id)
+      })
+      this.$notionx.find('div.close-btn').on('click', e => {
+        const parentDom = e.currentTarget.closest('.toggle-box')
+        parentDom.style.display = 'none'
+        const index = parseInt(parentDom.dataset.toggleIndex)
+        const arr = this.#state.genFlagList
+        this.#state.genFlagList = arr.map((flag, i) => {
+          return i === index ? false : flag
+        })
+        e.stopPropagation()
+      })
+
+      // reset all modules in sidebar
+      this.$resetBtn.on('click', () => {
+        const toggles = [...this.$tocWrap.find('.toggle-box')]
+        this.#state.genFlagList = new Array(toggles.length).fill(true)
+      })
+
+      // sidebar scroll to top handler
+      this.$toTopBtn.on('click', sideBarScrollToTop)
+
+      // resizer handler: adjust sidebar width
+      const _resizer = this.$resizer
+      const _box = this.$notionx
+      const _fa = this.$notionXWrap
+      this.$resizer.on('mousedown', (e) => {
+        if (!this.#state.sidebarShow) return
+
+        _box.addClass('no-transition')
+        const box = _box[0]
+        const fa = _fa[0]
+        e.stopPropagation()
+        e.preventDefault()
+        const pos = {
+          w: box.offsetWidth,
+          x: e.clientX
+        }
+        fa.onmousemove = (ev) => {
+          ev.preventDefault()
+          const w = Math.min(Math.max(MIN_WIDTH, pos.x - ev.clientX + pos.w), MAX_WIDTH)
+
+          requestAnimationFrame(() => {
+            // 存储新宽度 并更新视图的操作，交给#state的proxy来做
+            this.#state.width = w
+          })
+        }
+        fa.onmouseleave = () => {
+          fa.onmousemove = null
+          fa.onmouseup = null
+          if (_resizer.releaseCapture) _resizer.releaseCapture()
+          _box.removeClass('no-transition')
+        }
+        fa.onmouseup = () => {
+          fa.onmousemove = null
+          fa.onmouseup = null
+          if (_resizer.releaseCapture) _resizer.releaseCapture()
+          _box.removeClass('no-transition')
+        }
+        if (_resizer.setCapture) _resizer.setCapture()
+      })
+
+      // ob性能统计
+      _self.notionObCount++
+      if (process.env.NODE_ENV !== 'production') {
+        performance.mark('notionOb-end')
+        performance.measure(
+          'notionOb',
+          'notionOb-start',
+          'notionOb-end',
+        )
+        // const measures = performance.getEntriesByName('notionOb')
+        // console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
+      }
+    }, 0)
+  }
+
+  hideSidebar () {
+    if (this.$notionx) {
+      this.$notionx.remove()
+    }
+  }
+
+  // 页面内容更新
+  contentsToGenerate = [
+    {
+      generator: this.getToc,
+      header: 'Header Blocks',
+      name: 'toc',
+      className: 'sidebarHeader',
+      index: 0
+    },
+    {
+      generator: this.getToggle,
+      header: 'Toggle Blocks',
+      name: 'toggle',
+      className: 'sidebarToggle',
+      index: 1
+    },
+    {
+      generator: this.getDataBase,
+      header: 'DataBase',
+      name: 'dataBase',
+      className: 'sidebarDatabase',
+      index: 2
+    },
+    // {
+    //   generator: this.getComment,
+    //   header: 'Comments',
+    //   name: 'comment',
+    //   className: 'sidebarComment',
+    //   index: 3
+    // },
+    {
+      generator: this.getColorText,
+      header: 'Colored Text',
+      name: 'color',
+      className: 'sidebarColorText',
+      index: 4
+    },
+  ]
+
+  updateSidebar () {
     // 更新页面统计数据
     if (this.$pageStats) {
       let content = document.querySelector('.notion-page-content')?.innerHTML
@@ -443,74 +387,7 @@ export default class NotionX {
       this.$pageStats.html(`Words:${words};Blocks:${blocks}`)
     }
 
-    if (process.env.NODE_ENV !== 'production') performance.mark('notionOb-start')
-
-    // 更新sidebar DOM
-    this.updateSidebarDOM()
-
-    // 事件激活
-    _self.activeSidebarEvents()
-
-    // ob性能统计
-    _self.notionObCount++
-    if (process.env.NODE_ENV !== 'production') {
-      performance.mark('notionOb-end')
-      performance.measure(
-        'notionOb',
-        'notionOb-start',
-        'notionOb-end',
-      )
-      const measures = performance.getEntriesByName('notionOb')
-      console.log(`notionOb #${_self.notionObCount} spend: ` + measures[measures.length - 1].duration + ' ms') // interval 2000时，20个header页面duration不超过5ms
-    }
-  }
-
-  updateSidebarDOM () {
-    // 自动更新的内容
-    const contentsToGenerate = [
-      {
-        generator: getToc,
-        header: 'Header Blocks',
-        name: 'toc',
-        className: 'sidebarHeader',
-        index: 0
-      },
-      {
-        generator: getToggle,
-        header: 'Toggle Blocks',
-        name: 'toggle',
-        className: 'sidebarToggle',
-        index: 1
-      },
-      {
-        generator: getDataBase,
-        header: 'DataBase',
-        name: 'dataBase',
-        className: 'sidebarDatabase',
-        index: 2
-      },
-      {
-        generator: getComment,
-        header: 'Comments',
-        name: 'comment',
-        className: 'sidebarComment',
-        index: 3
-      },
-      {
-        generator: getColorText,
-        header: 'Colored Text',
-        name: 'color',
-        className: 'sidebarColorText',
-        index: 4
-      },
-    ]
-
-    // 初始化
-    if (!this.#state.genFlagList) {
-      this.#state.genFlagList = new Array(contentsToGenerate.length).fill(true)
-    }
-
-    return contentsToGenerate
+    return this.contentsToGenerate
       .forEach((content, i) => {
         const $wrap = this.$tocWrap
         // 更新
@@ -538,161 +415,164 @@ export default class NotionX {
           $content.find('.notionx-view-toc-content-wrap').html(contentStr)
         }
       })
+  }
 
-    function getToc () {
-      let tocs = [...document.querySelectorAll(
-        `.notion-header-block,
-        .notion-sub_header-block,
-        .notion-sub_sub_header-block
-      `)].map(extractInfo)
-        .filter(e => e.id && e.level && e.desc)
-      tocs = flatLevel(tocs)
-      return tocs.map(toHtml)
-        .join('')
+  getToc () {
+    let tocs = [...document.querySelectorAll(
+      `.notion-header-block,
+      .notion-sub_header-block,
+      .notion-sub_sub_header-block
+    `)].map(extractInfo)
+      .filter(e => e.id && e.level && e.desc)
+    tocs = flatLevel(tocs)
+    return tocs.map(toHtml)
+      .join('')
 
-      function extractInfo (e) {
-        const id = e.dataset.blockId
-        const desc = e.innerText
-        return {
-          id,
-          desc,
-          level: e.classList.contains('notion-header-block')
-            ? 1
-            : e.classList.contains('notion-sub_header-block')
-              ? 2
-              : 3
-        }
-      }
-      function flatLevel (arr) {
-        const min = arr.reduce((p, c) => {
-          return Math.min(p, c.level)
-        }, Number.MAX_SAFE_INTEGER)
-        return arr.map(i => {
-          return {
-            ...i,
-            level: i.level - min + 1
-          }
-        })
-      }
-      function toHtml (e) {
-        return `<li class="level-${e.level}" title="${e.desc || ''}">
-          <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
-        </li>`
+    function extractInfo (e) {
+      const id = e.dataset.blockId
+      const desc = e.innerText
+      return {
+        id,
+        desc,
+        level: e.classList.contains('notion-header-block')
+          ? 1
+          : e.classList.contains('notion-sub_header-block')
+            ? 2
+            : 3
       }
     }
-    function getToggle () {
-      const levels = []
-      return [...document.querySelectorAll('.notion-toggle-block')].map(extractInfo)
-        .filter(e => e.id && e.desc)
-        .map(toHtml)
-        .join('')
-      function extractInfo (e) {
-        const id = e.dataset.blockId
-        const desc = e.querySelector('[contenteditable][data-content-editable-leaf]')?.innerText
-        const left = e.offsetLeft
-        let level = levels.findIndex(i => i === left)
-        if (level === -1) {
-          levels.push(left)
-          levels.sort()
-        }
-        level = levels.findIndex(i => i === left)
+    function flatLevel (arr) {
+      const min = arr.reduce((p, c) => {
+        return Math.min(p, c.level)
+      }, Number.MAX_SAFE_INTEGER)
+      return arr.map(i => {
         return {
-          id,
-          desc,
-          level
+          ...i,
+          level: i.level - min + 1
         }
+      })
+    }
+    function toHtml (e) {
+      return `<li class="level-${e.level}" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
+      </li>`
+    }
+  }
+
+  getToggle () {
+    const levels = []
+    return [...document.querySelectorAll('.notion-toggle-block')].map(extractInfo)
+      .filter(e => e.id && e.desc)
+      .map(toHtml)
+      .join('')
+    function extractInfo (e) {
+      const id = e.dataset.blockId
+      const desc = e.querySelector('[contenteditable][data-content-editable-leaf]')?.innerText
+      const left = e.offsetLeft
+      let level = levels.findIndex(i => i === left)
+      if (level === -1) {
+        levels.push(left)
+        levels.sort()
       }
-      function toHtml (e) {
-        return `<li class="level-${e.level + 1}" title="${e.desc || ''}">
-          <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
-        </li>`
+      level = levels.findIndex(i => i === left)
+      return {
+        id,
+        desc,
+        level
       }
     }
-    function getComment () {
-      return [...document.querySelectorAll('.speechBubble')]
-        .map(extractInfo)
-        .filter(e => e && e.id && e.desc)
-        .map(toHtml)
-        .join('')
-      function extractInfo (bubble) {
-        const e = bubble.closest('[data-block-id]')
-        if (!e) return
-        const id = e.dataset.blockId
-        const desc = e.querySelector('[contenteditable]')?.innerHTML
-        const comment = bubble?.nextSibling?.innerText
-        return {
-          id,
-          desc,
-          comment,
-        }
-      }
-      function toHtml (e) {
-        return `<li class="level-1" title="${e.comment || ''}">
-          <a href="#" data-for-block-id="${e.id}">${e.desc || ''}: ${e.comment || ''}</a>
-        </li>`
+    function toHtml (e) {
+      return `<li class="level-${e.level + 1}" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
+      </li>`
+    }
+  }
+
+  /* getComment () {
+    return [...document.querySelectorAll('.speechBubble')]
+      .map(extractInfo)
+      .filter(e => e && e.id && e.desc)
+      .map(toHtml)
+      .join('')
+    function extractInfo (bubble) {
+      const e = bubble.closest('[data-block-id]')
+      if (!e) return
+      const id = e.dataset.blockId
+      const desc = e.querySelector('[contenteditable]')?.innerHTML
+      const comment = bubble?.nextSibling?.innerText
+      return {
+        id,
+        desc,
+        comment,
       }
     }
-    function getColorText () {
-      const theme = document.querySelector('.notion-body').classList.contains('dark') ? 'dark' : 'light'
-      const blocks = COLORS
-        .filter(i => i.theme === theme)
-        .map(selectorFromColor)
-        .flatMap(s => [...document.querySelectorAll(s)])
-        .map(e => e.closest('[data-block-id]'))
-        .filter(i => i)
-      return blocks
-        .filter(isDistinct)
-        .map(extractInfo)
-        .filter(i => i.id && i.content)
-        .map(toHtml)
-        .join('')
-      function isDistinct (block, i) {
-        return blocks.findIndex(blockIdEqual) === i
-        function blockIdEqual (b) {
-          return b.dataset.blockId === block.dataset?.blockId
-        }
-      }
-      function selectorFromColor (color) {
-        return color.type === 'font'
-          ? `[style*="color:${color.value.replace(/\s/g, '')}"]`
-          : `[style*="background:${color.value.replace(/\s/g, '')}"]`
-      }
-      function extractInfo (block) {
-        const id = block.dataset.blockId
-        const child = block.querySelector('[contenteditable]')
-        const content = child.innerHTML
-        const desc = child.innerText
-        return {
-          id,
-          content,
-          desc
-        }
-      }
-      function toHtml (e) {
-        return `<li class="level-1" title="${e.desc}">
-          <a href="#" data-for-block-id="${e.id}">${e.content}</a>
-        </li>`
+    function toHtml (e) {
+      return `<li class="level-1" title="${e.comment || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}: ${e.comment || ''}</a>
+      </li>`
+    }
+  } */
+  getColorText () {
+    const theme = document.querySelector('.notion-body').classList.contains('dark') ? 'dark' : 'light'
+    const blocks = COLORS
+      .filter(i => i.theme === theme)
+      .map(selectorFromColor)
+      .flatMap(s => [...document.querySelectorAll(s)])
+      .map(e => e.closest('[data-block-id]'))
+      .filter(i => i)
+    return blocks
+      .filter(isDistinct)
+      .map(extractInfo)
+      .filter(i => i.id && i.content)
+      .map(toHtml)
+      .join('')
+    function isDistinct (block, i) {
+      return blocks.findIndex(blockIdEqual) === i
+      function blockIdEqual (b) {
+        return b.dataset.blockId === block.dataset?.blockId
       }
     }
-    function getDataBase () {
-      return [...document.querySelectorAll('.notion-collection_view-block [data-content-editable-leaf][contenteditable]')].map(extractInfo)
-        .filter(e => e.id && e.desc)
-        .map(toHtml)
-        .join('')
-      function extractInfo (e) {
-        const block = e.closest('[data-block-id]')
-        const id = block?.dataset.blockId
-        const desc = e.innerText
-        return {
-          id,
-          desc,
-        }
+    function selectorFromColor (color) {
+      return color.type === 'font'
+        ? `[style*="color:${color.value.replace(/\s/g, '')}"]`
+        : `[style*="background:${color.value.replace(/\s/g, '')}"]`
+    }
+    function extractInfo (block) {
+      const id = block.dataset.blockId
+      const child = block.querySelector('[contenteditable]')
+      const content = child.innerHTML
+      const desc = child.innerText
+      return {
+        id,
+        content,
+        desc
       }
-      function toHtml (e) {
-        return `<li class="level-1" title="${e.desc || ''}">
-          <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
-        </li>`
+    }
+    function toHtml (e) {
+      return `<li class="level-1" title="${e.desc}">
+        <a href="#" data-for-block-id="${e.id}">${e.content}</a>
+      </li>`
+    }
+  }
+
+  getDataBase () {
+    return [...document.querySelectorAll('.notion-collection_view-block [data-content-editable-leaf][contenteditable]')].map(extractInfo)
+      .filter(e => e.id && e.desc)
+      .map(toHtml)
+      .join('')
+    function extractInfo (e) {
+      const block = e.closest('[data-block-id]')
+      const id = block?.dataset.blockId
+      const desc = e.innerText
+      return {
+        id,
+        desc,
       }
+    }
+    function toHtml (e) {
+      return `<li class="level-1" title="${e.desc || ''}">
+        <a href="#" data-for-block-id="${e.id}">${e.desc || ''}</a>
+      </li>`
     }
   }
 }

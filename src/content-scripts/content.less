@@ -13,6 +13,12 @@
 */
 #notionx {
   --sidebarWidth: 220px;
+  --sidebarTop: 35px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: var(--sidebarWidth);
+  // z-index: 102;
   line-height: 1.5em;
   border: none;
   text-overflow: ellipsis;
@@ -27,12 +33,12 @@
   flex-grow: 0;
   flex-shrink: 0;
   pointer-events: none;
-  position: relative;
-  z-index: 99;
+  // position: relative;
+  z-index: 103;
   background: rgb(247, 246, 243);
   transition: box-shadow,width 200ms ease-in 0s;
   // overflow: visible;
-  width:0;
+  // width:0;
   &.no-transition{
     transition: none;
   }
@@ -58,7 +64,7 @@
     opacity: 0;
     box-shadow: rgba(15, 15, 15, 0.05) 0px 0px 0px 1px, rgba(15, 15, 15, 0.1) 0px 3px 6px, rgba(15, 15, 15, 0.2) 0px 9px 24px;
     padding-left:0;
-    transform: translateX(26px) translateY(37px);
+    transform: translateX(26px) translateY(var(--sidebarTop));
     max-height: calc(~"100vh - 74px");
     .notionx-hider-btn {
       cursor: pointer;
@@ -297,7 +303,7 @@
 
     .notionx-sidebar {
       opacity: 1;
-      transform: translateX(calc(-1 * var(--sidebarWidth))) translateY(37px);
+      transform: translateX(calc(-1 * var(--sidebarWidth))) translateY(var(--sidebarTop));
       transition: transform 200ms ease-in 0s;
     }
   }
@@ -334,7 +340,7 @@
   width: 36px;
   .icon-wrap{
     position: absolute;
-    top: 0px;
+    top: 2px;
     right: 0px;
     will-change: opacity;
     transition: background-color,opacity .2s ease-in;
@@ -433,9 +439,9 @@
 }
 
 /* 暗黑模式 */
-html.notionx-dark {
-  filter: invert(80%) hue-rotate(200deg)
-}
+// html.notionx-dark {
+//   filter: invert(80%) hue-rotate(200deg)
+// }
 
 /* icon */
 .notionx-icon{
@@ -466,9 +472,13 @@ html.notionx-dark {
 }
 
 /* change original notion layout */
-.notionX-notionCenter{
-  overflow-x:auto;
-}
+// .notionX-notionCenter{
+  // overflow-x:auto;
+  // width: auto!important;
+  // &>.notion-scroller.vertical.horizontal{
+  //   width: 100%;
+  // }
+// }
 
 /* 紧凑模式 full width + small text */
 .notionx-compact{
@@ -570,6 +580,9 @@ html.notionx-dark {
     }
     .notionx-footer{
       background: #373C3F;
+      color: rgb(202, 204, 206);
+    }
+    .notionx-page-stats{
       color: rgb(202, 204, 206);
     }
   }
