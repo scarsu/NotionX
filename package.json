@@ -94,9 +94,5 @@
   },
   "lint-staged": {
     "src/**/*.js": "eslint"
-  },
-  "engines": {
-    "git": ">=2.13.0",
-    "node": ">=10.15.0"
   }
 }
