@@ -16,14 +16,22 @@ mdContentCn = mdContentCn.replace('简体中文 | [English](./README.md)', '')
 
 const md = require('markdown-it')()
   .use(require('markdown-it-table-of-contents'), {
-    includeLevel: [2, 3]
+    includeLevel: [2, 3],
   })
   .use(require('markdown-it-anchor'))
 let _html = md.render(mdContent)
 let _htmlCn = md.render(mdContentCn)
-const template = fs.readFileSync(path.resolve('./public/index.template.html'), 'utf8')
+const template = fs.readFileSync(
+  path.resolve('./public/index.template.html'),
+  'utf8'
+)
 _html = template.replace('<!--readme-md-outlet-->', _html)
 _htmlCn = template.replace('<!--readme-md-outlet-->', _htmlCn)
+// 确保目录存在
+const dir = path.resolve('./dist')
+if (!fs.existsSync(dir)) {
+  fs.mkdirSync(dir, { recursive: true }) // recursive: true 会创建所有不存在的父目录
+}
 fs.writeFileSync(path.resolve('./dist/index.html'), _html, {
   encoding: 'utf8',
   mode: 0o666,
@@ -34,4 +42,7 @@ fs.writeFileSync(path.resolve('./dist/index_cn.html'), _htmlCn, {
   mode: 0o666,
   flags: 'w',
 })
-console.log(require('chalk').bgGreen(' Done ') + ' index.html generated from README.md successfully.')
+console.log(
+  require('chalk').bgGreen(' Done ') +
+    ' index.html generated from README.md successfully.'
+)
