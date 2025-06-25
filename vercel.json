@@ -1,0 +1,12 @@
+{
+  "rewrites": [
+    {
+      "source": "/notionx",
+      "destination": "/notionx/index.html"
+    },
+    {
+      "source": "/notionx/(.*)",
+      "destination": "/notionx/$1"
+    }
+  ]
+}
